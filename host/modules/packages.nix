@@ -2,6 +2,7 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
+      protonvpn-gui
       chezmoi
       nixd
       biome
