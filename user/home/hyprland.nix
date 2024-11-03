@@ -5,7 +5,10 @@
   osConfig,
   ...
 }:
-with lib;
+with lib; let
+  terminal = "foot";
+  browser = "google-chrome-stable";
+in 
 {
   options = {
     wayland.windowManager.hyprland = {
@@ -68,8 +71,8 @@ with lib;
             sensitivity = 0.5 # -1.0 - 1.0, 0 means no modification.
             accel_profile = flat
           }
-          windowrule = noborder,^(wofi)$
-          windowrule = center,^(wofi)$
+          windowrule = noborder,^(rofi)$
+          windowrule = center,^(rofi)$
           windowrule = center,^(steam)$
           windowrule = float, nm-connection-editor|blueman-manager
           windowrule = float, swayimg|vlc|Viewnior|pavucontrol
@@ -81,7 +84,7 @@ with lib;
           windowrulev2 = opacity 0.9 0.7, class:^(thunar)$
           gestures {
             workspace_swipe = true
-            workspace_swipe_fingers = 3
+            workspace_swipe_fingers = 2
           }
           misc {
             initial_workspace_tracking = 0
@@ -124,27 +127,23 @@ with lib;
             pseudotile = true
             preserve_split = true
           }
-          bind = ${modifier},Return,exec,foot
-          bind = ${modifier}SHIFT,Return,exec,rofi-launcher
-          bind = ${modifier}SHIFT,W,exec,web-search
-          bind = ${modifier}ALT,W,exec,set-wallpaper
+          bind = ${modifier},Return,exec,${terminal}
           bind = ${modifier}SHIFT,N,exec,swaync-client -rs
-          bind = ${modifier},W,exec,google-chrome-stable
-          bind = ${modifier},E,exec,wl-pick-emoji
-          bind = ${modifier} SHIFT,S,exec,screenshot
-          bind = ${modifier},D,exec,discord
+          bind = ${modifier},B,exec,${browser}
+          bind = ${modifier}SHIFT,.,exec,wl-pick-emoji
+          bind = ${modifier}SHIFT,S,exec,screenshot
+          bind = ${modifier},D,exec,rofi-launcher
           bind = ${modifier},O,exec,obs
           bind = ${modifier},C,exec,hyprpicker -a
           bind = ${modifier},G,exec,gimp
-          bind = ${modifier}SHIFT,G,exec,godot4
           bind = ${modifier},F,exec,thunar
           bind = ${modifier},M,exec,spotify
           bind = ${modifier},Q,killactive,
           bind = ${modifier},P,pseudo,
-          bind = ${modifier}SHIFT,I,togglesplit,
-          bind = ${modifier},F,fullscreen,
-          bind = ${modifier}SHIFT,F,togglefloating,
-          bind = ${modifier}SHIFT,left,movewindow,l
+          bind = ${modifier}SHIFT,/,togglesplit,
+          bind = ${modifier}SHIFT,M,fullscreen,
+          bind = ${modifier}SHIFT,T,togglefloating,
+          bind = ${modifier}SHIFT,left,movewindow,l`
           bind = ${modifier}SHIFT,right,movewindow,r
           bind = ${modifier}SHIFT,up,movewindow,u
           bind = ${modifier}SHIFT,down,movewindow,d

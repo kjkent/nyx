@@ -24,6 +24,7 @@
   outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       flakeRoot = ./.;
+
       stateVersion = "24.05";
       hosts = [ "klap" "kdes" ];
 
@@ -47,22 +48,24 @@
           ./nixos             # State version, caching, GC
           ./host              # OS, package, & shared HW
           ./host/${host}.nix  # Machine-specific, e.g., CPU, GPU
-          ./user              # User
-          
+          ./user              # User params
+
           home-manager.nixosModules.home-manager {
             home-manager = {
               users.${user} = import ./user/home-manager.nix;
               extraSpecialArgs = specialArgs;
+
               useGlobalPkgs = true;
               useUserPackages = true;
               backupFileExtension = "bak";
             };
           }
+
           inputs.stylix.nixosModules.stylix
         ];
       };
     in
-      {
+    {
       nixosConfigurations = nixpkgs.lib.genAttrs hosts mkHost;
     };
 }

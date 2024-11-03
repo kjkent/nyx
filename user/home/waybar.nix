@@ -1,13 +1,12 @@
 {
   pkgs,
   lib,
-  host,
   config,
   ...
 }:
 
 let
-  betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
+  transition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
   clock24h = true;
 in
 with lib;
@@ -57,7 +56,7 @@ with lib;
           max-length = 22;
           separate-outputs = false;
           rewrite = {
-            "" = " 🙈 No Windows? ";
+            "" = "(V)(o;;;o)(V)";
           };
         };
         "memory" = {
@@ -207,7 +206,7 @@ with lib;
           color: #${config.stylix.base16Scheme.base00};
           background: linear-gradient(45deg, #${config.stylix.base16Scheme.base08}, #${config.stylix.base16Scheme.base0D});
           opacity: 0.5;
-          transition: ${betterTransition};
+          transition: ${transition};
         }
         #workspaces button.active {
           font-weight: bold;
@@ -216,7 +215,7 @@ with lib;
           border-radius: 16px;
           color: #${config.stylix.base16Scheme.base00};
           background: linear-gradient(45deg, #${config.stylix.base16Scheme.base08}, #${config.stylix.base16Scheme.base0D});
-          transition: ${betterTransition};
+          transition: ${transition};
           opacity: 1.0;
           min-width: 40px;
         }
@@ -226,7 +225,7 @@ with lib;
           color: #${config.stylix.base16Scheme.base00};
           background: linear-gradient(45deg, #${config.stylix.base16Scheme.base08}, #${config.stylix.base16Scheme.base0D});
           opacity: 0.8;
-          transition: ${betterTransition};
+          transition: ${transition};
         }
         tooltip {
           background: #${config.stylix.base16Scheme.base00};
