@@ -50,6 +50,7 @@ in
         nix flake update --flake ${flake}
       elif [ "$1" = "cd" ]; then
         cd ${flake}
+        $SHELL
       else
         echo ""
         echo "Usage: nyx <command> [options]"

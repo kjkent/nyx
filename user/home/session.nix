@@ -43,7 +43,7 @@
     };
     services = {
       hypridle = {
-        enable = true;  # Added enable = true
+        enable = true;
         settings = {
           general = {
             after_sleep_cmd = "hyprctl dispatch dpms on";

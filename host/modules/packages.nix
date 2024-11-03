@@ -2,6 +2,49 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
+      ### User GUI tools
+      #cura # broken
+      obsidian
+      protonmail-desktop
+      thunar # File browser
+      sublime4
+      #### 
+      android-tools # fastboot, adb
+      iw # Low-level wifi adapter cli tool
+      ethtool # Low-level ethernet cli tool
+      docker-compose
+      docker
+      wireguard-tools
+      util-linux
+      tmux
+      tio
+      
+      less
+      inetutils
+      tinyxxd # xxd (usually bundled with vim)
+      gnutar
+      gzip
+      diff-so-fancy
+      dfu-util
+      
+      chafa
+      btop
+      libreoffice-fresh
+      noto-fonts-emoji-blob-bin
+      
+      pam_u2f
+      pcsc-tools
+      rsync
+      shellcheck
+      tlp # Power management
+      tpm2-tss
+      tpm2-tools
+      usbutils
+      xdg-ninja # Suggests home cleaning tips
+      xz
+      # yubikey-manager broken
+      xfsprogs
+      scrcpy # Android
       protonvpn-gui
       chezmoi
       nixd
@@ -10,14 +53,12 @@
         commandLineArgs = ["--password-store=gnome-libsecret"];
       })
       google-chrome
-      vim
       wget
       killall
       eza
       git
       cmatrix
       lolcat
-      htop
       libvirt
       lxqt.lxqt-policykit
       lm_sensors

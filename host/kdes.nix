@@ -1,11 +1,13 @@
 {
-  lib,
   pkgs,
   config,
   ...
 }:
 {
   config = {
+    environment.systemPackages = with pkgs; [
+      nvidia-container-toolkit # Replaces nvidia-docker
+    ];
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
       keyboard.layout = "us";
