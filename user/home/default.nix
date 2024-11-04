@@ -3,6 +3,7 @@
   imports = [
     ./emoji.nix
     ./fastfetch
+    ./git.nix
     ./gpg.nix
     ./hyprland.nix
     ./list-bindings.nix
