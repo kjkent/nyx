@@ -25,6 +25,8 @@
       kernelModules = [ "br_netfilter" ];
     };
 
+    programs.virt-manager.enable = true;
+
     virtualisation = {
       libvirtd.enable = true;
       podman = {

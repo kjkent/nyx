@@ -58,6 +58,7 @@ in
       stateHome = "${config.home.homeDirectory}/.local/state";
     };
 
+    ## Virtualisation
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];

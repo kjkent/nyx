@@ -17,6 +17,7 @@
     ./security.nix
     ./session.nix
     ./storage.nix
+    ./thunar.nix
     ./virt.nix
   ];
 }

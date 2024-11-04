@@ -1,12 +1,14 @@
 { pkgs, ... }:
 {
   config = {
+    nixpkgs.config.permittedInsecurePackages = [
+      "openssl-1.1.1w" # Needed by sublime4
+    ];
     environment.systemPackages = with pkgs; [
-      ### User GUI tools
+      #### GUI: Office, Notes, Messaging,
       #cura # broken
       obsidian
       protonmail-desktop
-      thunar # File browser
       sublime4
       #### 
       android-tools # fastboot, adb
@@ -107,8 +109,6 @@
       neovide
       greetd.tuigreet
     ];
-
-    services.guix.enable = false;
 
     services.flatpak.enable = true;
     systemd.services.flatpak-repo = {
