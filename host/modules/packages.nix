@@ -9,51 +9,60 @@
       #cura # broken
       obsidian
       protonmail-desktop
+      libreoffice-fresh
       sublime4
-      #### 
+      beeper
+      (vscode.override {
+        commandLineArgs = ["--password-store=gnome-libsecret"];
+      })
+      ####
+
+      ###### User CLI
+      scrcpy # Android
+      diff-so-fancy
       android-tools # fastboot, adb
-      iw # Low-level wifi adapter cli tool
-      ethtool # Low-level ethernet cli tool
       docker-compose
       docker
-      wireguard-tools
-      util-linux
       tmux
       tio
-      
-      less
-      inetutils
-      tinyxxd # xxd (usually bundled with vim)
-      gnutar
-      gzip
-      diff-so-fancy
-      dfu-util
-      
       chafa
-      btop
-      libreoffice-fresh
-      noto-fonts-emoji-blob-bin
-      
-      pam_u2f
-      pcsc-tools
-      rsync
       shellcheck
+      glow
+      less
+      dfu-util
+      xdg-ninja # Suggests home cleaning tips
+      # yubikey-manager broken
+      tinyxxd # xxd (usually bundled with vim)
+
+      ###### System management & monitoring CLI utils
+      iw # Low-level wifi adapter cli tool
+      ethtool # Low-level ethernet cli tool
+      wireguard-tools
+      util-linux
+      btop
       tlp # Power management
+      inetutils
+      pam_u2f
       tpm2-tss
       tpm2-tools
       usbutils
-      xdg-ninja # Suggests home cleaning tips
+      pcsc-tools
+
+      # Compression utils
+      gnutar
+      gzip
+      unzip
+      unrar
       xz
-      # yubikey-manager broken
+      
+      noto-fonts-emoji-blob-bin
+      
+      rsync
       xfsprogs
-      scrcpy # Android
       protonvpn-gui
       chezmoi
       nixd
       biome
-      (vscode.override {
-        commandLineArgs = ["--password-store=gnome-libsecret"];
-      })
       google-chrome
       wget
       killall
@@ -64,8 +73,6 @@
       libvirt
       lxqt.lxqt-policykit
       lm_sensors
-      unzip
-      unrar
       libnotify
       v4l-utils
       ydotool
