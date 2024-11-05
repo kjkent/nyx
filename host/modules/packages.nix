@@ -117,6 +117,14 @@
       greetd.tuigreet
     ];
 
+    programs.direnv = {
+      enable = true;
+      silent = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+    };
+
     services.flatpak.enable = true;
     systemd.services.flatpak-repo = {
       path = [ pkgs.flatpak ];
