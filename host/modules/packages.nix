@@ -6,33 +6,47 @@
     ];
     environment.systemPackages = with pkgs; [
       #### GUI: Office, Notes, Messaging,
+      beeper
       #cura # broken
+      discord
+      file-roller
+      gimp
+      google-chrome
+      libreoffice-fresh
       obsidian
       protonmail-desktop
-      libreoffice-fresh
+      protonvpn-gui
+      spotify
       sublime4
-      beeper
-      (vscode.override {
-        commandLineArgs = ["--password-store=gnome-libsecret"];
-      })
       ####
 
       ###### User CLI
       scrcpy # Android
-      diff-so-fancy
       android-tools # fastboot, adb
+      diff-so-fancy
       docker-compose
       docker
       tmux
       tio
       chafa
-      shellcheck
       glow
       less
       dfu-util
       xdg-ninja # Suggests home cleaning tips
       # yubikey-manager broken
+
+      ##### Dev tools
+      biome
+      git
+      meson
+      ninja
+      nixd
+      neovide
+      shellcheck
       tinyxxd # xxd (usually bundled with vim)
+      (vscode.override {
+        commandLineArgs = ["--password-store=gnome-libsecret"];
+      })
 
       ###### System management & monitoring CLI utils
       iw # Low-level wifi adapter cli tool
@@ -43,31 +57,27 @@
       tlp # Power management
       inetutils
       pam_u2f
+      pciutils
       tpm2-tss
       tpm2-tools
       usbutils
       pcsc-tools
 
-      # Compression utils
+      # Compression & filesystem
       gnutar
       gzip
       unzip
       unrar
+      xfsprogs
       xz
       
       noto-fonts-emoji-blob-bin
       
       rsync
-      xfsprogs
-      protonvpn-gui
       chezmoi
-      nixd
-      biome
-      google-chrome
       wget
       killall
       eza
-      git
       cmatrix
       lolcat
       libvirt
@@ -79,7 +89,6 @@
       duf
       ncdu
       wl-clipboard
-      pciutils
       ffmpeg
       socat
       cowsay
@@ -87,9 +96,7 @@
       lshw
       bat
       pkg-config
-      meson
       hyprpicker
-      ninja
       brightnessctl
       virt-viewer
       swappy
@@ -100,29 +107,26 @@
       playerctl
       nh
       nixfmt-rfc-style
-      discord
       libvirt
       swww
       grim
       slurp
-      file-roller
       swaynotificationcenter
       imv
       mpv
-      gimp
       pavucontrol
       tree
-      spotify
-      neovide
       greetd.tuigreet
     ];
 
+    programs.nix-ld.enable = true;
+
     programs.direnv = {
       enable = true;
-      silent = true;
-      enableZshIntegration = true;
+      silent = false;
       enableBashIntegration = true;
       enableFishIntegration = true;
+      enableZshIntegration = true;
     };
 
     services.flatpak.enable = true;

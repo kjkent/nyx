@@ -5,6 +5,7 @@
     ./audio.nix
     ./boot.nix
     ./fonts.nix
+    ./fs.nix
     ./firmware.nix
     ./hyprland.nix
     ./input.nix
@@ -18,6 +19,6 @@
     ./session.nix
     ./storage.nix
     ./thunar.nix
-    ./virt.nix
+    ./vm_host.nix
   ];
 }

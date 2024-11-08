@@ -46,8 +46,7 @@
         };
         modules = [
           ./nixos             # State version, caching, GC
-          ./host              # OS, package, & shared HW
-          ./host/${host}.nix  # Machine-specific, e.g., CPU, GPU
+          ./host              # OS-level, inc. host-specific modules
           ./user              # User params
 
           home-manager.nixosModules.home-manager {

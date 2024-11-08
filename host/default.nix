@@ -1,8 +1,7 @@
+{ host, ... }:
 {
-  lib,
-  flakeRoot,
-  ...
-}:
-{
-   imports = [ "${flakeRoot}/host/modules" ];
+  imports = [ 
+    ./modules   # Shared/base modules
+    ./${host}   # Host-specific config
+  ];
 }

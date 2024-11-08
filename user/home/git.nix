@@ -29,7 +29,6 @@
         };
 
         "diff \"asc\"" = {
-          # \\\ = Preserve backslash in produced text, then escape '"' here.
           textconv = "f(){gpg --list-packets < \"$1\" | grep -v \"^# off=\";}; f";
         };
 
@@ -44,12 +43,13 @@
         }
       ];
       attributes = [
-        "*lock.json -diff"
-        "*.lock     -diff"
-        "*.[ot]tf   diff=font"
-        "*.woff     diff=font"
-        "*.woff2    diff=font"
-        "*.asc      diff=asc"
+        "package-lock.json -diff"
+        "pnpm-lock.yaml    -diff"
+        "flake.lock        -diff"
+        "*.asc              diff=asc"
+        "*.[ot]tf           diff=font"
+        "*.woff             diff=font"
+        "*.woff2            diff=font"
       ];
       aliases = {
         a = "add";
