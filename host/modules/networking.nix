@@ -1,9 +1,9 @@
-{ lib, host, options, ... }:
+{ pkgs, lib, host, options, ... }:
 {
   config = {
     boot = {
       initrd.systemd.network.wait-online.enable = false;
-      kernelParams = [ "net.ifnames=0" ]; # Disable Predictable Network Interface Names
+      #kernelParams = [ "net.ifnames=0" ]; # Trialling nixos option below - Disable Predictable Network Interface Names
     };
     networking = {
       firewall = {
@@ -13,33 +13,38 @@
       };
       hostName = host;
       networkmanager = {
-        enable = true;
+        enable = false;
         wifi = {
           backend = "iwd";
         };
       };
       nftables.enable = true;
       timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
-      useDHCP = lib.mkDefault true; # Gets overridden to false by NM config
+      useNetworkd = true;
+      usePredictableInterfaceNames = false;
       wireless = {
         iwd = {
           enable = true;
           settings = {
-            IPv6.Enabled = true;
+            IPv6.Enabled = false;
             Settings.AutoConnect = lib.mkDefault true;
           };
         };
       };
     };
     services = {
-      openssh.enable = true;
-      rpcbind.enable = false;
-      nfs.server.enable = false;
       avahi = {
         enable = true;
         nssmdns4 = true;
         openFirewall = true;
       };
+      nfs.server.enable = false;
+      openssh.enable = true;
+      rpcbind.enable = false;
+      # Enables 4addr on wlan interface, facilitating bridging.
+      udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="net", INTERFACE=="wlan0", RUN+="${pkgs.iw}/bin/iw dev wlan0 set 4addr on"
+      '';
     };
     systemd.network = {
       enable = true;
@@ -73,10 +78,10 @@
         };
         "25-wlan" = {
           matchConfig.Name = "wlan0";
-          #linkConfig.RequiredForOnline = "routable";
+          linkConfig.RequiredForOnline = "routable";
           networkConfig = {
             #DHCP = "yes";
-            #IgnoreCarrierLoss = "3s";
+            IgnoreCarrierLoss = "3s";
             Bridge = "br0";
           };
           dhcpV4Config.RouteMetric = 600;
