@@ -4,6 +4,7 @@
     services.gnome.gnome-keyring.enable = true;
     programs.seahorse.enable = true;
     environment.systemPackages = [ pkgs.libsecret ];
+    hardware.gpgSmartcards.enable = true;
     security = {
       rtkit.enable = true;
       polkit = {
