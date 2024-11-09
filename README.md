@@ -1,4 +1,4 @@
-# 🌃 nyx
+# 🌙 nyx
 
 A work-in-progress NixOS flake.
 

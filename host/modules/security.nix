@@ -3,6 +3,10 @@
   config = {
     services.gnome.gnome-keyring.enable = true;
     programs.seahorse.enable = true;
+    programs.gnupg = {
+      agent.enable = false; # Enabled in Home Manager
+      dirmngr.enable = false;
+    };
     environment.systemPackages = [ pkgs.libsecret ];
     hardware.gpgSmartcards.enable = true;
     security = {
