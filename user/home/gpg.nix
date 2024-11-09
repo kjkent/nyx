@@ -12,7 +12,7 @@
       defaultCacheTtlSsh = 1800;
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentryPackage = pkgs.pinentry-gnome3;
       sshKeys = [ gpgKeygrip ]; # Accepts keygrip of gpg key
       verbose = true;
     };
