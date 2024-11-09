@@ -1,38 +1,22 @@
+{ ... }:
 {
-  pkgs,
-  config,
-  ...
-}:
-{
+  imports = [
+    ../modules/nvidia.nix
+  ];
+
   config = {
-    environment.systemPackages = with pkgs; [
-      nvidia-container-toolkit # Replaces nvidia-docker
-    ];
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware = {
-      keyboard.layout = "us";
-      nvidia = {
-        # Modesetting is required.
-        modesetting.enable = true;
-        # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-        powerManagement.enable = true;
-        # Fine-grained power management. Turns off GPU when not in use.
-        # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-        powerManagement.finegrained = false;
-        # Use the NVidia open source kernel module (not to be confused with the
-        # independent third-party "nouveau" open source driver).
-        # Support is limited to the Turing and later architectures. Full list of
-        # supported GPUs is at:
-        # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-        # Only available from driver 515.43.04+
-        # Currently alpha-quality/buggy, so false is currently the recommended setting.
-        open = false;
-        # Enable the Nvidia settings menu,
-        # accessible via `nvidia-settings`.
-        nvidiaSettings = true;
-        # Optionally, you may need to select the appropriate driver version for your specific GPU.
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
-      };
+    boot.initrd.luks.devices.root.device = "/dev/disk/by-uuid/7459a9fb-1ee9-46b9-b1e5-0bd15ab39e9f";
+    fileSystems = {
+      "/".device = "/dev/disk/by-uuid/0e4f52d1-068a-4122-9199-ad56aaafab8b";
+      "/boot".device = "/dev/disk/by-uuid/EC43-52F8";
     };
+    hardware.keyboard.layout = "us";
+    programs.hyprland.monitor = [
+      "monitor = HDMI-A-1, 2560x1080, 0x0, 1"
+      "monitor = DP-1, 1920x1080, -1080x0, 1, transform, 3"
+    ];
   };
 }
+
+
+
