@@ -26,13 +26,13 @@
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = with pkgs; [
-          # "${systemd}/lib/systemd/systemd-networkd-wait-online --interface=${ifName} --operational-state=carrier --timeout=10"
-          "${coreutils}/bin/sleep 2" # "Why use many words when few words do trick?"
+          # `-` prepending an executable path == ignore failure
+          "-${systemd}/lib/systemd/systemd-networkd-wait-online --interface=${ifName} --operational-state=carrier --timeout=5"
           "${iw}/bin/iw dev ${ifName} set 4addr on"
           "${systemd}/bin/networkctl reconfigure ${ifName}"
         ];
       };
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
     };
 
     networking = {
