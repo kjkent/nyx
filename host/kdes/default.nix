@@ -2,6 +2,7 @@
 {
   imports = [
     ../modules/nvidia.nix
+    ../modules/amd.nix
   ];
 
   config = {
@@ -11,9 +12,9 @@
       "/boot".device = "/dev/disk/by-uuid/EC43-52F8";
     };
     hardware.keyboard.layout = "us";
-    programs.hyprland.monitor = [
-      "monitor = HDMI-A-1, 2560x1080, 0x0, 1"
-      "monitor = DP-1, 1920x1080, -1080x0, 1, transform, 3"
+    programs.hyprland.monitors = [
+      "HDMI-A-1, 2560x1080, 0x0, 1"
+      "DP-1, 1920x1080, -1080x0, 1, transform, 1"
     ];
   };
 }

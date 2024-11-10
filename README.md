@@ -52,6 +52,8 @@ Because why not _shrug_. God damnit.
 
 ## Acknowledgements
 
-Nyx is a heavily refactored fork of [ZaneyOS](https://gitlab.com/zaney/zaneyos).
-While the project is restructured and little original host config remains, the user
-config and Wayland styling is still based on ZaneyOS.
+- Nyx is a heavily refactored fork of [ZaneyOS](https://gitlab.com/zaney/zaneyos).
+  While the project is restructured and little original host config remains, the user
+  config and Wayland styling is still based on ZaneyOS, and this was a great repo to learn from.
+
+- [NixOS Hardware Repo](https://github.com/NixOS/nixos-hardware) for host-specific optimisations.

@@ -74,7 +74,6 @@
       noto-fonts-emoji-blob-bin
       
       rsync
-      chezmoi
       wget
       killall
       eza

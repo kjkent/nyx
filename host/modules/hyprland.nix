@@ -12,19 +12,22 @@ in
 {
   options = with lib; {
     programs.hyprland = {
-      monitor = mkOption {
-        type = types.lines;
-        default = "monitor=,preferred,auto,1";
+      monitors = mkOption {
+        type = with types; listOf str;
+        default = [ ",preferred,auto,1" ];
       };
     };
-    _.hyprland.enable = mkOption {
+    nyx.hyprland.enable = mkOption {
       type = types.bool; 
       default = true;
       description = "Whether to enable Hyprland configuration.";
     };
   };
 
-  config = lib.mkIf (config._.hyprland.enable) {
+  config = lib.mkIf (config.nyx.hyprland.enable) {
+    # Causes NixOS to configure Electron/CEF apps to run on native Wayland
+    environment.sessionVariables.NIXOS_OZONE_WL = "1"; 
+
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${arch}.hyprland;
@@ -34,6 +37,7 @@ in
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = [ pkgs.egl-wayland ];
       package = pkgs-unstable.mesa.drivers;
       package32 = pkgs-unstable.pkgsi686Linux.mesa.drivers;
     };

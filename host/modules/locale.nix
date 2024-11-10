@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   config = {
     time.timeZone = "Europe/London";

@@ -26,7 +26,8 @@
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = with pkgs; [
-          "${systemd}/lib/systemd/systemd-networkd-wait-online -i ${ifName} -o carrier"
+          # "${systemd}/lib/systemd/systemd-networkd-wait-online --interface=${ifName} --operational-state=carrier --timeout=10"
+          "${coreutils}/bin/sleep 2" # "Why use many words when few words do trick?"
           "${iw}/bin/iw dev ${ifName} set 4addr on"
           "${systemd}/bin/networkctl reconfigure ${ifName}"
         ];
@@ -75,8 +76,11 @@
       openssh.enable = true;
       resolved = {
         enable = true;
-        dnssec = "allow-downgrade";
-        fallbackDns = ["9.9.9.9" "1.1.1.1"];
+        #dnssec = "allow-downgrade";   # TODO: These two settings are vulnerable
+        #dnsovertls = "opportunistic"; #       to MITM downgrading attacks.
+        dnssec = "false";     # Sept 2023: SD devs state implementation is not robust enough.
+        dnsovertls = "false"; # +++ Disable prior to LAN DOT/DNSSEC implementation.
+        fallbackDns = ["1.1.1.1" "1.2.2.1" "9.9.9.9"];
       };
     };
 

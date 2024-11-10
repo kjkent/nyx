@@ -1,206 +1,222 @@
-{
-  lib,
-  config,
-  user,
-  osConfig,
-  ...
-}:
-with lib; let
+{ config, osConfig, ... }:
+let
   terminal = "foot";
   browser = "google-chrome-stable";
 in 
 {
-  options = {
-    wayland.windowManager.hyprland = {
-      monitor = mkOption {
-        type = types.lines;
-        default = "monitor=,preferred,auto,1";
-      };
-    };
-  };
 
   config = {
     wayland.windowManager.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    systemd.enable = true;
-    extraConfig =
-      let
-        modifier = "SUPER";
-      in
-      concatStrings [
-        ''
-          env = NIXOS_OZONE_WL, 1
-          env = NIXPKGS_ALLOW_UNFREE, 1
-          env = XDG_CURRENT_DESKTOP, Hyprland
-          env = XDG_SESSION_TYPE, wayland
-          env = XDG_SESSION_DESKTOP, Hyprland
-          env = GDK_BACKEND, wayland, x11
-          env = CLUTTER_BACKEND, wayland
-          env = QT_QPA_PLATFORM=wayland;xcb
-          env = QT_WAYLAND_DISABLE_WINDOWDECORATION, 1
-          env = QT_AUTO_SCREEN_SCALE_FACTOR, 1
-          env = SDL_VIDEODRIVER, x11
-          env = MOZ_ENABLE_WAYLAND, 1
-          exec-once = dbus-update-activation-environment --systemd --all
-          exec-once = systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-          exec-once = killall -q swww;sleep .5 && swww init
-          exec-once = killall -q waybar;sleep .5 && waybar
-          exec-once = killall -q swaync;sleep .5 && swaync
-          exec-once = nm-applet --indicator
-          exec-once = lxqt-policykit-agent
-          exec-once = sleep 1.5 && swww img /home/${user}/Pictures/Wallpapers/beautifulmountainscape.jpg
-          ${config.wayland.windowManager.hyprland.monitor}
-          general {
-            gaps_in = 6
-            gaps_out = 8
-            border_size = 2
-            layout = dwindle
-            resize_on_border = true
-            col.active_border = rgb(${config.stylix.base16Scheme.base08}) rgb(${config.stylix.base16Scheme.base0C}) 45deg
-            col.inactive_border = rgb(${config.stylix.base16Scheme.base01})
-          }
-          input {
-            kb_layout = ${osConfig.hardware.keyboard.layout}
-            follow_mouse = 1
-            touchpad {
-              natural_scroll = true
-              disable_while_typing = true
-              scroll_factor = 1
-            }
-            sensitivity = 0.5 # -1.0 - 1.0, 0 means no modification.
-            accel_profile = flat
-          }
-          windowrule = noborder,^(rofi)$
-          windowrule = center,^(rofi)$
-          windowrule = center,^(steam)$
-          windowrule = float, nm-connection-editor|blueman-manager
-          windowrule = float, swayimg|vlc|Viewnior|pavucontrol
-          windowrule = float, nwg-look|qt5ct|mpv
-          windowrule = float, zoom
-          windowrulev2 = stayfocused, title:^()$,class:^(steam)$
-          windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
-          windowrulev2 = opacity 0.9 0.7, class:^(Brave)$
-          windowrulev2 = opacity 0.9 0.7, class:^(thunar)$
-          gestures {
-            workspace_swipe = true
-            workspace_swipe_fingers = 2
-          }
-          misc {
-            initial_workspace_tracking = 0
-            mouse_move_enables_dpms = true
-            key_press_enables_dpms = false
-          }
-          animations {
-            enabled = yes
-            bezier = wind, 0.05, 0.9, 0.1, 1.05
-            bezier = winIn, 0.1, 1.1, 0.1, 1.1
-            bezier = winOut, 0.3, -0.3, 0, 1
-            bezier = liner, 1, 1, 1, 1
-            animation = windows, 1, 6, wind, slide
-            animation = windowsIn, 1, 6, winIn, slide
-            animation = windowsOut, 1, 5, winOut, slide
-            animation = windowsMove, 1, 5, wind, slide
-            animation = border, 1, 1, liner
-            animation = fade, 1, 10, default
-            animation = workspaces, 1, 5, wind
-          }
-          decoration {
-            rounding = 10
-            drop_shadow = true
-            shadow_range = 4
-            shadow_render_power = 3
-            col.shadow = rgba(1a1a1aee)
-            blur {
-                enabled = true
-                size = 5
-                passes = 3
-                new_optimizations = on
-                ignore_opacity = off
-            }
-          }
-          plugin {
-            hyprtrails {
-            }
-          }
-          dwindle {
-            pseudotile = true
-            preserve_split = true
-          }
-          bind = ${modifier},Return,exec,${terminal}
-          bind = ${modifier}SHIFT,N,exec,swaync-client -rs
-          bind = ${modifier},B,exec,${browser}
-          bind = ${modifier}SHIFT,.,exec,wl-pick-emoji
-          bind = ${modifier}SHIFT,S,exec,screenshot
-          bind = ${modifier},D,exec,rofi-launcher
-          bind = ${modifier},O,exec,obs
-          bind = ${modifier},C,exec,hyprpicker -a
-          bind = ${modifier},G,exec,gimp
-          bind = ${modifier},F,exec,thunar
-          bind = ${modifier},M,exec,spotify
-          bind = ${modifier},Q,killactive,
-          bind = ${modifier},P,pseudo,
-          bind = ${modifier}SHIFT,/,togglesplit,
-          bind = ${modifier}SHIFT,M,fullscreen,
-          bind = ${modifier}SHIFT,T,togglefloating,
-          bind = ${modifier}SHIFT,left,movewindow,l`
-          bind = ${modifier}SHIFT,right,movewindow,r
-          bind = ${modifier}SHIFT,up,movewindow,u
-          bind = ${modifier}SHIFT,down,movewindow,d
-          bind = ${modifier}SHIFT,h,movewindow,l
-          bind = ${modifier}SHIFT,l,movewindow,r
-          bind = ${modifier}SHIFT,k,movewindow,u
-          bind = ${modifier}SHIFT,j,movewindow,d
-          bind = ${modifier},left,movefocus,l
-          bind = ${modifier},right,movefocus,r
-          bind = ${modifier},up,movefocus,u
-          bind = ${modifier},down,movefocus,d
-          bind = ${modifier},h,movefocus,l
-          bind = ${modifier},l,movefocus,r
-          bind = ${modifier},k,movefocus,u
-          bind = ${modifier},j,movefocus,d
-          bind = ${modifier},1,workspace,1
-          bind = ${modifier},2,workspace,2
-          bind = ${modifier},3,workspace,3
-          bind = ${modifier},4,workspace,4
-          bind = ${modifier},5,workspace,5
-          bind = ${modifier},6,workspace,6
-          bind = ${modifier},7,workspace,7
-          bind = ${modifier},8,workspace,8
-          bind = ${modifier},9,workspace,9
-          bind = ${modifier},0,workspace,10
-          bind = ${modifier}SHIFT,SPACE,movetoworkspace,special
-          bind = ${modifier},SPACE,togglespecialworkspace
-          bind = ${modifier}SHIFT,1,movetoworkspace,1
-          bind = ${modifier}SHIFT,2,movetoworkspace,2
-          bind = ${modifier}SHIFT,3,movetoworkspace,3
-          bind = ${modifier}SHIFT,4,movetoworkspace,4
-          bind = ${modifier}SHIFT,5,movetoworkspace,5
-          bind = ${modifier}SHIFT,6,movetoworkspace,6
-          bind = ${modifier}SHIFT,7,movetoworkspace,7
-          bind = ${modifier}SHIFT,8,movetoworkspace,8
-          bind = ${modifier}SHIFT,9,movetoworkspace,9
-          bind = ${modifier}SHIFT,0,movetoworkspace,10
-          bind = ${modifier}CONTROL,right,workspace,e+1
-          bind = ${modifier}CONTROL,left,workspace,e-1
-          bind = ${modifier},mouse_down,workspace, e+1
-          bind = ${modifier},mouse_up,workspace, e-1
-          bindm = ${modifier},mouse:272,movewindow
-          bindm = ${modifier},mouse:273,resizewindow
-          bind = ALT,Tab,cyclenext
-          bind = ALT,Tab,bringactivetotop
-          bindip = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-          bindeip = ,XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-          bindeip = ,XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-          bindip = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-          bindip = ,XF86AudioPlay, exec, playerctl play-pause
-          bindip = ,XF86AudioPause, exec, playerctl play-pause
-          bindip = ,XF86AudioNext, exec, playerctl next
-          bindip = ,XF86AudioPrev, exec, playerctl previous
-          bindeip = ,XF86MonBrightnessDown,exec,brightnessctl set 5%-
-          bindeip = ,XF86MonBrightnessUp,exec,brightnessctl set +5%
-        ''
-      ];
+      enable = true;
+      systemd.variables = [ "--all" ]; # Adds `dbus-update-activation-environment --systemd --all`
+      settings = {
+        "$mod" = "SUPER";
+
+        env = [
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "CHROMIUM_FLAGS,--enable-features=UseOzonePlatform --enable-gpu-rasterization --ignore-gpu-blocklist --enable-zero-copy"
+
+          ### XDG Spec
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_TYPE,wayland"
+          "XDG_SESSION_DESKTOP,Hyprland"
+
+          ### Toolkit Backends
+          "GDK_BACKEND,wayland,x11,*"
+          "SDL_VIDEODRIVER=wayland"
+          "QT_QPA_PLATFORM=wayland;xcb"
+          "CLUTTER_BACKEND,wayland"
+          
+          # QT
+          "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
+          "QT_AUTO_SCREEN_SCALE_FACTOR=1" # Auto scaling per monitor pixel density
+        ];
+
+        exec-once = [
+          "waybar"
+          "swaync"
+          "swww init"
+          "lxqt-policykit-agent"
+        ];
+
+        monitor = osConfig.programs.hyprland.monitors;
+
+        general = {
+          gaps_in = 6;
+          gaps_out = 8;
+          border_size = 2;
+          layout = "dwindle";
+          resize_on_border = true;
+          "col.active_border" = "rgb(${config.stylix.base16Scheme.base08}) rgb(${config.stylix.base16Scheme.base0C}) 45deg";
+          "col.inactive_border" = "rgb(${config.stylix.base16Scheme.base01})";
+        };
+
+        # NVIDIA compat.
+        # TODO: Test if this can be enabled by flipping the booleans.
+        cursor = {
+          no_hardware_cursors = true;
+          allow_dumb_copy = false;
+        };
+
+        input = {
+          kb_layout = "${osConfig.hardware.keyboard.layout}";
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = true;
+            disable_while_typing = true;
+            scroll_factor = 1;
+          };
+          sensitivity = 0.5;
+          accel_profile = "flat";
+        };
+
+        windowrule = [
+          "noborder,^(rofi)$"
+          "center,^(rofi)$"
+          "center,^(steam)$"
+          "float,nm-connection-editor|blueman-manager"
+          "float,swayimg|vlc|Viewnior|pavucontrol"
+          "float,nwg-look|qt5ct|mpv"
+          "float,zoom"
+        ];
+
+        windowrulev2 = [
+          "stayfocused,title:^()$,class:^(steam)$"
+          "minsize 1 1,title:^()$,class:^(steam)$"
+          "opacity 0.9 0.7,class:^(Brave)$"
+          "opacity 0.9 0.7,class:^(thunar)$"
+        ];
+
+        gestures = {
+          workspace_swipe = true;
+          workspace_swipe_fingers = 2;
+        };
+
+        misc = {
+          initial_workspace_tracking = 0;
+          mouse_move_enables_dpms = true;
+          key_press_enables_dpms = false;
+        };
+
+        animations = {
+          enabled = true;
+          bezier = [
+            "wind,0.05,0.9,0.1,1.05"
+            "winIn,0.1,1.1,0.1,1.1"
+            "winOut,0.3,-0.3,0,1"
+            "liner,1,1,1,1"
+          ];
+          animation = [
+            "windows,1,6,wind,slide"
+            "windowsIn,1,6,winIn,slide"
+            "windowsOut,1,5,winOut,slide"
+            "windowsMove,1,5,wind,slide"
+            "border,1,1,liner"
+            "fade,1,10,default"
+            "workspaces,1,5,wind"
+          ];
+        };
+
+        decoration = {
+          rounding = 10;
+          drop_shadow = true;
+          shadow_range = 4;
+          shadow_render_power = 3;
+          "col.shadow" = "rgba(1a1a1aee)";
+          blur = {
+            enabled = true;
+            size = 5;
+            passes = 3;
+            new_optimizations = true;
+            ignore_opacity = false;
+          };
+        };
+
+        plugins = {
+          hyprtrails = { };
+        };
+
+        dwindle = {
+          pseudotile = true;
+          preserve_split = true;
+        };
+
+        bind = [
+          "$mod,Return,exec,${terminal}"
+          "$mod,B,exec,${browser}"
+          "$mod SHIFT,period,exec,wl-pick-emoji"
+          "$mod,S,exec,screenshot"
+          "$mod,D,exec,rofi-launcher"
+          "$mod,O,exec,obsidian"
+          "$mod,C,exec,hyprpicker -a"
+          "$mod,G,exec,gimp"
+          "$mod,F,exec,thunar"
+          "$mod,M,exec,spotify"
+          "$mod,Q,killactive"
+          "$mod,P,pseudo"
+          "$mod SHIFT,/,togglesplit"
+          "$mod SHIFT,F,fullscreen"
+          "$mod SHIFT,T,togglefloating"
+          "$mod SHIFT,left,movewindow,l"
+          "$mod SHIFT,right,movewindow,r"
+          "$mod SHIFT,up,movewindow,u"
+          "$mod SHIFT,down,movewindow,d"
+          "$mod SHIFT,h,movewindow,l"
+          "$mod SHIFT,l,movewindow,r"
+          "$mod SHIFT,k,movewindow,u"
+          "$mod SHIFT,j,movewindow,d"
+          "$mod,left,movefocus,l"
+          "$mod,right,movefocus,r"
+          "$mod,up,movefocus,u"
+          "$mod,down,movefocus,d"
+          "$mod,h,movefocus,l"
+          "$mod,l,movefocus,r"
+          "$mod,k,movefocus,u"
+          "$mod,j,movefocus,d"
+          "$mod SHIFT,SPACE,movetoworkspace,special"
+          "$mod,SPACE,togglespecialworkspace"
+          "$mod,period,workspace,e+1"
+          "$mod,comma,workspace,e-1"
+          "$mod,mouse_down,workspace,e+1"
+          "$mod,mouse_up,workspace,e-1"
+          "ALT,Tab,cyclenext"
+          "ALT,Tab,bringactivetotop"
+        ] ++ (
+          ### Workspaces
+          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+          builtins.concatLists (builtins.genList (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          ) 9)
+        );
+
+        ### Mouse movement bindings
+        bindm = [
+          "$mod,mouse:272,movewindow"
+          "$mod,mouse:273,resizewindow"
+        ];
+
+        ### Hardware keys: resist trigger inhibition
+        bindip = [
+          ",XF86AudioMicMute,exec,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ",XF86AudioMute,exec,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ",XF86AudioPlay,exec,playerctl play-pause"
+          ",XF86AudioPause,exec,playerctl play-pause"
+          ",XF86AudioNext,exec,playerctl next"
+          ",XF86AudioPrev,exec,playerctl previous"
+        ];
+
+        ### Hardware keys: resist trigger inhibition, can repeat if held
+        bindeip = [
+          ",XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
+          ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
+        ];
+      };
     };
   };
 }
