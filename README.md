@@ -21,6 +21,11 @@ Nyx provides the `nyx` cli utility for basic maintenance.
 
 ## Nix quirks encountered so far:
 
+Tip! Nix copies your flake source to the store at build time, but it can be
+hard to find. It will end in `-source`, so can be found with 
+`ls -l /nix/store | grep -E '-store$'`. This flake however links the source 
+and the nixpkgs at the time to `/etc/self`.
+
 ### String interpolation quoting
 
 ```Nix
