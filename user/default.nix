@@ -1,4 +1,4 @@
-{ sshKey, gitId, pkgs, user, flakeRoot, ... }:
+{ sshKey, gitId, user, flakeRoot, ... }:
 let
   uid = 1000;
   gid = uid;
@@ -25,12 +25,8 @@ in
           inherit uid;
           openssh.authorizedKeys.keys = [ sshKey ];
           homeMode = "750";
-          isNormalUser = true;
           description = gitId;
           extraGroups = groups;
-          shell = pkgs.zsh;
-          ignoreShellProgramCheck = true;
-          packages = [ ];
         };
       };
     };

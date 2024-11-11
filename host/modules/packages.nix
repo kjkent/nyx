@@ -62,6 +62,8 @@
       tpm2-tools
       usbutils
       pcsc-tools
+      lsof
+      pstree
 
       # Compression & filesystem
       gnutar

@@ -94,6 +94,7 @@ in
 
     programs = {
       home-manager.enable = true;
+      bash.enable = true; # Must be enabled to set session vars
       foot.enable = true;
 
       git = {

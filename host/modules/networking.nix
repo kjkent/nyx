@@ -18,12 +18,12 @@
       ifName = "wlan0";
     in {
       after = deps;
-      requires = deps;
-      bindsTo = deps;
-      description = "Setup 4addr mode for ${ifName}";
+      wants = deps;
+      description = "Set WDS/4addr mode for ${ifName} and reconfigure systemd-networkd.";
       enable = true;
       serviceConfig = {
         Type = "oneshot";
+        TimeoutSec = 10;
         RemainAfterExit = true;
         ExecStart = with pkgs; [
           # `-` prepending an executable path == ignore failure

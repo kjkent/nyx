@@ -3,12 +3,8 @@
   config = {
     services.gnome.gnome-keyring.enable = true;
     programs.seahorse.enable = true;
-    programs.gnupg = {
-      agent.enable = false; # Enabled in Home Manager
-      dirmngr.enable = false;
-    };
     environment.systemPackages = [ pkgs.libsecret ];
-    hardware.gpgSmartcards.enable = true;
+    hardware.gpgSmartcards.enable = true; # Adds udev rules only
     security = {
       rtkit.enable = true;
       polkit = {
@@ -29,14 +25,6 @@
             }
           })
         '';
-      };
-      pam.services = {
-        greetd.enableGnomeKeyring = true;
-        swaylock = {
-          text = ''
-            auth include login
-          '';
-        };
       };
     };
   };

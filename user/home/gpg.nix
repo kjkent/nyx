@@ -23,14 +23,13 @@
       mutableKeys = true;
       mutableTrust = true;
       scdaemonSettings = {
-        pcsc-shared = false;
+        pcsc-shared = true;
         disable-ccid = false;
       };
       settings = {
         openpgp = true;
         expert = true;
         trust-model = "tofu+pgp";
-        use-agent = true;
         require-cross-certification = true;
         charset = "utf-8";
         auto-key-retrieve = true;
