@@ -1,0 +1,48 @@
+{
+  lib,
+  host,
+  options,
+  config,
+  pkgs,
+  ...
+}:
+{
+  config = {
+    networking = {
+      firewall = {
+        enable = true;
+        #allowedTCPPorts = [ ];
+        #allowedUDPPorts = [ ];
+      };
+      hostName = host;
+      networkmanager.enable = false;
+      nftables.enable = true;
+      timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+    };
+
+    programs = {
+      nm-applet.enable = lib.mkIf config.networking.networkmanager.enable true;
+    };
+    environment.systemPackages = lib.mkIf config.networking.networkmanager.enable [
+      pkgs.networkmanagerapplet
+    ];
+    services = {
+      avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
+      openssh.enable = true;
+      resolved = {
+        enable = true;
+        dnssec = "false"; # Sept 2023: SD devs state implementation is not robust enough.
+        dnsovertls = "false"; # +++ Disable prior to LAN DOT/DNSSEC implementation.
+        fallbackDns = [
+          "1.1.1.1"
+          "1.2.2.1"
+          "9.9.9.9"
+        ];
+      };
+    };
+  };
+}
