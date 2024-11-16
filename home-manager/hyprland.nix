@@ -38,8 +38,6 @@ with osConfig;
         exec-once = [
           "waybar"
           "swaync"
-          "swww init"
-          "lxqt-policykit-agent"
         ];
 
         monitor = programs.hyprland.monitors;
