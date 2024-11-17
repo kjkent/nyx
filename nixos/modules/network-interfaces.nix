@@ -1,7 +1,8 @@
-{ lib, trustedNetwork, ... }:
+{ lib, ... }:
 {
   config = {
     networking = {
+      useNetworkd = true;
       usePredictableInterfaceNames = false;
       wireless = {
         iwd = {
@@ -22,16 +23,8 @@
       };
     };
     systemd.network = {
+      enable = true;
       networks = {
-        "00-trusted-networks" = {
-          matchConfig.SSID = trustedNetwork;
-          dhcpV4Config = {
-            UseDNS = true;
-          };
-          dhcpV6Config = {
-            UseDNS = true;
-          };
-        };
         "30-eth0" = {
           matchConfig.Name = "eth0";
           networkConfig = {
@@ -40,10 +33,6 @@
           dhcpV4Config = {
             RouteMetric = 400;
             UseMTU = true;
-            UseDNS = true;
-          };
-          dhcpV6Config = {
-            UseDNS = true;
           };
           ipv6AcceptRAConfig.RouteMetric = 400;
         };
@@ -55,11 +44,7 @@
           };
           dhcpV4Config = {
             RouteMetric = 600;
-            UseDNS = false;
             UseMTU = true;
-          };
-          dhcpV6Config = {
-            useDNS = false;
           };
           ipv6AcceptRAConfig.RouteMetric = 600;
         };
