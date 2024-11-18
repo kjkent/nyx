@@ -13,7 +13,6 @@ let
     "libvirtd"
     "scanner"
     "lp"
-    "docker"
     "render"
     "dialout"
   ];

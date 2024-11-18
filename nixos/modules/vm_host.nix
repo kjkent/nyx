@@ -25,6 +25,8 @@
         "net.bridge.bridge-nf-call-arptables" = 0;
         "net.bridge.bridge-nf-call-iptables" = 0;
         "net.bridge.bridge-nf-call-ip6tables" = 0;
+        # TODO: This is a minor security risk; consider alternatives.
+        "net.ipv4.ip_unprivileged_port_start" = 0;
       };
       kernelModules = [ "br_netfilter" ];
     };
@@ -47,8 +49,11 @@
       libvirtd.enable = true;
       podman = {
         enable = true;
-        dockerCompat = true;
         defaultNetwork.settings.dns_enabled = true;
+      };
+      docker.rootless = {
+        enable = true;
+        setSocketVariable = true;
       };
     };
   };
