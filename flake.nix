@@ -29,7 +29,6 @@
     let
       stateVersion = "24.11";
       hosts = [ "klap" "kdes" ];
-      trustedNetwork = "winstan.lan"; # TODO: Change this option
 
       user = "kjkent";
       email = "kris@kjkent.dev";
@@ -53,7 +52,6 @@
           gpgKeygrip
           sshKey
           gitId
-          trustedNetwork
           ;
         };
         modules = [
