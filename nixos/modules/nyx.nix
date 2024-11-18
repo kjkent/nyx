@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config = {
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nyx" ''
         escalate="$([ $UID -eq 0 ] || echo -n sudo)"
-        
+
         flake_uri="github:kjkent/nyx"
 
         usage() {
@@ -26,9 +25,9 @@
               --option tarball-ttl 0 \
               --refresh
           )
-        else if [ "$1" = "check" ] && [ -n "$2" ]; then
+        elif [ "$1" = "check" ] && [ -n "$2" ]; then
           NIX_IGNORE_UNCLEAN=1 nix flake check --impure "$2"
-        else  
+        else
           usage
         fi
       '')

@@ -5,14 +5,13 @@
   config,
   pkgs,
   ...
-}:
-{
-  imports = [ ./firewall ];
+}: {
+  imports = [./firewall];
   config = {
     networking = {
       hostName = host;
       networkmanager.enable = false;
-      timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+      timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     };
 
     programs = {

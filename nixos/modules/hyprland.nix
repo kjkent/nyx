@@ -4,20 +4,18 @@
   config,
   hyprland,
   ...
-}:
-let
+}: let
   arch = pkgs.stdenv.hostPlatform.system;
   # pkgs-hypr == os nixpkgs used to build hypr, so we can match versions
   pkgs-hypr = hyprland.inputs.nixpkgs.legacyPackages.${arch};
   # hypr-pkgs == packages for hyprland itself
   hypr-pkgs = hyprland.packages.${arch};
-in
-{
+in {
   options = with lib; {
     programs.hyprland = {
       monitors = mkOption {
         type = with types; listOf str;
-        default = [ ",preferred,auto,1" ];
+        default = [",preferred,auto,1"];
       };
     };
     nyx.hyprland.enable = mkOption {
@@ -40,7 +38,7 @@ in
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = [ pkgs.egl-wayland ];
+      extraPackages = [pkgs.egl-wayland];
       package = pkgs-hypr.mesa.drivers;
       package32 = pkgs-hypr.pkgsi686Linux.mesa.drivers;
     };

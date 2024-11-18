@@ -3,8 +3,7 @@
   config,
   self,
   ...
-}:
-{
+}: {
   config = {
     stylix = with pkgs; {
       enable = true;
@@ -23,7 +22,7 @@
           name = "Montserrat";
         };
         monospace = {
-          package = nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+          package = nerdfonts.override {fonts = ["JetBrainsMono"];};
           name = "JetBrainsMono Nerd Font Mono";
         };
         emoji = {

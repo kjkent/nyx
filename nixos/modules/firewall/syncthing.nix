@@ -1,6 +1,5 @@
 # Firewall config for Syncthing.
 # https://docs.syncthing.net/users/firewall.html
-
 _: {
   config = {
     networking.firewall = {
@@ -11,6 +10,6 @@ _: {
       allowedTCPPorts = [
         22000 # TCP-based sync
       ];
-    }; 
+    };
   };
 }

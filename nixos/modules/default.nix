@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./arch.nix
     ./audio.nix

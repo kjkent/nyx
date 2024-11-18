@@ -2,12 +2,11 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   config = {
     boot = {
-      blacklistedKernelModules = [ "nouveau" ];
-      extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+      blacklistedKernelModules = ["nouveau"];
+      extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
       initrd.kernelModules = [
         "nvidia"
         "nvidia_drm"
@@ -21,7 +20,7 @@
       NVD_BACKEND = "direct";
     };
     services = {
-      xserver.videoDrivers = [ "nvidia" ];
+      xserver.videoDrivers = ["nvidia"];
       ollama.acceleration = "cuda";
       tabby.acceleration = "cuda";
     };

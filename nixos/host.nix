@@ -1,5 +1,4 @@
-{ host, ... }:
-let
+{host, ...}: let
   hostModules = {
     kdes = {
       imports = [
@@ -27,11 +26,12 @@ let
       };
     };
   };
-in
-{
-  imports = [
-    ./modules # Shared/base modules
-  ] ++ hostModules.${host}.imports;
+in {
+  imports =
+    [
+      ./modules # Shared/base modules
+    ]
+    ++ hostModules.${host}.imports;
 
   inherit (hostModules.${host}) config;
 }

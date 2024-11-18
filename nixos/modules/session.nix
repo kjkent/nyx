@@ -2,8 +2,7 @@
   user,
   pkgs,
   ...
-}:
-{
+}: {
   config = {
     services.greetd = {
       enable = true;

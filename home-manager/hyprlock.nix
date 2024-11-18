@@ -2,11 +2,9 @@
   config,
   self,
   ...
-}:
-let
+}: let
   avatar = "${config.xdg.dataHome}/hyprlock/mr_bones.jpg";
-in
-{
+in {
   config = {
     home.file."${avatar}".source = "${self}/assets/mr_bones.jpg";
     programs = {
@@ -32,14 +30,14 @@ in
             }
           ];
           input-field = {
-              size = "200, 50";
-              position = "0, -80";
-              monitor = "";
-              dots_center = true;
-              fade_on_empty = false;
-              outline_thickness = 5;
-              placeholder_text = "Password...";
-              shadow_passes = 2;
+            size = "200, 50";
+            position = "0, -80";
+            monitor = "";
+            dots_center = true;
+            fade_on_empty = false;
+            outline_thickness = 5;
+            placeholder_text = "Password...";
+            shadow_passes = 2;
           };
         };
       };

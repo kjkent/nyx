@@ -3,8 +3,7 @@
   gitId,
   user,
   ...
-}:
-let
+}: let
   uid = 1000;
   gid = uid;
   groups = [
@@ -16,8 +15,7 @@ let
     "render"
     "dialout"
   ];
-in
-{
+in {
   config = {
     users = {
       groups.${user} = {
@@ -26,7 +24,7 @@ in
       users = {
         ${user} = {
           inherit uid;
-          openssh.authorizedKeys.keys = [ sshKey ];
+          openssh.authorizedKeys.keys = [sshKey];
           ignoreShellProgramCheck = true; # Shell is set by Home Manager
           homeMode = "750";
           isNormalUser = true;

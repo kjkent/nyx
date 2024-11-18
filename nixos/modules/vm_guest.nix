@@ -1,13 +1,11 @@
 {
-lib,
-config,
-...
+  lib,
+  config,
+  ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.vm.guest-services;
-in
-  {
+in {
   options.vm.guest-services = {
     enable = mkEnableOption "Whether to enable virtual machine guest services";
   };

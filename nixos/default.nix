@@ -4,8 +4,7 @@
   stateVersion,
   self,
   ...
-}:
-{
+}: {
   imports = [
     ./host.nix
     ./user.nix
@@ -35,7 +34,7 @@
         http-connections = 128;
         max-substitution-jobs = 128;
         max-jobs = "auto";
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = ["nix-command" "flakes"];
         substituters = [
           "https://hyprland.cachix.org"
           "https://nix-community.cachix.org"
@@ -54,14 +53,14 @@
       # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kppoogf/
       nixos.label = lib.concatStringsSep "-" (
         (lib.sort (x: y: x < y) config.system.nixos.tags)
-        ++ [ "${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}" ]
+        ++ ["${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}"]
       );
 
       # Forces a clean git tree so deployments are guaranteed to be committed.
       # For checking: `NIX_IGNORE_UNCLEAN=1 nix flake check --impure`
       configurationRevision =
-        if builtins.getEnv "NIX_IGNORE_UNCLEAN" == "1" then
-          "UNCLEAN"
+        if builtins.getEnv "NIX_IGNORE_UNCLEAN" == "1"
+        then "UNCLEAN"
         else self.rev or (throw "Uncommitted changes; exiting...");
     };
   };

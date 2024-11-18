@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   config = {
     programs = {
       zsh = {
@@ -35,7 +35,7 @@
           # create a zkbd compatible hash;
           # to add other keys to this hash, see: man 5 terminfo
           typeset -g -A key
-          
+
           key[Home]="''${terminfo[khome]}"
           key[End]=''${terminfo[kend]}"
           key[Insert]="''${terminfo[kich1]}"
@@ -48,7 +48,7 @@
           key[PageUp]="''${terminfo[kpp]}"
           key[PageDown]="''${terminfo[knp]}"
           key[Shift-Tab]="''${terminfo[kcbt]}"
-          
+
           # setup key accordingly
           [[ -n "''${key[Home]}"      ]] && bindkey -- "''${key[Home]}"       beginning-of-line
           [[ -n "''${key[End]}"       ]] && bindkey -- "''${key[End]}"        end-of-line
@@ -62,7 +62,7 @@
           [[ -n "''${key[PageUp]}"    ]] && bindkey -- "''${key[PageUp]}"     beginning-of-buffer-or-history
           [[ -n "''${key[PageDown]}"  ]] && bindkey -- "''${key[PageDown]}"   end-of-buffer-or-history
           [[ -n "''${key[Shift-Tab]}" ]] && bindkey -- "''${key[Shift-Tab]}"  reverse-menu-complete
-          
+
           # Finally, make sure the terminal is in application mode, when zle is
           # active. Only then are the values from $terminfo valid.
           if (( ''${+terminfo[smkx]} && ''${+terminfo[rmkx]} )); then
@@ -72,7 +72,7 @@
           	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
           	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
           fi
-        ''; 
+        '';
       };
     };
   };

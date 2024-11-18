@@ -4,8 +4,7 @@
   gpgKeygrip,
   self,
   ...
-}:
-{
+}: {
   config = {
     services.gpg-agent = {
       enable = true;
@@ -19,7 +18,7 @@
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
       pinentryPackage = pkgs.pinentry-gnome3;
-      sshKeys = [ gpgKeygrip ]; # Accepts keygrip of gpg key
+      sshKeys = [gpgKeygrip]; # Accepts keygrip of gpg key
       verbose = true;
     };
 

@@ -1,5 +1,4 @@
-_:
-{
+_: {
   config = {
     programs.starship = {
       enable = true;

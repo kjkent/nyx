@@ -1,16 +1,15 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config = {
     services = {
       ipp-usb.enable = false;
       printing = {
         enable = false;
-        drivers = [ ];
+        drivers = [];
       };
     };
     hardware.sane = {
       enable = false;
-      extraBackends = [ pkgs.sane-airscan ];
+      extraBackends = [pkgs.sane-airscan];
     };
   };
 }

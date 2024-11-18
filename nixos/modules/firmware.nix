@@ -1,5 +1,4 @@
-_:
-{
+_: {
   config = {
     hardware = {
       enableAllFirmware = true; # Provides linux-firmware

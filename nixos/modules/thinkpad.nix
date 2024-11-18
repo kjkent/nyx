@@ -1,5 +1,4 @@
-_:
-{
+_: {
   config = {
     hardware.trackpoint = {
       enable = true;
