@@ -4,7 +4,8 @@
     nixpkgs.config.permittedInsecurePackages = [
       "openssl-1.1.1w" # Needed by sublime4, apparently a non-issue as fix backported.
     ];
-    environment.systemPackages = with pkgs; [
+    environment = {
+      systemPackages = with pkgs; [
       #### GUI: Office, Notes, Messaging,
       beeper
       #cura # broken
@@ -116,7 +117,10 @@
       tree
       greetd.tuigreet
     ];
-
+      pathsToLink = [
+        "/share/zsh" # For zsh completion
+      ];
+    };
     programs = {
       nix-ld.enable = true;
       dconf.enable = true;
