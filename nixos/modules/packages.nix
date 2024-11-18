@@ -28,9 +28,10 @@
       docker
       tmux
       tio
-      chafa
-      glow
+      chafa  # Convert images to ASCII art
+      glow   # Render markdown in terminal
       less
+      jq
       dfu-util
       xdg-ninja # Suggests home cleaning tips
       # yubikey-manager broken
