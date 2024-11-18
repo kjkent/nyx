@@ -15,6 +15,7 @@ let
     "lp"
     "docker"
     "render"
+    "dialout"
   ];
 in
 {
