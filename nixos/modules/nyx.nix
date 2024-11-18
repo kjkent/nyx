@@ -43,13 +43,14 @@
           echo ""
           echo "Usage: nyx <command> [options]"
           echo ""
-          echo "rb (flake/#host): Rebuild Nyx, optionally specifying flake & host"
+          echo "Commands:"
+          echo "- rb [flake/#host]: Rebuild Nyx, optionally specifying flake & host"
           echo ""
         }
 
         if [ "$1" = "rb" ]; then
           (
-            "$escalate" nixos_rebuild switch \
+            "$escalate" nixos-rebuild switch \
               --flake "''${2:-$flake_uri}" \
               --option tarball-ttl 0 \
               --refresh
