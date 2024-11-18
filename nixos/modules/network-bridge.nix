@@ -13,7 +13,7 @@
     with lib;
     with types;
     {
-      nyx.networkBridge = {
+      networking.networkBridge = {
         enable = mkOption {
           type = bool;
           default = false;
@@ -29,7 +29,7 @@
 
   config =
     let
-      cfg = config.nyx.networkBridge;
+      cfg = config.networking.networkBridge;
     in
     lib.mkIf cfg.enable {
       systemd.network = {

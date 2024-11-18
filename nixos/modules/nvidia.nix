@@ -20,15 +20,20 @@
       LIBVA_DRIVER_NAME = "nvidia";
       NVD_BACKEND = "direct";
     };
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services = {
+      xserver.videoDrivers = [ "nvidia" ];
+      ollama.acceleration = "cuda";
+      tabby.acceleration = "cuda";
+    };
     hardware = {
       graphics = {
         enable = true;
         extraPackages = with pkgs; [
           nvidia-vaapi-driver
-          nvidia-container-toolkit
           vulkan-tools
           libva-utils
+          ocl-icd
+          config.boot.kernelPackages.nvidia_x11
         ];
       };
       nvidia = {
@@ -39,6 +44,7 @@
         nvidiaSettings = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest; # .stable, .beta, .production
       };
+      nvidia-container-toolkit.enable = true;
     };
   };
 }

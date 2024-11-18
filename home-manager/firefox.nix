@@ -1,10 +1,5 @@
-{
-  lib,
-  osConfig,
-  ...
-}:
-{
-  config = lib.mkIf (osConfig.nyx.browser == "firefox") {
+_: {
+  config = {
     programs.firefox = {
       enable = true;
       # nativeMessagingHosts = [  ];

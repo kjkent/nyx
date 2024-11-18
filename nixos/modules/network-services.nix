@@ -7,16 +7,11 @@
   ...
 }:
 {
+  imports = [ ./firewall ];
   config = {
     networking = {
-      firewall = {
-        enable = true;
-        #allowedTCPPorts = [ ];
-        #allowedUDPPorts = [ ];
-      };
       hostName = host;
       networkmanager.enable = false;
-      nftables.enable = true;
       timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
     };
 

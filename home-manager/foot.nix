@@ -1,10 +1,5 @@
-{
-  lib,
-  osConfig,
-  ...
-}:
-{
-  config = lib.mkIf (osConfig.nyx.terminal == "foot") {
+_: {
+  config = {
     programs.foot = {
       enable = true;
       settings = {

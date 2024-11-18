@@ -1,9 +1,4 @@
-{
-  pkgs,
-  osConfig,
-  ...
-}:
-{
+{ pkgs, ... }: {
   config.home.packages = [
     (pkgs.writeShellScriptBin "list-bindings" ''
       yad --width=800 --height=650 \
@@ -18,10 +13,10 @@
         --timeout=90 \
         --timeout-indicator=right \
         " = SUPER" "Modifier Key, used for keybindings" "<mod4>" \
-        " + ENTER" "Terminal" "${osConfig.nyx.terminal}" \
+        " + ENTER" "Terminal" "foot" \
         " + ALT + W" "Change Wallpaper" "set-wallpaper" \
         " + Q" "Kill Focused Window" "killactive" \
-        " + B" "Launch Web Browser" "${osConfig.nyx.browser}" \
+        " + B" "Launch Web Browser" "firefox" \
         " + ." "Launch Emoji Selector" "wl-pick-emoji" \
         " + S" "Take Screenshot" "screenshot" \
         " + D" "Launch Rofi" "rofi-launcher" \

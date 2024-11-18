@@ -13,13 +13,13 @@
     ./neovim.nix
     ./rofi.nix
     ./screenshot.nix
+    ./shell
     ./starship.nix
     ./styling.nix
     ./swaync.nix
     ./syncthing.nix
     ./waybar.nix
     ./wlogout.nix
-    ./zsh.nix
   ];
   config = {
     home = {

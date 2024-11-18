@@ -1,36 +1,6 @@
+{ pkgs, ... }:
 {
-  lib,
-  pkgs,
-  user,
-  config,
-  ...
-}:
-{
-  options =
-    with lib;
-    with types;
-    {
-      nyx = {
-        shell = mkOption {
-          type = enum [
-            "bash"
-            "fish"
-            "zsh"
-          ];
-          default = "zsh";
-        };
-        terminal = mkOption {
-          type = str;
-          default = "foot";
-        };
-        browser = mkOption {
-          type = str;
-          default = "firefox";
-        };
-      };
-    };
-  config = with config.nyx; {
-    users.users.${user}.shell = pkgs.${shell};
+  config = {
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nyx" ''
         escalate="$([ $UID -eq 0 ] || echo -n sudo)"
@@ -41,10 +11,11 @@
           echo ""
           echo "🌙 nyx"
           echo ""
-          echo "Usage: nyx <command> [options]"
+          echo "Usage: nyx <command> [options...]"
           echo ""
           echo "Commands:"
-          echo "- rb [flake/#host]: Rebuild Nyx, optionally specifying flake & host"
+          echo "- rb (flake/#host): Rebuild Nyx, optionally specifying flake & host"
+          echo "- check <flake/#host>: Check a local flake builds. Must specify flake."
           echo ""
         }
 
@@ -55,7 +26,9 @@
               --option tarball-ttl 0 \
               --refresh
           )
-        else
+        else if [ "$1" = "check" ] && [ -n "$2" ]; then
+          NIX_IGNORE_UNCLEAN=1 nix flake check --impure "$2"
+        else  
           usage
         fi
       '')

@@ -11,10 +11,10 @@ with osConfig;
     ];
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.variables = [ "--all" ]; # Adds `dbus-update-activation-environment --systemd --all`
+      # Adds `dbus-update-activation-environment --systemd --all`
+      systemd.variables = [ "--all" ]; 
       settings = {
         "$mod" = "SUPER";
-
         env = [
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "CHROMIUM_FLAGS,--enable-features=UseOzonePlatform --enable-gpu-rasterization --ignore-gpu-blocklist --enable-zero-copy"
@@ -136,8 +136,8 @@ with osConfig;
 
         bind =
           [
-            "$mod,Return,exec,${nyx.terminal}"
-            "$mod,B,exec,${nyx.browser}"
+            "$mod,Return,exec,foot"
+            "$mod,B,exec,exec firefox"
             "$mod,S,exec,screenshot"
             "$mod,D,exec,rofi -show drun"
             "$mod,O,exec,obsidian"
