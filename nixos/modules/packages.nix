@@ -5,7 +5,8 @@
     ];
     environment = {
       systemPackages = with pkgs; [
-        #### GUI: Office, Notes, Messaging,
+        #### GUI: Office, Notes, Messaging
+        android-studio
         beeper
         #cura # broken
         discord
@@ -18,11 +19,12 @@
         protonvpn-gui
         spotify
         sublime4
+        jetbrains.webstorm
+        jetbrains.pycharm-community-bin
         ####
 
         ###### User CLI
         scrcpy # Android
-        android-tools # fastboot, adb
         diff-so-fancy
         docker-compose
         docker
@@ -121,6 +123,7 @@
       ];
     };
     programs = {
+      adb.enable = true;
       nix-ld.enable = true;
       dconf.enable = true;
       direnv = {

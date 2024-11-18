@@ -14,6 +14,8 @@
     "lp"
     "render"
     "dialout"
+    "adbusers"
+    "kvm"
   ];
 in {
   config = {

@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     stylix.url = "github:danth/stylix";
     flake-utils.url = "github:numtide/flake-utils";
@@ -23,6 +27,7 @@
     hyprland,
     stylix,
     flake-utils,
+    nix-index-database,
     ...
   }: let
     stateVersion = "24.11";
@@ -55,6 +60,8 @@
         };
         modules = [
           ./nixos
+          nix-index-database.nixosModules.nix-index
+          { programs.nix-index-database.comma.enable = true; }
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
