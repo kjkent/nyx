@@ -1,10 +1,11 @@
 # Adapted from https://github.com/fredericrous/dotfiles/blob/main/private_dot_config/starship.toml
-{config}: {
+{config, lib}: {
   command_timeout = 1000;
   right_format = "$time";
   palette = "lava";
   palettes.lava = {
-    black = "#${config.stylix.base16Scheme.base05}";
+    term_bg = "#${config.stylix.base16Scheme.base00}";
+    term_fg = "#${config.stylix.base16Scheme.base05}";
     gray = "#939594";
     blergh = "#523333";
     red = "#C00311";
@@ -16,6 +17,10 @@
     dark_yellow = "#f9a600";
     dull_yellow = "#eb9606";
   };
+
+  format = lib.strings.concatStrings [
+
+  ];
 
   time = {
     disabled = false;
@@ -35,36 +40,36 @@
 
   cmd_duration = {
     style = "fg:black bg:dark_yellow";
-    format = "[]($style)[祥$duration]($style)[](fg:dark_yellow)";
+    format = "[]($style)[ 祥$duration]($style)[](fg:dark_yellow)";
   };
 
   directory = {
     style = "fg:black bg:coral";
     truncate_to_repo = true;
     fish_style_pwd_dir_length = 1;
-    format = "[]($style)[$path[$read_only]($style)]($style)[](fg:coral)";
+    format = "[]($style)[ $path[$read_only]($style)]($style)[](fg:coral)";
     read_only = " ";
   };
 
   docker_context = {
     style = "fg:black bg:dull_yellow";
     symbol = "🐳  ";
-    format = "[]($style)[$symbol$context]($style)[](fg:dull_yellow)";
+    format = "[]($style)[ $symbol[$context]($style)]($style)[](fg:dull_yellow)";
   };
 
   git_branch = {
     style = "fg:black bg:dull_orange";
-    format = "[]($style)[$symbol$branch]($style)[](fg:dull_orange)";
+    format = "[]($style)[ $symbol[$branch]($style)]($style)[](fg:dull_orange)";
   };
 
   git_commit = {
     style = "fg:black bg:dull_orange";
-    format = "[]($style)[\\($hash$tag\\)]($style)[](fg:dull_orange)";
+    format = "[]($style)[ \\($hash$tag\\)]($style)[](fg:dull_orange)";
   };
 
   git_state = {
     style = "fg:black bg:dull_orange";
-    format = "[]($style)[\\($progress_current/$progress_total\\)]($style)[](fg:dull_orange)";
+    format = "[]($style)[ \\($progress_current/$progress_total\\)]($style)[](fg:dull_orange)";
   };
 
   git_status = {
@@ -85,7 +90,7 @@
   golang = {
     symbol = "ﳑ ";
     style = "fg:black bg:dull_yellow";
-    format = "[]($style)[$symbol$version]($style)[](fg:dull_yellow)";
+    format = "[]($style)[ $symbol$version]($style)[](fg:dull_yellow)";
   };
 
   helm = {
