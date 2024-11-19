@@ -34,13 +34,13 @@ in {
         enable = true;
         createDirectories = true;
         desktop = "${home}/.local/desktop";
-        documents = "${home}/files/docs";
-        download = "${home}/downloads";
-        music = "${home}/files/audio";
-        pictures = "${home}/files/pics";
+        documents = "${home}/docs";
+        download = "${home}/dl";
+        music = "${home}/audio";
+        pictures = "${home}/pics";
         publicShare = "${home}/.local/shared";
         templates = "${home}/.local/templates";
-        videos = "${home}/files/vids";
+        videos = "${home}/vids";
       };
       cacheHome = "${home}/.cache";
       configHome = "${home}/.config";
