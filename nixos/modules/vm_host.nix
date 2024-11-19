@@ -50,9 +50,12 @@
         enable = true;
         defaultNetwork.settings.dns_enabled = true;
       };
-      docker.rootless = {
+      docker = {
         enable = true;
-        setSocketVariable = true;
+        # rootless = {   # Maybe another time... See: https://github.com/moby/moby/issues/43019
+        #   enable = true;
+        #   setSocketVariable = true;
+        # };
       };
     };
   };
