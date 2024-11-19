@@ -48,6 +48,7 @@
         neovide
         shellcheck
         tinyxxd # xxd (usually bundled with vim)
+        uv
         (vscode.override {
           commandLineArgs = ["--password-store=gnome-libsecret"];
         })
