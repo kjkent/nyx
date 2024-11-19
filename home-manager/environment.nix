@@ -38,7 +38,7 @@ in {
         download = "${home}/dl";
         music = "${home}/audio";
         pictures = "${home}/pics";
-        publicShare = "${home}/.local/shared";
+        publicShare = "${home}/.local/public";
         templates = "${home}/.local/templates";
         videos = "${home}/vids";
       };
