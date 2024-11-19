@@ -1,5 +1,5 @@
 {
-  user,
+  creds,
   pkgs,
   ...
 }: {
@@ -8,7 +8,7 @@
       enable = true;
       settings = {
         default_session = {
-          inherit user;
+          user = creds.username;
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
         };
       };

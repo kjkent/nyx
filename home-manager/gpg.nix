@@ -1,8 +1,7 @@
 {
-  pkgs,
   config,
-  gpgKeygrip,
-  self,
+  creds,
+  pkgs,
   ...
 }: {
   config = {
@@ -18,7 +17,7 @@
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
       pinentryPackage = pkgs.pinentry-gnome3;
-      sshKeys = [gpgKeygrip]; # Accepts keygrip of gpg key
+      sshKeys = [ creds.gpg.keygrip ]; 
       verbose = true;
     };
 
@@ -61,7 +60,7 @@
       };
       publicKeys = [
         {
-          source = "${self}/credentials/gpg.pub.asc";
+          source = creds.gpg.pubKey;
           trust = 5;
         }
       ];

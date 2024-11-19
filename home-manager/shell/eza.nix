@@ -13,7 +13,7 @@
           "--octal-permissions"
           "--no-permissions" # disable g=rwx-style perms
           "--modified"
-          "--total-size"
+          #"--total-size"   # This slows things down a lot
           "--git"
         ];
       };

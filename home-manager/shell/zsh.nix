@@ -1,5 +1,7 @@
-{config, ...}: {
-  config = {
+{config, creds, lib, osConfig, pkgs, ...}: let
+  zshInUse = osConfig.users.users.${creds.username}.shell == pkgs.zsh;
+in {
+  config = lib.mkIf zshInUse {
     programs = {
       zsh = {
         enable = true;
@@ -18,7 +20,11 @@
         # Note - some options don't preserve history order and can lead to
         #  a confusing experience when doing substr searches.
         #  These are history.{ignoreAllDups,expireDuplicatesFirst} (...?)
-        historySubstringSearch.enable = true;
+        historySubstringSearch = {
+          enable = true;
+          searchUpKey = "$terminfo[kcuu1]";
+          searchDownKey = "$terminfo[kcud1]";
+        };
         shellAliases = rec {
           chrome = "google-chrome-stable";
           nap = "systemctl suspend";
@@ -36,8 +42,13 @@
           # to add other keys to this hash, see: man 5 terminfo
           typeset -g -A key
 
+          autoload -U history-substring-search-up
+          autoload -U history-substring-search-down
+          zle -N history-substring-search-up
+          zle -N history-substring-search-down
+
           key[Home]="''${terminfo[khome]}"
-          key[End]=''${terminfo[kend]}"
+          key[End]="''${terminfo[kend]}"
           key[Insert]="''${terminfo[kich1]}"
           key[Backspace]="''${terminfo[kbs]}"
           key[Delete]="''${terminfo[kdch1]}"
@@ -55,8 +66,8 @@
           [[ -n "''${key[Insert]}"    ]] && bindkey -- "''${key[Insert]}"     overwrite-mode
           [[ -n "''${key[Backspace]}" ]] && bindkey -- "''${key[Backspace]}"  backward-delete-char
           [[ -n "''${key[Delete]}"    ]] && bindkey -- "''${key[Delete]}"     delete-char
-          [[ -n "''${key[Up]}"        ]] && bindkey -- "''${key[Up]}"         up-line-or-beginning-search
-          [[ -n "''${key[Down]}"      ]] && bindkey -- "''${key[Down]}"       down-line-or-history
+          [[ -n "''${key[Up]}"        ]] && bindkey -- "''${key[Up]}"         history-substring-search-up
+          [[ -n "''${key[Down]}"      ]] && bindkey -- "''${key[Down]}"       history-substring-search-down
           [[ -n "''${key[Left]}"      ]] && bindkey -- "''${key[Left]}"       backward-char
           [[ -n "''${key[Right]}"     ]] && bindkey -- "''${key[Right]}"      forward-char
           [[ -n "''${key[PageUp]}"    ]] && bindkey -- "''${key[PageUp]}"     beginning-of-buffer-or-history

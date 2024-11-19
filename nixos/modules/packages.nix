@@ -55,6 +55,7 @@
         btop
         dconf-editor
         ethtool # Low-level ethernet cli tool
+        dmidecode
         inetutils
         iw # Low-level wifi adapter cli tool
         killall

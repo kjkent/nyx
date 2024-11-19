@@ -32,14 +32,8 @@
   }: let
     stateVersion = "24.11";
     hosts = ["klap" "kdes"];
-
-    user = "kjkent";
-    email = "kris@kjkent.dev";
-    gitId = "Kristopher James Kent (kjkent)";
-    # gpg/ssh fingerprint/keygrip/key should all refer to same GPG key.
-    gpgFingerprint = "F0954AC5C9A90C70794CCA88B02F66B6C1A75107";
-    gpgKeygrip = "22638115B2A44BACFCC08B658945BB46BC925523";
-    sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVd7FB3ohh9ZJ9HWhDbYe0yPHxggkrELqPGxsXwDo6W openpgp:0x323C7F61";
+    
+    creds = import ./credentials;
 
     mkHost = host:
       nixpkgs.lib.nixosSystem rec {
@@ -50,12 +44,7 @@
             hyprland
             stateVersion
             host
-            user
-            email
-            gpgFingerprint
-            gpgKeygrip
-            sshKey
-            gitId
+            creds
             ;
         };
         modules = [
@@ -66,7 +55,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              users.${user} = import ./home-manager;
+              users.${creds.username} = import ./home-manager;
               extraSpecialArgs = specialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;

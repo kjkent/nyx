@@ -1,36 +1,16 @@
-{
-  sshKey,
-  gitId,
-  user,
-  ...
-}: let
-  uid = 1000;
-  gid = uid;
-  groups = [
-    "networkmanager"
-    "wheel"
-    "libvirtd"
-    "scanner"
-    "lp"
-    "render"
-    "dialout"
-    "adbusers"
-    "kvm"
-  ];
-in {
+{ creds, pkgs, ...}: {
   config = {
-    users = {
-      groups.${user} = {
-        inherit gid;
-      };
+    users = with creds; {
+      groups.${username}.gid = gid;
       users = {
-        ${user} = {
+        ${username} = {
           inherit uid;
-          openssh.authorizedKeys.keys = [sshKey];
+          shell = pkgs.zsh;
+          openssh.authorizedKeys.keys = [ gpg.sshKey ];
           ignoreShellProgramCheck = true; # Shell is set by Home Manager
           homeMode = "750";
           isNormalUser = true;
-          description = gitId;
+          description = fullName;
           extraGroups = groups;
         };
       };

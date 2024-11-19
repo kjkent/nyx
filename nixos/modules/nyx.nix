@@ -1,10 +1,10 @@
-{pkgs, ...}: {
+{pkgs, creds, ...}: {
   config = {
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nyx" ''
         escalate="$([ $UID -eq 0 ] || echo -n sudo)"
 
-        flake_uri="github:kjkent/nyx"
+        flake_uri="github:${creds.username}/nyx"
 
         usage() {
           echo ""

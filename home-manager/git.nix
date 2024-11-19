@@ -1,19 +1,14 @@
-{
-  gitId,
-  email,
-  gpgFingerprint,
-  ...
-}: {
+{ creds, ... }: with creds; {
   config = {
     programs.git = {
       enable = true;
-      userName = gitId;
+      userName = "${fullName} (${username})";
       userEmail = email;
       diff-so-fancy.enable = true;
       lfs.enable = true;
 
       signing = {
-        key = gpgFingerprint;
+        key = gpg.fingerprint;
         signByDefault = true;
       };
 
