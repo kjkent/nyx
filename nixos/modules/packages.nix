@@ -6,7 +6,6 @@
     environment = {
       systemPackages = with pkgs; [
         #### GUI: Office, Notes, Messaging
-        android-studio
         beeper
         #cura # broken
         discord
@@ -19,18 +18,16 @@
         protonvpn-gui
         spotify
         sublime4
-        jetbrains.webstorm
-        jetbrains.pycharm-community-bin
         ####
 
         ###### User CLI
         scrcpy # Android
-        diff-so-fancy
         docker-compose
-        docker
+        dnsutils # dig, delv, nslookup, nsupdate
         tmux
         tio
         chafa # Convert images to ASCII art
+        nmap
         glow # Render markdown in terminal
         less
         jq
@@ -39,7 +36,11 @@
         # yubikey-manager broken
 
         ##### Dev tools
+        android-studio
         biome
+        bruno
+        jetbrains.pycharm-community-bin
+        jetbrains.webstorm
         git
         meson
         ninja
