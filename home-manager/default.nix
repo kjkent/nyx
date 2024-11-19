@@ -13,7 +13,7 @@
     ./rofi.nix
     ./screenshot.nix
     ./shell
-    ./starship.nix
+    ./starship
     ./styling.nix
     ./swaync.nix
     ./syncthing.nix

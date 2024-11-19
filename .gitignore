@@ -1,2 +1,5 @@
 /result
 /rebuild
+*.[ot]tf
+*.woff
+*.woff2
