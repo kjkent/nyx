@@ -4,10 +4,10 @@
   ...
 }: {
   config = {
-    home = {
+    home = { # 'Screenshots' allows compat with Android (FAT32 fs is case insensitive)
       file."${config.xdg.configHome}/swappy/config".text = ''
         [Default]
-        save_dir=${config.xdg.userDirs.pictures}/screenshots
+        save_dir=${config.xdg.userDirs.pictures}/Screenshots
         save_filename_format=screen-%Y%m%d-%H%M%S.png
         show_panel=false
         line_size=5
