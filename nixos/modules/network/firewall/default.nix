@@ -1,6 +1,7 @@
 _: {
   imports = [
     ./syncthing.nix
+    ./klipper.nix
   ];
   config = {
     networking = {

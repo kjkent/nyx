@@ -10,9 +10,7 @@
     ./kernel.nix
     ./keyboard.nix
     ./locale.nix
-    ./network-bridge.nix
-    ./network-interfaces.nix
-    ./network-services.nix
+    ./network
     ./nyx.nix
     ./packages.nix
     ./printing.nix

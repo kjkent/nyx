@@ -1,5 +1,22 @@
-_: {
+{pkgs, ...}: {
   config = {
+    environment.systemPackages = with pkgs; [
+      # Compression & filesystem
+      parted
+      gptfdisk
+      gnutar
+      gzip
+      unzip
+      unrar
+      xfsprogs
+      xz
+      # File utils
+      file-roller
+      rsync
+      tree
+      wget
+      eza
+    ];
     fileSystems = {
       "/" = {
         device = "/dev/disk/by-label/nyx_root";
