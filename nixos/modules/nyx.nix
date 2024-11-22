@@ -1,3 +1,5 @@
+# TODO: Refactor to clone to tmpdir, then git-crypt unlock for build-time secrets
+
 {pkgs, creds, ...}: let
   host = "github";
   repo = "${creds.username}/nyx";
