@@ -1,7 +1,14 @@
 {pkgs, ...}: {
   config = {
     fonts = {
+      enableDefaultPackages = true;
+      fontconfig = {
+        defaultFonts = {
+          emoji = [ "Blobmoji" "Noto Color Emoji" ];
+        };
+      };
       packages = with pkgs; [
+        noto-fonts-emoji-blob-bin
         noto-fonts-emoji
         noto-fonts-cjk-sans
         font-awesome
