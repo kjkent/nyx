@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./syncthing.nix
-    ./klipper.nix
+    # ./klipper.nix # Only used on desktop
   ];
   config = {
     networking = {

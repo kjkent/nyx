@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./bridge.nix
-    ./firewall 
+    ./firewall
     ./interfaces.nix
     ./packages.nix
     ./services.nix

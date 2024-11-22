@@ -12,7 +12,6 @@
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     sops-nix.url = "github:mic92/sops-nix";
-    sops-nix.nix-inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
   };
 
