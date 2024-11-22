@@ -2,7 +2,7 @@
   hostModules = {
     kdes = {
       imports = [
-        ./modules/firewall/klipper.nix
+        ./modules/network/firewall/klipper.nix
         ./modules/nvidia.nix
         ./modules/amd.nix
       ];

@@ -1,5 +1,3 @@
 /result
 /rebuild
-*.[ot]tf
-*.woff
-*.woff2
+!**/.gitkeep

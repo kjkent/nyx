@@ -1,38 +1,29 @@
-{ config, pkgs, ... }:
-let
-  generateFontPackage = font: pkgs.stdenv.mkDerivation {
-    pname = font.fontFamily;
+# mkFontPkg - create font package for NixOS 
+#
+# Usage:
+# ```
+# fonts.packages = [
+#   (pkg.mkFontPkg "Comic Sans" {
+#     source = "${self}/sops/comic-sans.tar.gz"
+#   })
+# ];
+# ```
+ 
+{ stdenv, ... }: fontName: fontSpec: 
+  stdenv.mkDerivation {
+    pname = fontName;
     version = "1.0.0";
+    meta.description = "Font package for ${fontName}";
+    src = fontSpec.source;
 
-    src = font.src;
-
-    installPhase = with font; ''
-      # Create a directory for the font family
-      mkdir -p $out/share/fonts/ttf/${fontFamily}
-
-      # Copy the specified font file
-      cp ${src} $out/share/fonts/ttf/${fontFamily}/${fontFamily}-${variant}.ttf
-
-      # Set appropriate permissions
-      chmod 644 $out/share/fonts/truetype/${fontFamily}/*
+    installPhase = ''
+      install_dir="$out/share/fonts/${fontName}"
+      
+      find . -iname '*.otf'   \
+          -o -iname '*.ttf'   \
+          -o -iname '*.woff'  \
+          -o -iname '*.woff2' \
+          -exec \
+            install -D --mode 644 --target-directory "$install_dir" {}\;
     '';
-
-    meta = with pkgs.lib; {
-      description = "Font package for ${font.fontFamily}";
-      platforms = platforms.all;
-    };
-  };
-in {
-  options = {
-    fonts.customFonts = with pkgs.lib.types; listOf (attrsOf str);
-  };
-
-  config = let
-    # Create packages for each custom font
-    fontPackages = map generateFontPackage config.fonts.customFonts;
-  in {
-    # Add generated font packages to systemPackages
-    environment.systemPackages = fontPackages;
-  };
 }
-

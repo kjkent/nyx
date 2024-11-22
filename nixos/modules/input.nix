@@ -2,6 +2,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       cameractrls
+      pavucontrol
     ];
 
     hardware = {
