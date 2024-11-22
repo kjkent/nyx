@@ -1,9 +1,9 @@
-{lib, ...}: {
+{config, ...}: {
   config = {
     programs.starship = {
       enable = true;
       enableTransience = true;
-      settings = lib.importTOML ./lava.toml; 
+      settings = (import ./theme-lava.nix { inherit config; }); 
     };
   };
 }

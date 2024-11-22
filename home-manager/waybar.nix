@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   ...
 }: let
   transition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
@@ -48,8 +48,8 @@ in
             "clock" = {
               format =
                 if clock24h
-                then '' {:L%H:%M}''
-                else '' {:L%I:%M %p}'';
+                then ''  {:L%H:%M}''
+                else ''  {:L%I:%M %p}'';
               tooltip = true;
               tooltip-format = "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>";
             };
@@ -62,16 +62,16 @@ in
             };
             "memory" = {
               interval = 5;
-              format = " {}%";
+              format = "  {}%";
               tooltip = true;
             };
             "cpu" = {
               interval = 5;
-              format = " {usage:2}%";
+              format = "  {usage:2}%";
               tooltip = true;
             };
             "disk" = {
-              format = " {free}";
+              format = "  {free}";
               tooltip = true;
             };
             "network" = {
@@ -93,8 +93,8 @@ in
             "pulseaudio" = {
               format = "{icon} {volume}% {format_source}";
               format-bluetooth = "{volume}% {icon} {format_source}";
-              format-bluetooth-muted = " {icon} {format_source}";
-              format-muted = " {format_source}";
+              format-bluetooth-muted = "󰝟 {icon} {format_source}";
+              format-muted = "󰝟 {format_source}";
               format-source = " {volume}%";
               format-source-muted = "";
               format-icons = {
@@ -110,29 +110,28 @@ in
                   ""
                 ];
               };
-              on-click = "sleep 0.1 && pavucontrol";
+              on-click = "pavucontrol";
             };
             "custom/exit" = {
               tooltip = false;
               format = "";
-              on-click = "sleep 0.1 && wlogout";
+              on-click = "wlogout";
             };
             "custom/startmenu" = {
               tooltip = false;
               format = "";
-              # exec = "rofi -show drun";
-              on-click = "sleep 0.1 && rofi-launcher";
+              on-click = "rofi -show drun";
             };
             "custom/hyprbindings" = {
               tooltip = false;
               format = "󱕴";
-              on-click = "sleep 0.1 && list-bindings";
+              on-click = "list-bindings";
             };
             "idle_inhibitor" = {
               format = "{icon}";
               format-icons = {
-                activated = "";
-                deactivated = "";
+                activated = "󰈈";
+                deactivated = "󰒲";
               };
               tooltip = "true";
             };
@@ -140,14 +139,14 @@ in
               tooltip = false;
               format = "{icon} {}";
               format-icons = {
-                notification = "<span foreground='red'><sup></sup></span>";
-                none = "";
-                dnd-notification = "<span foreground='red'><sup></sup></span>";
-                dnd-none = "";
-                inhibited-notification = "<span foreground='red'><sup></sup></span>";
-                inhibited-none = "";
-                dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
-                dnd-inhibited-none = "";
+                notification = " <span foreground='red'><sup></sup></span>";
+                none = "";
+                dnd-notification = "󰪓 <span foreground='red'><sup></sup></span>";
+                dnd-none = "󰪓";
+                inhibited-notification = " <span foreground='red'><sup></sup></span>";
+                inhibited-none = "";
+                dnd-inhibited-notification = "󰪓 span foreground='red'><sup></sup></span>";
+                dnd-inhibited-none = "󰪓";
               };
               return-type = "json";
               exec-if = "which swaync-client";
@@ -183,7 +182,7 @@ in
         style = concatStrings [
           ''
             * {
-              font-family: JetBrainsMono Nerd Font Mono;
+              font-family: ${osConfig.stylix.fonts.monospace.name};
               font-size: 16px;
               border-radius: 0px;
               border: none;
