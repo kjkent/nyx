@@ -18,12 +18,6 @@
 
     installPhase = ''
       install_dir="$out/share/fonts/${fontName}"
-      
-      find . -iname '*.otf'   \
-          -o -iname '*.ttf'   \
-          -o -iname '*.woff'  \
-          -o -iname '*.woff2' \
-          -exec \
-            install -D --mode 644 --target-directory "$install_dir" {}\;
+      install -D --mode 644 --target-directory "$install_dir" *
     '';
 }

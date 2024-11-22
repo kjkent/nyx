@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
+      git-crypt
       pam_u2f
       sops
       tpm2-tss
