@@ -7,7 +7,7 @@
           emoji = [ "Blobmoji" "Noto Color Emoji" ];
         };
       };
-      packages = with pkgs; [
+      packages = [
         noto-fonts-emoji-blob-bin
         noto-fonts-emoji
         noto-fonts-cjk-sans
@@ -15,7 +15,7 @@
         material-icons
 
         (mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
-          source = "${self}/assets/fonts/berkeleymono.gitcrypt.tar.xz";
+          source = "${self}/assets/fonts/berkeley-mono.gitcrypt.tar.xz";
         })
       ];
     };
