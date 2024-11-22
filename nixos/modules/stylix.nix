@@ -22,8 +22,8 @@
           name = "Montserrat";
         };
         monospace = {
-          package = nerdfonts.override {fonts = ["JetBrainsMono"];};
-          name = "JetBrainsMono Nerd Font Mono";
+          package = nyx-berkeley-mono;
+          name = "BerkeleyMono Nerd Font";
         };
         emoji = {
           package = noto-fonts-emoji-blob-bin;

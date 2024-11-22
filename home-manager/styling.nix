@@ -17,6 +17,6 @@
       style.name = "adwaita-dark";
       platformTheme.name = "gtk3";
     };
-    stylix.enable = true;
+    stylix.enable = true; # Stylix configured in NixOS module
   };
 }
