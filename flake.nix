@@ -2,17 +2,32 @@
   description = "nyx";
 
   inputs = {
-    fine-cmdline.url = "github:vonheikemen/fine-cmdline.nvim";
-    fine-cmdline.flake = false;
-    flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland.url = "github:hyprwm/hyprland";
-    nix-index-db.url = "github:nix-community/nix-index-database";
-    nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    sops-nix.url = "github:mic92/sops-nix";
-    stylix.url = "github:danth/stylix";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/release-24.11"; # Change to /nixos-24.11 when updated
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11"; # release-24.11 is the 24.11 branch (no nixos-24.11)
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland = {
+      url = "github:hyprwm/hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

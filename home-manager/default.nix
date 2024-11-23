@@ -9,7 +9,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./list-bindings.nix
-    ./neovim.nix
+    ./nvim
     ./rofi.nix
     ./screenshot.nix
     ./shell
