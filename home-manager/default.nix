@@ -1,4 +1,5 @@
-{stateVersion, ...}: {
+{ stateVersion, ... }:
+{
   imports = [
     ./environment.nix
     ./fastfetch.nix

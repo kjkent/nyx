@@ -1,17 +1,18 @@
 {
   lib,
-  host,
+  hostName,
   options,
   config,
   pkgs,
   ...
-}: {
-  imports = [./firewall];
+}:
+{
+  imports = [ ./firewall ];
   config = {
     networking = {
-      hostName = host;
+      inherit hostName;
       networkmanager.enable = false;
-      timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
+      timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
     };
 
     programs = {

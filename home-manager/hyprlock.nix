@@ -1,10 +1,8 @@
-{
-  config,
-  self,
-  ...
-}: let
+{ config, self, ... }:
+let
   avatar = "${config.xdg.dataHome}/hyprlock/mr_bones.jpg";
-in {
+in
+{
   config = {
     home.file."${avatar}".source = "${self}/assets/mr_bones.jpg";
     programs = {

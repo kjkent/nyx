@@ -1,8 +1,9 @@
-{pkgs, ...}:
-with pkgs; {
+{ pkgs, ... }:
+with pkgs;
+{
   config = {
     boot = {
-      initrd.kernelModules = ["i915"];
+      initrd.kernelModules = [ "i915" ];
       kernelParams = [
         "i915.enable_guc=3"
         "i915.enable_fbc=1"
@@ -23,7 +24,7 @@ with pkgs; {
         vpl-gpu-rt
         libvdpau-va-gl
       ];
-      extraPackages32 = with pkgsi686Linux; [intel-media-driver];
+      extraPackages32 = with pkgsi686Linux; [ intel-media-driver ];
     };
   };
 }

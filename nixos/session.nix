@@ -1,12 +1,7 @@
+{ creds, pkgs, ... }:
 {
-  creds,
-  pkgs,
-  ...
-}: {
   config = {
-    environment.systemPackages = with pkgs; [
-      greetd.tuigreet
-    ];
+    environment.systemPackages = with pkgs; [ greetd.tuigreet ];
     services.greetd = {
       enable = true;
       settings = {

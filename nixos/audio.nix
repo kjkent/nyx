@@ -1,8 +1,5 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   config = {
     environment.systemPackages = with pkgs; [
       v4l-utils
@@ -15,8 +12,8 @@
       ffmpeg
     ];
     boot = {
-      extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
-      kernelModules = ["v4l2loopback"];
+      extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+      kernelModules = [ "v4l2loopback" ];
     };
     hardware.pulseaudio.enable = false;
     services.pipewire = {

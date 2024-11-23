@@ -1,4 +1,5 @@
-{ creds, pkgs, ...}: {
+{ creds, pkgs, ... }:
+{
   config = {
     users = with creds; {
       groups.${username}.gid = gid;

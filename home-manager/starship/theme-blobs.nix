@@ -1,4 +1,6 @@
-{lib, ...}: with lib.strings; {
+{ lib, ... }:
+with lib.strings;
+{
   add_newline = false;
   palette = "default";
   format = concatStrings [

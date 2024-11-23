@@ -1,12 +1,13 @@
 # TODO: Refactor to clone to tmpdir, then git-crypt unlock for build-time secrets
-
-{pkgs, creds, ...}: let
+{ pkgs, creds, ... }:
+let
   host = "github";
   repo = "${creds.username}/nyx";
   flakeUri = "${host}:${repo}";
   sshUri = "git@${host}.com/${repo}.git";
   httpsUri = "https://${host}.com/${repo}.git";
-in {
+in
+{
   config = {
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nyx" ''
@@ -34,9 +35,9 @@ in {
         }
 
         prot_uri() {
-          if [ "$1" = "https" ]; then 
+          if [ "$1" = "https" ]; then
             echo -n "$https_url"
-          elif [ "$1" = "ssh" ]; then 
+          elif [ "$1" = "ssh" ]; then
             echo -n "$ssh_uri"
           else
             usage && exit 1
@@ -45,10 +46,17 @@ in {
 
         if [ "$1" = "rb" ]
         then
-          "$escalate" nixos-rebuild switch \
-            --flake "''${2:-$flake_uri}" \
-            --option tarball-ttl 0 \
-            --refresh
+          set -e
+
+          build_dir="$(mktemp -d)"
+
+          git clone "$https_uri" "$build_dir"
+          cd "$build_dir"
+          git-crypt unlock
+
+          "$escalate" nixos-rebuild --flake ./ switch
+
+          rm -rf "$build_dir"
         elif [ "$1" = "check" ] && [ -n "$2" ]
         then
           NIX_IGNORE_UNCLEAN=1 nix flake check --impure "$2"
@@ -58,7 +66,7 @@ in {
           then
             git clone "$(prot_uri $2)" "$(resolve_dest $3)"
           else
-            git clone "$ssh_uri" "$(resolve_dest $2)" 
+            git clone "$ssh_uri" "$(resolve_dest $2)"
           fi
         else
           usage

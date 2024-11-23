@@ -1,6 +1,15 @@
-{config, creds, lib, osConfig, pkgs, ...}: let
+{
+  config,
+  creds,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
+let
   zshInUse = osConfig.users.users.${creds.username}.shell == pkgs.zsh;
-in {
+in
+{
   config = lib.mkIf zshInUse {
     programs = {
       zsh = {

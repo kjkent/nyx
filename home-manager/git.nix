@@ -1,4 +1,6 @@
-{ creds, ... }: with creds; {
+{ creds, ... }:
+with creds;
+{
   config = {
     programs.git = {
       enable = true;
@@ -14,7 +16,7 @@
 
       maintenance = {
         enable = false;
-        repositories = []; # Absolute paths
+        repositories = [ ]; # Absolute paths
       };
 
       extraConfig = {

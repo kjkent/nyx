@@ -1,7 +1,6 @@
-{pkgs, ...}: {
-  imports = [
-    ./plugins
-  ];
+{ pkgs, ... }:
+{
+  imports = [ ./plugins ];
   config = {
     programs = {
       neovim = {
@@ -39,16 +38,16 @@
           vim_g = {
             mapleader = " ",
           }
-          
+
           for k,v in pairs(vim_opt) do
             vim.opt[k] = v
           end
-          
+
           for k,v in pairs(vim_g) do
             vim.g[k] = v
           end
 
-          -- prefixes = s:split  t:tab 
+          -- prefixes = s:split  t:tab
           -- suffixes = c:create p:prev n:next q:quit
           local keymap = vim.keymap
           keymap.set("n", "<leader>qh", ":nohl<CR>",         { desc = "Clear search highlights"        })

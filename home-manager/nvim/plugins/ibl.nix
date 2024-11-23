@@ -1,6 +1,8 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, ... }:
+let
   color = config.stylix.base16Scheme;
-in {
+in
+{
   config = {
     programs.neovim = {
       plugins = [ pkgs.vimPlugins.indent-blankline-nvim ];
@@ -20,6 +22,3 @@ in {
     };
   };
 }
-
-
-
