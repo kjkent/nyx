@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   home = config.home.homeDirectory;
-in {
+in
+{
   config = {
     home = rec {
       sessionVariables = with config.xdg; rec {
@@ -27,7 +29,7 @@ in {
         # Unofficial XDG dir
         XDG_BIN_HOME = "${home}/.local/bin";
       };
-      sessionPath = [sessionVariables.XDG_BIN_HOME];
+      sessionPath = [ sessionVariables.XDG_BIN_HOME ];
     };
     xdg = {
       userDirs = {

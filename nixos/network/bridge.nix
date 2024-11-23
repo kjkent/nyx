@@ -7,26 +7,30 @@
   pkgs,
   config,
   ...
-}: {
-  options = with lib;
-  with types; {
-    networking.networkBridge = {
-      enable = mkOption {
-        type = bool;
-        default = false;
-        description = "Whether to enable br0 and attach eth0.";
-      };
-      includeWlan = mkOption {
-        type = bool;
-        default = false;
-        description = "Whether to add wlan0 to br0 - Warning: sketchy af.";
+}:
+{
+  options =
+    with lib;
+    with types;
+    {
+      networking.networkBridge = {
+        enable = mkOption {
+          type = bool;
+          default = false;
+          description = "Whether to enable br0 and attach eth0.";
+        };
+        includeWlan = mkOption {
+          type = bool;
+          default = false;
+          description = "Whether to add wlan0 to br0 - Warning: sketchy af.";
+        };
       };
     };
-  };
 
-  config = let
-    cfg = config.networking.networkBridge;
-  in
+  config =
+    let
+      cfg = config.networking.networkBridge;
+    in
     lib.mkIf cfg.enable {
       systemd.network = {
         enable = true;
@@ -81,14 +85,15 @@
       # before 4addr command can work; but networkd waits for noone. So, here
       # we wait for wlan0 to attain carrier state, then issue the command to
       # enable 4addr, then tell networkd to reconfigure the interface.
-      systemd.services.wlan-4addr = let
-        deps = [
-          "network.target"
-          "systemd-networkd.service"
-          "sys-subsystem-net-devices-wlan0.device"
-        ];
-        ifName = "wlan0";
-      in
+      systemd.services.wlan-4addr =
+        let
+          deps = [
+            "network.target"
+            "systemd-networkd.service"
+            "sys-subsystem-net-devices-wlan0.device"
+          ];
+          ifName = "wlan0";
+        in
         lib.mkIf cfg.includeWlan {
           after = deps;
           wants = deps;
@@ -105,7 +110,7 @@
               "${systemd}/bin/networkctl reconfigure ${ifName}"
             ];
           };
-          wantedBy = ["graphical.target"];
+          wantedBy = [ "graphical.target" ];
         };
 
       networking = {

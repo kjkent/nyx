@@ -1,8 +1,5 @@
+{ lib, config, ... }:
 {
-  lib,
-  config,
-  ...
-}: {
   options = with lib; {
     virtualisation.enable = mkOption {
       type = types.bool;
@@ -27,7 +24,7 @@
         # TODO: This is a minor security risk; consider alternatives.
         "net.ipv4.ip_unprivileged_port_start" = 0;
       };
-      kernelModules = ["br_netfilter"];
+      kernelModules = [ "br_netfilter" ];
     };
 
     programs = {
@@ -36,8 +33,8 @@
         {
           settings = {
             "org/virt-manager/virt-manager/connections" = {
-              autoconnect = ["qemu:///system"];
-              uris = ["qemu:///system"];
+              autoconnect = [ "qemu:///system" ];
+              uris = [ "qemu:///system" ];
             };
           };
         }

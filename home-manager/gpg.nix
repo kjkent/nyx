@@ -3,7 +3,8 @@
   creds,
   pkgs,
   ...
-}: {
+}:
+{
   config = {
     services.gpg-agent = {
       enable = true;
@@ -17,7 +18,7 @@
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
       pinentryPackage = pkgs.pinentry-gnome3;
-      sshKeys = [ creds.gpg.keygrip ]; 
+      sshKeys = [ creds.gpg.keygrip ];
       verbose = true;
     };
 

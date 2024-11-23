@@ -1,10 +1,12 @@
-{pkgs, self, ...}: with pkgs; {
+{ pkgs, self, ... }:
+with pkgs;
+{
   config = {
     nixpkgs.overlays = [
       (post: pre: {
-        nyx-berkeley-mono = (mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
+        nyx-berkeley-mono = mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
           source = "${self}/assets/fonts/berkeley-mono.gitcrypt.tar.xz";
-        });
+        };
       })
     ];
     fonts = {
@@ -12,8 +14,14 @@
       enableDefaultPackages = true;
       fontconfig = {
         defaultFonts = {
-          emoji = [ "Blobmoji" "Noto Color Emoji" ];
-          monospace = [ "Berkeley Mono" "BerkeleyMono Nerd Font"];
+          emoji = [
+            "Blobmoji"
+            "Noto Color Emoji"
+          ];
+          monospace = [
+            "Berkeley Mono"
+            "BerkeleyMono Nerd Font"
+          ];
         };
       };
       packages = [

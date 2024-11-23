@@ -1,10 +1,8 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   config = {
-    home = { # 'Screenshots' allows compat with Android (FAT32 fs is case insensitive)
+    home = {
+      # 'Screenshots' allows compat with Android (FAT32 fs is case insensitive)
       file."${config.xdg.configHome}/swappy/config".text = ''
         [Default]
         save_dir=${config.xdg.userDirs.pictures}/Screenshots

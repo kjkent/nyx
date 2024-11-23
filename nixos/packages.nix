@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config = {
     nixpkgs.config.permittedInsecurePackages = [
       "openssl-1.1.1w" # Needed by sublime4, apparently a non-issue as fix backported.
@@ -10,7 +11,7 @@
         #cura # broken
         discord
         gimp
-        libreoffice-fresh
+        #libreoffice
         obsidian
         telegram-desktop
         protonmail-desktop
@@ -43,9 +44,7 @@
         shellcheck
         tinyxxd # xxd (usually bundled with vim)
         uv
-        (vscode.override {
-          commandLineArgs = ["--password-store=gnome-libsecret"];
-        })
+        (vscode.override { commandLineArgs = [ "--password-store=gnome-libsecret" ]; })
 
         ###### System management & monitoring CLI utils
         btop
@@ -60,7 +59,6 @@
         tlp # Power management
         usbutils
         util-linux
-
 
         cmatrix
         libnotify
@@ -110,7 +108,7 @@
     };
 
     systemd.services.flatpak-repo = {
-      path = [pkgs.flatpak];
+      path = [ pkgs.flatpak ];
       script = ''
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
       '';

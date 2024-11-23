@@ -3,7 +3,8 @@
   config,
   self,
   ...
-}: {
+}:
+{
   config = {
     stylix = with pkgs; {
       enable = true;

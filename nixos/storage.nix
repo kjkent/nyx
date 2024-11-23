@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config = {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
@@ -39,7 +40,7 @@
       };
     };
     zramSwap.enable = true;
-    swapDevices = [];
+    swapDevices = [ ];
     boot = {
       initrd.luks.devices.nyx_root.device = "/dev/disk/by-label/nyx_luks";
       kernel.sysctl = {

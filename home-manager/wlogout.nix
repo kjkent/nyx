@@ -1,8 +1,5 @@
+{ config, self, ... }:
 {
-  config,
-  self,
-  ...
-}: {
   config = {
     programs.wlogout = {
       enable = true;
