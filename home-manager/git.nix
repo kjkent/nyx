@@ -56,6 +56,7 @@ with creds;
         a = "add";
         aa = "add -A";
         b = "branch";
+        ba = "branch -a";
         bd = "branch -d";
         bD = "branch -D";
         ch = "checkout";

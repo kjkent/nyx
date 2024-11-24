@@ -77,7 +77,6 @@
         cowsay
         ripgrep
         lshw
-        bat
         pkg-config
         brightnessctl
         virt-viewer
