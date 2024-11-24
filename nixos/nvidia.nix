@@ -26,9 +26,6 @@
         enable = true;
         extraPackages = with pkgs; [
           nvidia-vaapi-driver
-          vulkan-tools
-          libva-utils
-          ocl-icd
           config.boot.kernelPackages.nvidia_x11
         ];
       };

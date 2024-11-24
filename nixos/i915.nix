@@ -17,9 +17,7 @@ with pkgs;
       enable = true;
       extraPackages = [
         intel-compute-runtime
-        vulkan-tools
-        intel-media-driver
-        libva-utils
+        intel-media-driver 
         intel-ocl
         vpl-gpu-rt
         libvdpau-va-gl

@@ -17,6 +17,7 @@
       tree
       wget
       eza
+      zlib-ng
     ];
     fileSystems = {
       "/" = {
