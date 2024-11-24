@@ -61,6 +61,7 @@
     });
 in appimageTools.wrapType2 {
   inherit pname version src;
+  nativeBuildInputs = [copyDesktopItems];
   extraPkgs = p: with p; [
     vulkan-loader
     vulkan-headers
@@ -68,18 +69,18 @@ in appimageTools.wrapType2 {
     libGLX
     zlib-ng
   ];
-
+  desktopItems = [desktopItem];
   extraInstallCommands = ''
     install \
       -D \
-      --mode 644 \
+      --mode 444 \
       --target-directory "$out"/share/icons/hicolor/128x128/apps \
       "${appimageContents}"/share/cura/resources/images/cura-icon.png
 
-    install \
-      -D \
-      --mode 644 \
-      --target-directory "$out"/share/applications \
-      "${desktopItem}"/share/applications/*.desktop
+    # install \
+    #   -D \
+    #   --mode 444 \
+    #   --target-directory "$out"/share/applications \
+    #   "${desktopItem}"/share/applications/*.desktop
   '';
 }
