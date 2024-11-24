@@ -62,7 +62,7 @@
               ;
           };
           modules = [
-            ./lib
+            ./pkg
             ./nixos
             sops-nix.nixosModules.sops
             nix-index-db.nixosModules.nix-index

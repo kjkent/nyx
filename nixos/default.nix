@@ -5,6 +5,7 @@
     ./boot.nix
     ./fonts.nix
     ./firmware.nix
+    ./graphics.nix
     ./host.nix
     ./hyprland.nix
     ./input.nix
