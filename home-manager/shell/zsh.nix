@@ -92,6 +92,10 @@ in
           	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
           	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
           fi
+
+          # Add a newline between commands
+          # Fixes starship newline=true opening with line break
+          precmd() { precmd() { echo } }
         '';
       };
     };

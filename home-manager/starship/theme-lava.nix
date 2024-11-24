@@ -1,66 +1,65 @@
-# Adapted from https://github.com/fredericrous/dotfiles/blob/main/private_dot_config/starship.toml
+# Adapted from https://github.com/fbase03ericrous/dotfiles/blob/main/private_dot_config/starship.toml
 { config, ... }:
 {
-  command_timeout = 1000;
   right_format = "$time";
   palette = "lava";
   palettes.lava = {
-    term_bg = "#${config.stylix.base16Scheme.base00}";
-    term_fg = "#${config.stylix.base16Scheme.base05}";
-    gray = "#939594";
-    blergh = "#523333";
-    red = "#C00311";
-    vermilion = "#ff4b00";
-    dark_orange = "#ad4007";
-    coral = "#c05303";
-    dull_orange = "#d8712c";
-    orange = "#ff9400";
-    dark_yellow = "#f9a600";
-    dull_yellow = "#eb9606";
+    base00 = "#${config.stylix.base16Scheme.base00}";
+    base05 = "#${config.stylix.base16Scheme.base05}";
+    base01 = "#939594";
+    base02 = "#381D00";
+    base03 = "#8f000A";
+    base04 = "#FF4b00";
+    base06 = "#FF6600";
+    base07 = "#FF7C00";
+    base08 = "#FF9100";
+    base09 = "#FFA400";
+    base0A = "#FFB600";
+    base0B = "#FFC800";
   };
 
   character = {
-    success_symbol = "[λ](bold fg:orange)";
-    error_symbol = "[](bold fg:red)";
+    success_symbol = "[λ](bold fg:base06)";
+    error_symbol = "[](bold fg:base03)";
   };
 
   cmd_duration = {
-    style = "fg:term_bg bg:dark_yellow";
-    format = "[ 󱎫 $duration ]($style)[](fg:dark_yellow)";
+    style = "fg:base00 bg:base09";
+    format = "[ 󱎫 $duration]($style)[](fg:base0B)";
   };
 
   directory = {
-    style = "fg:term_bg bg:coral";
+    style = "fg:base00 bg:base06";
     truncate_to_repo = true;
     fish_style_pwd_dir_length = 1;
-    format = "[ $path$read_only ]($style)[](fg:coral)";
+    format = "[ $path$read_only]($style)[](fg:base06)";
     read_only = "  ";
   };
 
   docker_context = {
-    style = "fg:term_bg bg:dull_yellow";
+    style = "fg:base00 bg:base0A";
     symbol = " ";
-    format = "[ $symbol$context ]($style)[](fg:dull_yellow)";
+    format = "[ $symbol $context]($style)[](fg:base0A)";
   };
 
   git_branch = {
-    style = "fg:term_bg bg:dull_orange";
-    format = "[ $symbol$branch ]($style)[](fg:dull_orange)";
+    style = "fg:base00 bg:base07";
+    format = "[ $symbol$branch]($style)[](fg:base07)";
   };
 
   git_commit = {
-    style = "fg:term_bg bg:dull_orange";
-    format = "[ \\($hash$tag\\) ]($style)[](fg:dull_orange)";
+    style = "fg:base00 bg:base07";
+    format = "[ \\($hash$tag\\)]($style)[](fg:base07)";
   };
 
   git_state = {
-    style = "fg:term_bg bg:dull_orange";
-    format = "[ \\($progress_current/$progress_total\\) ]($style)[](fg:dull_orange)";
+    style = "fg:base00 bg:base07";
+    format = "[ \\($progress_current/$progress_total\\)]($style)[](fg:base07)";
   };
 
   git_status = {
-    style = "fg:term_bg bg:dull_orange";
-    format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:dull_orange)";
+    style = "fg:base00 bg:base07";
+    format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:base07)";
     staged =     " $count ";
     modified =   " $count ";
     renamed =    " $count ";
@@ -69,76 +68,76 @@
     stashed =    " $count ";
     behind =     " $count ";
     ahead =      " $count ";
-    conflicted = "[  $count ](fg:red)";
-    diverged =   "[ 󰙁   $ahead_count  $behind_count ](fg:red)";
+    conflicted = "[  $count ](fg:base03)";
+    diverged =   "[ 󰙁   $ahead_count  $behind_count ](fg:base03)";
   };
 
   golang = {
     symbol = "󰟓 ";
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   helm = {
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   kotlin = {
     symbol = "󱈙 ";
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   kubernetes = {
     symbol = "󱃾 ";
-    style = "fg:term_bg bg:dark_orange";
-    format = "[ $symbol$context ]($style)[](fg:dark_orange)";
+    style = "fg:base00 bg:base04";
+    format = "[ $symbol$context]($style)[](fg:base04)";
     disabled = true;
   };
 
   nodejs = {
     symbol = " ";
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   php = {
     symbol = "󰌟 ";
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   python = {
     symbol = " ";
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$pyenv_prefix$version$virtualenv ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$pyenv_prefix$version$virtualenv]($style)[](fg:base0A)";
   };
 
   rust = {
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   swift = {
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$version ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$version]($style)[](fg:base0A)";
   };
 
   shlvl = {
     symbol = "󱎞 ";
-    style = "fg:term_bg bg:dark_orange";
-    format = "[ $symbol$shlvl ]($style)[](fg:dark_orange)";
+    style = "fg:base00 bg:base04";
+    format = "[ $symbol$shlvl]($style)[](fg:base04)";
   };
 
   terraform = {
-    style = "fg:term_bg bg:dull_yellow";
-    format = "[ $symbol$workspace ]($style)[](fg:dull_yellow)";
+    style = "fg:base00 bg:base0A";
+    format = "[ $symbol$workspace]($style)[](fg:base0A)";
   };
 
   username = {
     style_user = "blue";
-    style_root = "red";
-    format = "[ $user ](fg:term_bg bg:$style)[](fg:$style)";
+    style_root = "base03";
+    format = "[ $user](fg:base00 bg:$style)[](fg:$style)";
   };
 }
