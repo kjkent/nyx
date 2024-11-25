@@ -8,7 +8,8 @@
           "--group-directories-first"
           "--color=auto"
           "--icons"
-          "--across" # for grid view (no -l), sort left-right not top-bottom
+          #"--across" # for grid view (no -l), sort left-right not top-bottom
+          "--hyperlink"
           # long options
           "--header"
           "--octal-permissions"
