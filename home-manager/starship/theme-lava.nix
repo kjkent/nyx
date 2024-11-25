@@ -19,7 +19,7 @@
   };
 
   character = {
-    success_symbol = "[λ](bold fg:base06)";
+    success_symbol = "[λ](bold fg:base07)";
     error_symbol = "[](bold fg:base03)";
   };
 
