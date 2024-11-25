@@ -18,6 +18,7 @@
         sublime4
         hyprpicker
         swaynotificationcenter
+        super-productivity
         grim
         slurp
         swappy
