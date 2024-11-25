@@ -4,9 +4,9 @@
     programs = {
       starship = {
         enable = true;
-        add_newline = false;
         enableTransience = true;
         settings = {
+          add_newline = false;
           command_timeout = 1000;
           palettes = {
             stylix = with config.stylix.base16Scheme; {
@@ -16,9 +16,9 @@
                 base08 base09 base0A base0B
                 base0C base0D base0E base0F;
             };
-          } // 
-            import ./theme-lava.nix { inherit config; };
-        };
+          };
+        } // 
+          (import ./theme-lava.nix { inherit config; });
       };
     };
   };
