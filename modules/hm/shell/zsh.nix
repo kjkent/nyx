@@ -1,13 +1,14 @@
 {
   config,
-  creds,
   lib,
+  nixosUser,
   osConfig,
   pkgs,
   ...
 }:
 let
-  zshInUse = osConfig.users.users.${creds.username}.shell == pkgs.zsh;
+  inherit (nixosUser) username;
+  zshInUse = osConfig.users.users.${username}.shell == pkgs.zsh;
 in
 {
   config = lib.mkIf zshInUse {
@@ -35,6 +36,7 @@ in
           searchDownKey = "$terminfo[kcud1]";
         };
         shellAliases = rec {
+          cat = "bat";
           chrome = "google-chrome-stable";
           nap = "systemctl suspend";
           please = "sudo \"$SHELL\" -c \"$(fc -ln -1)\"";

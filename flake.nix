@@ -40,62 +40,39 @@
       ...
     }:
     let
-      stateVersion = "24.11";
+      assetsPath = ./assets;
+      nixosModulesPath = ./modules/nixos;
+      hmModulesPath = ./modules/hm;
       shellPlatforms = [ "x86_64-linux" ];
-      nixosMachines = [
-        "kdes"
-        "klap"
-      ];
-      creds = import ./credentials;
+
+      nixosUser = import ./deploy/user.nix;
+      nixosHosts = builtins.attrNames (import ./deploy/hosts.nix);
 
       mkNixosSpec =
         hostName:
-        nixpkgs.lib.nixosSystem rec {
+        nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit
+              assetsPath
+              hmModulesPath
+              hostName
+              hyprland
               inputs
               self
-              hyprland
-              stateVersion
-              hostName
-              creds
+              nixosModulesPath
+              nixosUser
+              nixpkgs-stable
               ;
           };
           modules = [
-            ./pkg
-            ./nixos
             sops-nix.nixosModules.sops
             nix-index-db.nixosModules.nix-index
-            { programs.nix-index-database.comma.enable = true; }
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                users.${creds.username} = import ./home-manager;
-                extraSpecialArgs = specialArgs;
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "bak";
-                sharedModules = [ sops-nix.homeManagerModules.sops ];
-              };
-            }
-            # Makes stable nixpkgs available as pkgs.stable
-            (
-              { config, ... }:
-              {
-                nixpkgs.overlays = [
-                  (
-                    post: prev: with config.nixpkgs; {
-                      stable = import nixpkgs-stable {
-                        inherit hostPlatform;
-                        system = hostPlatform;
-                        config.allowUnfree = config.allowUnfree;
-                      };
-                    }
-                  )
-                ];
-              }
-            )
+
+            "${nixosModulesPath}"
+            (import ./deploy/hosts.nix)."${hostName}"
+            ./pkg
           ];
         };
 
@@ -144,7 +121,7 @@
     in
     with nixpkgs.lib;
     {
-      nixosConfigurations = genAttrs nixosMachines mkNixosSpec;
+      nixosConfigurations = genAttrs nixosHosts mkNixosSpec;
       devShells = genAttrs shellPlatforms mkShellSpec;
     };
 }

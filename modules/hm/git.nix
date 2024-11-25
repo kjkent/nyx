@@ -1,5 +1,5 @@
-{ creds, ... }:
-with creds;
+{ nixosUser, ... }:
+with nixosUser;
 {
   config = {
     programs.git = {
@@ -63,10 +63,15 @@ with creds;
         chb = "checkout -b";
         cl = "clone";
         co = "commit -m";
+        coa = "commit --amend";
+        coane = "commit --amend --no-edit";
+        coaneng = "commit --amend --no-edit --no-gpg-sign";
         cong = "commit --no-gpg-sign -m";
         d = "diff";
         ds = "diff --staged";
         f = "fetch";
+        # Add all files from previous commit, amend, force-push. Dangerous!
+        ffs = ''!git add "$(git show --name-only --oneline --name-only --pretty=)" && git commit --amend --no-edit && git push --force'';
         l = "log";
         ps = "push";
         pl = "pull";

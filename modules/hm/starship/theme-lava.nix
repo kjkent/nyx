@@ -1,4 +1,4 @@
-# Adapted from https://github.com/fbase03ericrous/dotfiles/blob/main/private_dot_config/starship.toml
+# Adapted from https://github.com/fredericrous/dotfiles/blob/main/private_dot_config/starship.toml
 { config, ... }:
 {
   right_format = "$time";
@@ -61,16 +61,16 @@
   git_status = {
     style = "fg:base00 bg:base07";
     format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:base07)";
-    staged =     "  $count ";
-    modified =   "  $count ";
-    renamed =    "  $count ";
-    deleted =    "  $count ";
-    untracked =  " ? $count ";
-    stashed =    "  $count ";
-    behind =     "  $count ";
-    ahead =      "  $count ";
+    staged = "  $count ";
+    modified = "  $count ";
+    renamed = "  $count ";
+    deleted = "  $count ";
+    untracked = " ? $count ";
+    stashed = "  $count ";
+    behind = "  $count ";
+    ahead = "  $count ";
     conflicted = "[   $count ](fg:base03 bg:#FFC800)";
-    diverged =   "[  󰙁   $ahead_count  $behind_count ](fg:base03 bg:#FFC800)";
+    diverged = "[  󰙁   $ahead_count  $behind_count ](fg:base03 bg:#FFC800)";
   };
 
   golang = {

@@ -1,5 +1,4 @@
-{ stateVersion, ... }:
-{
+{osConfig, ...}: {
   imports = [
     ./environment.nix
     ./fastfetch.nix
@@ -22,9 +21,7 @@
     ./wlogout.nix
   ];
   config = {
-    home = {
-      inherit stateVersion;
-    };
+    home.stateVersion = osConfig.system.stateVersion;
     programs.home-manager.enable = true;
   };
 }

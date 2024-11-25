@@ -1,13 +1,14 @@
-{ hostName, ... }:
 let
-  machines = {
-  kdes = {
+  modDir = ../modules/nixos;
+in {
+  kdes = _: {
     imports = [
-      ./network/firewall/klipper.nix
-      ./nvidia.nix
-      ./amd.nix
+      "${modDir}/network/firewall/klipper.nix"
+      "${modDir}/nvidia.nix"
+      "${modDir}/amd.nix"
     ];
     config = {
+      system.stateVersion = "24.11";
       hardware.keyboard.layout = "us";
       networking.networkBridge.enable = true;
       programs.hyprland.monitors = [
@@ -16,18 +17,15 @@ let
       ];
     };
   };
-  klap = {
+  klap = _: {
     imports = [
-      ./i915.nix
-      ./thinkpad.nix
-      ./laptop_power.nix
+      "${modDir}/i915.nix"
+      "${modDir}/thinkpad.nix"
+      "${modDir}/laptop_power.nix"
     ];
     config = {
+      system.stateVersion = "24.11";
       hardware.keyboard.layout = "gb";
     };
   };
-  };
-in
-{
-  inherit (machines.${hostName}) imports config;
 }

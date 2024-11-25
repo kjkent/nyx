@@ -1,9 +1,9 @@
 {
   config,
   lib,
-  stateVersion,
+  nixosUser,
+  nixpkgs-stable,
   self,
-  creds,
   ...
 }:
 {
@@ -17,6 +17,18 @@
       config.allowUnfree = true;
       hostPlatform = lib.mkDefault "x86_64-linux";
       system = hostPlatform;
+      overlays = [
+        # Makes stable nixpkgs available as pkgs.stable
+        (
+          _: _: with config.nixpkgs; {
+            stable = import nixpkgs-stable {
+              inherit hostPlatform;
+              system = hostPlatform;
+              config.allowUnfree = config.allowUnfree;
+            };
+          }
+        )
+      ];
     };
     environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
 
@@ -47,13 +59,11 @@
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
-        trusted-users = [ "${creds.username}" ];
+        trusted-users = [ "${nixosUser.username}" ];
       };
     };
 
     system = {
-      inherit stateVersion;
-
       # Adds git commit to generation label
       # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kppoogf/
       nixos.label = lib.concatStringsSep "-" (

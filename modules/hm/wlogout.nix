@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ assetsPath, config, ... }:
 {
   config = {
     programs.wlogout = {
@@ -43,7 +43,7 @@
       ];
       style = ''
         * {
-          font-family: "JetBrainsMono NF", FontAwesome, sans-serif;
+          font-family: "BerkeleyMono Nerd Font", FontAwesome, sans-serif;
           background-image: none;
           transition: 20ms;
         }
@@ -101,7 +101,7 @@
       '';
     };
     home.file."${config.xdg.configHome}/wlogout/icons" = {
-      source = "${self}/assets/wlogout";
+      source = "${assetsPath}/wlogout";
       recursive = true;
     };
   };

@@ -17,7 +17,7 @@ with pkgs;
       enable = true;
       extraPackages = [
         intel-compute-runtime
-        intel-media-driver 
+        intel-media-driver
         intel-ocl
         vpl-gpu-rt
         libvdpau-va-gl

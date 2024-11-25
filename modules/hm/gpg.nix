@@ -1,9 +1,4 @@
-{
-  config,
-  creds,
-  pkgs,
-  ...
-}:
+{ config, nixosUser, pkgs, ... }:
 {
   config = {
     services.gpg-agent = {
@@ -18,7 +13,7 @@
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
       pinentryPackage = pkgs.pinentry-gnome3;
-      sshKeys = [ creds.gpg.keygrip ];
+      sshKeys = [ nixosUser.gpg.keygrip ];
       verbose = true;
     };
 
@@ -61,7 +56,7 @@
       };
       publicKeys = [
         {
-          source = creds.gpg.pubKey;
+          text = nixosUser.gpg.pubKey;
           trust = 5;
         }
       ];

@@ -1,8 +1,25 @@
-{ creds, pkgs, ... }:
+{ nixosUser, pkgs, ... }:
+let
+  uid = 1000;
+  gid = uid;
+  groups = [
+    "adbusers"
+    "dialout"
+    "kvm"
+    "libvirtd"
+    "lp"
+    "networkmanager"
+    "render"
+    "scanner"
+    "wheel"
+  ];
+in
 {
   config = {
-    users = with creds; {
-      groups.${username}.gid = gid;
+    users = with nixosUser; {
+      groups.${username} = {
+        inherit gid;
+      };
       users = {
         ${username} = {
           inherit uid;

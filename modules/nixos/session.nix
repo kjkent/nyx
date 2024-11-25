@@ -1,4 +1,4 @@
-{ creds, pkgs, ... }:
+{ nixosUser, pkgs, ... }:
 {
   config = {
     environment.systemPackages = with pkgs; [ greetd.tuigreet ];
@@ -6,7 +6,7 @@
       enable = true;
       settings = {
         default_session = {
-          user = creds.username;
+          user = nixosUser.username;
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
         };
       };

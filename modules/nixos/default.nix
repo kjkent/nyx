@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   imports = [
     ./audio.nix
@@ -6,7 +6,7 @@
     ./fonts.nix
     ./firmware.nix
     ./graphics.nix
-    ./host.nix
+    ./hm.nix 
     ./hyprland.nix
     ./input.nix
     ./kernel.nix

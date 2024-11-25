@@ -1,11 +1,11 @@
-{ pkgs, self, ... }:
+{ assetsPath, pkgs, ... }:
 with pkgs;
 {
   config = {
     nixpkgs.overlays = [
-      (post: pre: {
+      (_: _: {
         nyx-berkeley-mono = mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
-          source = "${self}/assets/fonts/berkeley-mono.gitcrypt.tar.xz";
+          source = "${assetsPath}/fonts/berkeley-mono.gitcrypt.tar.xz";
         };
       })
     ];

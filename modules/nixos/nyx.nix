@@ -1,8 +1,7 @@
-# TODO: Refactor to clone to tmpdir, then git-crypt unlock for build-time secrets
-{ pkgs, creds, ... }:
+{ nixosUser, pkgs, ... }:
 let
   host = "github";
-  repo = "${creds.username}/nyx";
+  repo = "${nixosUser.username}/nyx";
   flakeUri = "${host}:${repo}";
   sshUri = "git@${host}.com/${repo}.git";
   httpsUri = "https://${host}.com/${repo}.git";
@@ -52,6 +51,9 @@ in
 
           git clone "$https_uri" "$build_dir"
           cd "$build_dir"
+
+          echo "Unlocking git-crypt!"
+          echo "Look out for authentication prompts."
           git-crypt unlock
 
           "$escalate" nixos-rebuild --flake ./ switch

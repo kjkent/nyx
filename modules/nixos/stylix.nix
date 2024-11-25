@@ -1,14 +1,14 @@
 {
+  assetsPath,
   pkgs,
   config,
-  self,
   ...
 }:
 {
   config = {
     stylix = with pkgs; {
       enable = true;
-      image = self + "/assets/cyberpunk.jpg";
+      image = "${assetsPath}/wallpaper/cyberpunk.jpg";
       polarity = "dark";
       opacity.terminal = 0.8;
       cursor = {

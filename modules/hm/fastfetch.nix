@@ -1,11 +1,11 @@
-{ self, ... }:
+{ assetsPath, ... }:
 {
   config = {
     programs.fastfetch = {
       enable = true;
       settings = {
         logo = {
-          source = "${self}/assets/nixos.png";
+          source = "${assetsPath}/nixos.png";
           type = "auto";
           height = 15;
           width = 30;

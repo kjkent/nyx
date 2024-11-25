@@ -2,7 +2,7 @@
 {
   config = {
     nixpkgs.overlays = with pkgs; [
-      (post: pre: { 
+      (_: pre: {
         mkFontPkg = callPackage ./mkFontPkg.nix pre.stdenv;
         cura = callPackage ./cura.nix pre;
       })

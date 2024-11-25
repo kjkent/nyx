@@ -1,23 +1,6 @@
-# 🌙 nyx
+<h1 align="center">🌙 nyx</h1>
 
 A work-in-progress NixOS flake.
-
-## Installation
-
-NixOS must already be installed on the target machine.
-
-1. Clone this repo: `git clone https://github.com/kjkent/nyx.git ~/.config/nyx`
-2. Amend flake to fit users and hosts (like most Nix documentation, these instructions are a work-in-progress)
-3. Rebuild NixOS: `sudo nixos-rebuild --flake ~/.config/nyx/#<hostname>`
-
-## Post-install
-
-Nyx provides the `nyx` cli utility for basic maintenance.
-
-- `nyx rb` - Rebuild host. `nyx rb <hostname>` to rebuild another host.
-- `nyx up` - Update flake dependencies.
-- `nyx cd` - cd to flake directory.
-
 
 ## Nix quirks encountered so far:
 
