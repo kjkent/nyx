@@ -4,63 +4,59 @@
   right_format = "$time";
   palette = "lava";
   palettes.lava = {
-    base00 = "#${config.stylix.base16Scheme.base00}";
-    base05 = "#${config.stylix.base16Scheme.base05}";
-    base01 = "#939594";
-    base02 = "#381D00";
-    base03 = "#8f000A";
-    base04 = "#FF4b00";
-    base06 = "#FF6600";
-    base07 = "#FF7C00";
-    base08 = "#FF9100";
-    base09 = "#FFA400";
-    base0A = "#FFB600";
-    base0B = "#FFC800";
+    color0 = "#${config.stylix.base16Scheme.base00}";
+    color1 = "#1323D1";
+    color2 = "#790F99";
+    color3 = "#E61300";
+    color4 = "#FF4b00";
+    color5 = "#FF6600";
+    color6 = "#FF9100";
+    color7 = "#FFB600";
   };
 
   character = {
-    success_symbol = "[λ](bold fg:base08)";
-    error_symbol = "[](bold fg:base03)";
+    success_symbol = "[λ](bold fg:color6)";
+    error_symbol = "[](bold fg:color3)";
   };
 
-  # This one doesn't like `base0B` for some reason.... spooky
+  # This one doesn't like `color7` for some reason.... spooky
   cmd_duration = {
-    style = "fg:base00 bg:#FFC800";
-    format = "[ 󱎫 $duration ]($style)[](fg:#FFC800)";
+    style = "fg:color0 bg:color7";
+    format = "[ 󱎫 $duration ]($style)[](fg:color7)";
   };
 
   directory = {
-    style = "fg:base00 bg:base06";
+    style = "fg:color0 bg:color5";
     truncate_to_repo = true;
     fish_style_pwd_dir_length = 1;
-    format = "[ $path$read_only ]($style)[](fg:base06)";
+    format = "[ $path$read_only ]($style)[](fg:color5)";
     read_only = "  ";
   };
 
   docker_context = {
-    style = "fg:base00 bg:base0A";
+    style = "fg:color0 bg:color7";
     symbol = " ";
-    format = "[ $symbol $context ]($style)[](fg:base0A)";
+    format = "[ $symbol $context ]($style)[](fg:color7)";
   };
 
   git_branch = {
-    style = "fg:base00 bg:base07";
-    format = "[ $symbol$branch ]($style)[](fg:base07)";
+    style = "fg:color0 bg:color6";
+    format = "[ $symbol$branch ]($style)[](fg:color6)";
   };
 
   git_commit = {
-    style = "fg:base00 bg:base07";
-    format = "[ \\($hash$tag\\)]($style)[](fg:base07)";
+    style = "fg:color0 bg:color6";
+    format = "[ \\($hash$tag\\)]($style)[](fg:color6)";
   };
 
   git_state = {
-    style = "fg:base00 bg:base07";
-    format = "[ \\($progress_current/$progress_total\\)]($style)[](fg:base07)";
+    style = "fg:color0 bg:color6";
+    format = "[ \\($progress_current/$progress_total\\)]($style)[](fg:color6)";
   };
 
   git_status = {
-    style = "fg:base00 bg:base07";
-    format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:base07)";
+    style = "fg:color0 bg:color6";
+    format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:color6)";
     staged = "  $count ";
     modified = "  $count ";
     renamed = "  $count ";
@@ -69,76 +65,76 @@
     stashed = "  $count ";
     behind = "  $count ";
     ahead = "  $count ";
-    conflicted = "[   $count ](fg:base03 bg:#FFC800)";
-    diverged = "[  󰙁   $ahead_count  $behind_count ](fg:base03 bg:#FFC800)";
+    conflicted = "[   $count ](fg:color3 bg:color7)";
+    diverged = "[  󰙁   $ahead_count  $behind_count ](fg:color3 bg:color7)";
   };
 
   golang = {
     symbol = "󰟓 ";
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color1";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   helm = {
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color7";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   kotlin = {
     symbol = "󱈙 ";
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color7";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   kubernetes = {
     symbol = "󱃾 ";
-    style = "fg:base00 bg:base04";
-    format = "[ $symbol$context ]($style)[](fg:base04)";
+    style = "fg:color0 bg:color1";
+    format = "[ $symbol$context ]($style)[](fg:color4)";
     disabled = true;
   };
 
   nodejs = {
     symbol = " ";
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:green";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   php = {
     symbol = "󰌟 ";
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color2";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   python = {
     symbol = " ";
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$pyenv_prefix$version$virtualenv ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color7";
+    format = "[ $symbol$pyenv_prefix$version$virtualenv ]($style)[](fg:color7)";
   };
 
   rust = {
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color3";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   swift = {
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$version ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color7";
+    format = "[ $symbol$version ]($style)[](fg:color7)";
   };
 
   shlvl = {
     symbol = "󱎞 ";
-    style = "fg:base00 bg:base04";
-    format = "[ $symbol$shlvl ]($style)[](fg:base04)";
+    style = "fg:color0 bg:color4";
+    format = "[ $symbol$shlvl ]($style)[](fg:color4)";
   };
 
   terraform = {
-    style = "fg:base00 bg:base0A";
-    format = "[ $symbol$workspace ]($style)[](fg:base0A)";
+    style = "fg:color0 bg:color7";
+    format = "[ $symbol$workspace ]($style)[](fg:color7)";
   };
 
   username = {
-    style_user = "blue";
-    style_root = "base03";
-    format = "[ $user ](fg:base00 bg:$style)[](fg:$style)";
+    style_user = "color1";
+    style_root = "color3";
+    format = "[ $user ](fg:color0 bg:$style)[](fg:$style)";
   };
 }
