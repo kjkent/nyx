@@ -69,10 +69,13 @@ with osConfig;
         ];
 
         windowrulev2 = [
+          "tile,class:^(\.)?scrcpy(-wrapped)?$"
+          "maxsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
+          "minsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
+          
           "stayfocused,title:^$,class:^steam$"
           "minsize 1 1,title:^$,class:^steam$"
           "opacity 0.9 0.7,class:^thunar$"
-          "tile,class:^(\.)?scrcpy(-wrapped)?$"
           "float,title:^(Select|Open|Save) (File|Image|Folder)$"
           "float,title:^Welcome to WebStorm$"
         ];
