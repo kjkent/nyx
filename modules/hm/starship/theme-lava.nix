@@ -34,9 +34,9 @@
   };
 
   docker_context = {
-    style = "fg:color0 bg:color7";
+    style = "fg:#384D54 bg:#0DB7ED";
     symbol = " ";
-    format = "[ $symbol $context ]($style)[](fg:color7)";
+    format = "[ $symbol $context ]($style)[](fg:#0DB7ED)";
   };
 
   git_branch = {
@@ -71,8 +71,8 @@
 
   golang = {
     symbol = "󰟓 ";
-    style = "fg:color0 bg:color1";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    style = "fg:color0 bg:#00ADD8";
+    format = "[ $symbol$version ]($style)[](fg:#00ADD8)";
   };
 
   helm = {
@@ -82,43 +82,43 @@
 
   kotlin = {
     symbol = "󱈙 ";
-    style = "fg:color0 bg:color7";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    style = "fg:color0 bg:#7F52FF";
+    format = "[ $symbol$version ]($style)[](fg:#7F52FF)";
   };
 
   kubernetes = {
     symbol = "󱃾 ";
-    style = "fg:color0 bg:color1";
-    format = "[ $symbol$context ]($style)[](fg:color4)";
+    style = "fg:color0 bg:#326CE5";
+    format = "[ $symbol$context ]($style)[](fg:#326CE5)";
     disabled = true;
   };
 
   nodejs = {
     symbol = " ";
-    style = "fg:color0 bg:green";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    style = "fg:color0 bg:#6CC24A";
+    format = "[ $symbol$version ]($style)[](fg:#6CC24A)";
   };
 
   php = {
     symbol = "󰌟 ";
     style = "fg:color0 bg:color2";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    format = "[ $symbol$version ]($style)[](fg:#AEB2D5)";
   };
 
   python = {
     symbol = " ";
-    style = "fg:color0 bg:color7";
-    format = "[ $symbol$pyenv_prefix$version$virtualenv ]($style)[](fg:color7)";
+    style = "fg:#4584b6 bg:#FFDE57";
+    format = "[ $symbol$pyenv_prefix$version$virtualenv ]($style)[](fg:#FFDE57)";
   };
 
   rust = {
-    style = "fg:color0 bg:color3";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    style = "fg:#281C1C bg:#CE422B";
+    format = "[ $symbol$version ]($style)[](fg:#CE422B)";
   };
 
   swift = {
-    style = "fg:color0 bg:color7";
-    format = "[ $symbol$version ]($style)[](fg:color7)";
+    style = "fg:color0 bg:#F05138";
+    format = "[ $symbol$version ]($style)[](fg:#F05138)";
   };
 
   shlvl = {
@@ -128,8 +128,8 @@
   };
 
   terraform = {
-    style = "fg:color0 bg:color7";
-    format = "[ $symbol$workspace ]($style)[](fg:color7)";
+    style = "fg:color0 bg:#7B42BC";
+    format = "[ $symbol$workspace ]($style)[](fg:#7B42BC)";
   };
 
   username = {
