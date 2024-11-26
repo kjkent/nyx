@@ -41,6 +41,7 @@ in
           nap = "systemctl suspend";
           please = "sudo \"$SHELL\" -c \"$(fc -ln -1)\"";
           ffs = please;
+          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl";
           tmux = "tmux new -As0";
           yklean = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
 
