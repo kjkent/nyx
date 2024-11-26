@@ -38,7 +38,7 @@ in
         shellAliases = rec {
           adbp = "adb pair";
           adbc = "adb connect";
-          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl";
+          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl &>/dev/null &; disown";
           cat = "bat";
           chrome = "google-chrome-stable";
           nap = "systemctl suspend";
