@@ -1,25 +1,34 @@
-_: {
+_: let
+  enabled = { Value = true; };
+  disabled = { Value = false; };
+  enabledLocked = enabled // { Locked = true; };
+  disabledLocked = disabled // { Locked = true; };
+in {
   config = {
     programs.firefox = {
       enable = true;
       # nativeMessagingHosts = [  ];
       policies = {
+        DisplayBookmarksToolbar = "always";
+        DisableFirefoxStudies = true;
         DisablePocket = true;
         DisableTelemetry = true;
         DontCheckDefaultBrowser = true;
+        EnableTrackingProtection = enabled // {
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
         FirefoxHome = {
-          TopSites = true;
-          SponsoredTopSites = false;
           Pocket = false;
+          SponsoredTopSites = false;
           SponsoredPocket = false;
           Snippets = true;
-          Locked = false;
+          TopSites = true;
         };
         FirefoxSuggest = {
           WebSuggestions = true;
           SponsoredSuggestions = false;
           ImproveSuggest = false;
-          Locked = false;
         };
         ExtensionSettings = {
           "uBlock0@raymondhill.net" = {
@@ -48,6 +57,19 @@ _: {
         SearchSuggestEnabled = true;
         ShowHomeButton = false;
         StartDownloadsInTempDirectory = false;
+        
+        Preferences = { # Found by visiting URL: "about:config" in firefox
+          "browser.aboutConfig.showWarning" = disabled;
+          "browser.backspace_action" = { Value = 0; };
+          "browser.compactmode.show" = enabled;
+          "browser.display.use_system_colors" = enabled;
+          "browser.download.autohideButton" = disabled;
+          "browser.ml.chat.enabled" = enabled;
+          "browser.ml.chat.provider" = { Value = "https://claude.ai/new"; };
+          "browser.uidensity" = { Value = 1; };
+          "browser.warnOnQuitShortcut" = disabled;
+          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = enabled;
+        };
       };
     };
   };
