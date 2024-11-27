@@ -11,17 +11,18 @@
         cura
         discord
         gimp
+        grim
+        hyprpicker
         #libreoffice
         obsidian
-        telegram-desktop
         protonmail-desktop
-        sublime4
-        hyprpicker
-        swaynotificationcenter
-        super-productivity
-        grim
         slurp
+        sublime4
+        super-productivity
         swappy
+        swaynotificationcenter
+        teams-for-linux
+        telegram-desktop
         ####
 
         ###### User CLI
