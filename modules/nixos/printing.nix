@@ -4,13 +4,13 @@
     services = {
       ipp-usb.enable = false;
       printing = {
-        enable = false;
-        drivers = [ ];
+        enable = true;
+        drivers = with pkgs; [ brgenml1lpr brgenml1cupswrapper ];
       };
     };
     hardware.sane = {
-      enable = false;
-      extraBackends = [ pkgs.sane-airscan ];
+      enable = true;
+      extraBackends = with pkgs; [ sane-airscan ];
     };
   };
 }
