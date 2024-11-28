@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   imports = [
     ./bridge.nix
@@ -6,5 +6,6 @@
     ./interfaces.nix
     ./packages.nix
     ./services.nix
+    ./tuning.nix
   ];
 }

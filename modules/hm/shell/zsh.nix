@@ -36,12 +36,14 @@ in
           searchDownKey = "$terminfo[kcud1]";
         };
         shellAliases = rec {
+          adbp = "adb pair";
+          adbc = "adb connect";
+          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl";
           cat = "bat";
           chrome = "google-chrome-stable";
           nap = "systemctl suspend";
           please = "sudo \"$SHELL\" -c \"$(fc -ln -1)\"";
           ffs = please;
-          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl";
           tmux = "tmux new -As0";
           yklean = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
 
@@ -99,6 +101,19 @@ in
           # Add a newline between commands
           # Fixes starship newline=true opening with line break
           precmd() { precmd() { echo } }
+          
+          # Alias companion utility funcs for adb & scrcpy
+          adbpc() {
+            adbp "$1" &&
+            read -p "Connection Port: " conn_port &&
+            adbc "''${1%%:*}:$conn_port"
+          }
+          scrc() {
+            adbc "$1" && scr
+          }
+          scrp() {
+            adbpc "$1" && scr
+          }
         '';
       };
     };

@@ -18,9 +18,7 @@
     programs = {
       nm-applet.enable = lib.mkIf config.networking.networkmanager.enable true;
     };
-    environment.systemPackages = lib.mkIf config.networking.networkmanager.enable [
-      pkgs.networkmanagerapplet
-    ];
+
     services = {
       avahi = {
         enable = true;
