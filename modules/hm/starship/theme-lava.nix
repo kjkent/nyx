@@ -55,18 +55,17 @@
   };
 
   git_status = {
-    style = "fg:color0 bg:color6";
-    format = "[]($style)$conflicted$diverged[$staged$modified$renamed$deleted$untracked$stashed$behind$ahead]($style)[](fg:color6)";
-    staged = "  $count ";
-    modified = "  $count ";
-    renamed = "  $count ";
-    deleted = "  $count ";
-    untracked = " ? $count ";
-    stashed = "  $count ";
-    behind = "  $count ";
-    ahead = "  $count ";
-    conflicted = "[   $count ](fg:color3 bg:color7)";
-    diverged = "[  󰙁   $ahead_count  $behind_count ](fg:color3 bg:color7)";
+    format = "$conflicted$diverged$staged$modified$renamed$deleted$untracked$stashed$behind$ahead";
+    staged = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    modified = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    renamed = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    deleted = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    untracked = "[ ? $count](fg:color0 bg:color6)[](fg:color6)";
+    stashed = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    behind = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    ahead = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    conflicted = "[ 󰞇 $count ](fg:color0 bg:color3)[](fg:color3)";
+    diverged = "[  󰙁   $ahead_count  $behind_count ](fg:color3 bg:color7)[](fg:color7)";
   };
 
   golang = {
