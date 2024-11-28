@@ -42,7 +42,6 @@
     }:
     let
       assetsPath = ./assets;
-      nixosModulesPath = ./modules/nixos;
       hmModulesPath = ./modules/hm;
       shellPlatforms = [ "x86_64-linux" ];
 
@@ -56,25 +55,19 @@
             inherit
               assetsPath
               hmModulesPath
+              home-manager
               hostName
               hyprland
               inputs
-              self
-              nixosModulesPath
+              nix-index-db
               nixosUser
               nixpkgs-stable
+              self
+              sops-nix
+              stylix
               ;
           };
-          modules = [
-            sops-nix.nixosModules.sops
-            nix-index-db.nixosModules.nix-index
-            stylix.nixosModules.stylix
-            home-manager.nixosModules.home-manager
-
-            "${nixosModulesPath}"
-            (import ./deploy/hosts.nix)."${hostName}"
-            ./pkg
-          ];
+          modules = [ ./modules ];
         };
 
       mkShellSpec =
