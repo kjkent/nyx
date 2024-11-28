@@ -2,6 +2,7 @@
   config,
   lib,
   nixosUser,
+  nixpkgs-orca,
   nixpkgs-stable,
   self,
   ...
@@ -22,8 +23,16 @@
         (
           _: _: with config.nixpkgs; {
             stable = import nixpkgs-stable {
-              inherit hostPlatform;
-              system = hostPlatform;
+              inherit hostPlatform system;
+              config.allowUnfree = config.allowUnfree;
+            };
+          }
+        )
+        # Makes orca PR available as pkgs.orca
+        (
+          _: _: with config.nixpkgs; {
+            orca = import nixpkgs-orca {
+              inherit hostPlatform system;
               config.allowUnfree = config.allowUnfree;
             };
           }
