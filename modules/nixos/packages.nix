@@ -15,6 +15,7 @@
         hyprpicker
         #libreoffice
         obsidian
+        orca-slicer
         protonmail-desktop
         slurp
         sublime4
