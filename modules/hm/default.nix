@@ -9,6 +9,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./list-bindings.nix
+    ./nix-index-db.nix
     ./nvim
     ./rofi.nix
     ./screenshot.nix
