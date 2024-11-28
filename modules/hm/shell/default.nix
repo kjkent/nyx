@@ -6,6 +6,6 @@ _: {
     ./zsh.nix
   ];
   config = {
-    programs.nix-index.enable = true; # works with nix-index-database module
+    #programs.nix-index.enable = true; # Conflicts with nix-index-database module
   };
 }
