@@ -445,22 +445,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-orca": {
-      "locked": {
-        "lastModified": 1732772195,
-        "narHash": "sha256-DrZclAnpC7EdF2clFELAEMtAmQUTdieKXzXqcjM/IKU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "047d145999002ae57cd4d0acb6d0592dfb5db60a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "047d145999002ae57cd4d0acb6d0592dfb5db60a",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1732350895,
@@ -523,7 +507,6 @@
         "hyprland": "hyprland",
         "nix-index-db": "nix-index-db",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-orca": "nixpkgs-orca",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "sops-nix": "sops-nix",
         "stylix": "stylix",

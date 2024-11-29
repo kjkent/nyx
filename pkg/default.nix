@@ -8,9 +8,9 @@
           callPkg = pkg: callPackage pkg pre;
         in
         {
-          mkFontPkg = callPkg ./mkFontPkg.nix;
           cura = callPkg ./cura.nix;
-          orca-slicer = callPkg ./orca-slicer;
+          mkFontPkg = callPkg ./mkFontPkg.nix;
+          orca-slicer = callPkg ./orca-slicer.nix;
         }
       )
     ];

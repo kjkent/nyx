@@ -25,9 +25,6 @@ in
       overlays = with inputs; [
         # Makes stable nixpkgs available as pkgs.stable
         (initPkgs "stable" nixpkgs-stable)
-
-        # Makes orca PR available as pkgs.orca
-        (initPkgs "orca" nixpkgs-orca)
       ];
       config.allowUnfree = true; # Only for build
       hostPlatform = lib.mkDefault "x86_64-linux";

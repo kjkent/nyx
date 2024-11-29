@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    # For orca-slicer. PR# 358948
-    nixpkgs-orca.url = "github:nixos/nixpkgs/047d145999002ae57cd4d0acb6d0592dfb5db60a";
     systems.url = "github:nix-systems/default"; # req by nix-auto-follow
 
     home-manager = {
