@@ -13,7 +13,7 @@
         gimp
         grim
         hyprpicker
-        #libreoffice
+        libreoffice
         obsidian
         pkgs.orca.orca-slicer
         protonmail-desktop

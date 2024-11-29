@@ -7,7 +7,7 @@
       sops
       tpm2-tss
       tpm2-tools
-      # yubikey-manager broken
+      yubikey-manager
     ];
     services.gnome.gnome-keyring.enable = true;
     programs.seahorse.enable = true;
