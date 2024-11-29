@@ -33,14 +33,8 @@
   outputs =
     inputs@{
       home-manager,
-      hyprland,
       nixpkgs,
-      nixpkgs-orca,
-      nixpkgs-stable,
-      nix-index-db,
       self,
-      sops-nix,
-      stylix,
       ...
     }:
     let
@@ -60,15 +54,9 @@
               hmModulesPath
               home-manager
               hostName
-              hyprland
               inputs
-              nix-index-db
               nixosUser
-              nixpkgs-orca
-              nixpkgs-stable
               self
-              sops-nix
-              stylix
               ;
           };
           modules = [ ./modules ];

@@ -1,6 +1,7 @@
 let
   modDir = ../modules/nixos;
-in {
+in
+{
   kdes = _: {
     imports = [
       "${modDir}/network/firewall/klipper.nix"

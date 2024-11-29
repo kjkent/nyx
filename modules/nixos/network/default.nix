@@ -1,5 +1,4 @@
-_:
-{
+_: {
   imports = [
     ./bridge.nix
     ./firewall

@@ -19,17 +19,11 @@ bambu-studio.overrideAttrs (
       hash = "sha256-h+cHWhrp894KEbb3ic2N4fNTn13WlOSYoMsaof0RvRI=";
     };
 
-    nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [
-      pkg-config
-    ];
+    nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [ pkg-config ];
 
-    buildInputs = (lib.remove webkitgtk_4_0 previousAttrs.buildInputs or [ ]) ++ [
-      webkitgtk_4_1
-    ];
+    buildInputs = (lib.remove webkitgtk_4_0 previousAttrs.buildInputs or [ ]) ++ [ webkitgtk_4_1 ];
 
-    cmakeFlags = (previousAttrs.cmakeFlags or [ ]) ++ [
-      "-DUSE_WEBKIT_4_1=ON"
-    ];
+    cmakeFlags = (previousAttrs.cmakeFlags or [ ]) ++ [ "-DUSE_WEBKIT_4_1=ON" ];
 
     patches = [
       # Fix for webkitgtk linking

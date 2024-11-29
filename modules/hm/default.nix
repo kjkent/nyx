@@ -1,4 +1,5 @@
-{osConfig, ...}: {
+{ osConfig, ... }:
+{
   imports = [
     ./environment.nix
     ./fastfetch.nix

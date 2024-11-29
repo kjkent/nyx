@@ -2,8 +2,6 @@
   config,
   lib,
   nixosUser,
-  nixpkgs-orca,
-  nixpkgs-stable,
   self,
   ...
 }:
@@ -12,34 +10,6 @@
     # Links repo to /etc/self for an always current view of the present config
     # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kpro1wm/
     environment.etc.self.source = self;
-
-    # allowUnfree noop after install - github.com/NixOS/nixpkgs/issues/356209
-    nixpkgs = rec {
-      config.allowUnfree = true;
-      hostPlatform = lib.mkDefault "x86_64-linux";
-      system = hostPlatform;
-      overlays = [
-        # Makes stable nixpkgs available as pkgs.stable
-        (
-          _: _: with config.nixpkgs; {
-            stable = import nixpkgs-stable {
-              inherit hostPlatform system;
-              config.allowUnfree = config.allowUnfree;
-            };
-          }
-        )
-        # Makes orca PR available as pkgs.orca
-        (
-          _: _: with config.nixpkgs; {
-            orca = import nixpkgs-orca {
-              inherit hostPlatform system;
-              config.allowUnfree = config.allowUnfree;
-            };
-          }
-        )
-      ];
-    };
-    environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
 
     nix = {
       channel.enable = false; # Unnecessary due to flake but enabled by default

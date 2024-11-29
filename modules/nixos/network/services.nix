@@ -3,7 +3,6 @@
   hostName,
   options,
   config,
-  pkgs,
   ...
 }:
 {

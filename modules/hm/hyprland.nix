@@ -72,7 +72,7 @@ with osConfig;
           "tile,class:^(\.)?scrcpy(-wrapped)?$"
           "maxsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
           "minsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
-          
+
           "stayfocused,title:^$,class:^steam$"
           "minsize 1 1,title:^$,class:^steam$"
           "opacity 0.9 0.7,class:^thunar$"

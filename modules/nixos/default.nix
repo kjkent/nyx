@@ -1,12 +1,11 @@
-_:
-{
+_: {
   imports = [
     ./audio.nix
     ./boot.nix
     ./fonts.nix
     ./firmware.nix
     ./graphics.nix
-    ./hm.nix 
+    ./hm.nix
     ./hyprland.nix
     ./input.nix
     ./kernel.nix
@@ -14,11 +13,14 @@ _:
     ./locale.nix
     ./network
     ./nix.nix
+    ./nixpkgs.nix
+    ./nix-index-db.nix
     ./nyx.nix
     ./packages.nix
     ./printing.nix
     ./security.nix
     ./session.nix
+    ./sops.nix
     ./storage.nix
     ./stylix.nix
     ./thunar.nix

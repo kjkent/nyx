@@ -98,8 +98,6 @@
         enable = true;
         binfmt = true; # Automatically run with `appimage-run` interpreter
       };
-      # command-not-found.enable = true; # conflicts with nix-index-database
-      nix-index-database.comma.enable = true; # Requires flake module
       nix-ld.enable = true;
       dconf.enable = true;
       direnv = {

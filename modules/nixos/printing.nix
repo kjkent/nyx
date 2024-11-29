@@ -5,7 +5,10 @@
       ipp-usb.enable = false;
       printing = {
         enable = true;
-        drivers = with pkgs; [ brgenml1lpr brgenml1cupswrapper ];
+        drivers = with pkgs; [
+          brgenml1lpr
+          brgenml1cupswrapper
+        ];
       };
     };
     hardware.sane = {

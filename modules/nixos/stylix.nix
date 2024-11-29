@@ -1,10 +1,12 @@
 {
   assetsPath,
-  pkgs,
   config,
+  inputs,
+  pkgs,
   ...
 }:
 {
+  imports = [ inputs.stylix.nixosModules.stylix ];
   config = {
     stylix = with pkgs; {
       enable = true;

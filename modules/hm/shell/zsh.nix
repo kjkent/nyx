@@ -101,7 +101,7 @@ in
           # Add a newline between commands
           # Fixes starship newline=true opening with line break
           precmd() { precmd() { echo } }
-          
+
           # Alias companion utility funcs for adb & scrcpy
           adbpc() {
             adbp "$1" &&

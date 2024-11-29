@@ -1,16 +1,16 @@
 {
+  inputs,
   lib,
   pkgs,
   config,
-  hyprland,
   ...
 }:
 let
   arch = pkgs.stdenv.hostPlatform.system;
   # pkgs-hypr == os nixpkgs used to build hypr, so we can match versions
-  pkgs-hypr = hyprland.inputs.nixpkgs.legacyPackages.${arch};
+  pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${arch};
   # hypr-pkgs == packages for hyprland itself
-  hypr-pkgs = hyprland.packages.${arch};
+  hypr-pkgs = inputs.hyprland.packages.${arch};
 in
 {
   options = with lib; {

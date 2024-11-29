@@ -46,24 +46,24 @@
 
   git_commit = {
     style = "fg:color0 bg:color6";
-    format = "[ \\($hash$tag\\)]($style)[](fg:color6)";
+    format = "[ \\($hash$tag\\) ]($style)[](fg:color6)";
   };
 
   git_state = {
     style = "fg:color0 bg:color6";
-    format = "[ \\($progress_current/$progress_total\\)]($style)[](fg:color6)";
+    format = "[ \\($progress_current/$progress_total\\) ]($style)[](fg:color6)";
   };
 
   git_status = {
     format = "$conflicted$diverged$staged$modified$renamed$deleted$untracked$stashed$behind$ahead";
-    staged = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    modified = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    renamed = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    deleted = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    untracked = "[ ? $count](fg:color0 bg:color6)[](fg:color6)";
-    stashed = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    behind = "[  $count](fg:color0 bg:color6)[](fg:color6)";
-    ahead = "[  $count](fg:color0 bg:color6)[](fg:color6)";
+    staged = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    modified = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    renamed = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    deleted = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    untracked = "[ ? $count ](fg:color0 bg:color6)[](fg:color6)";
+    stashed = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    behind = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
+    ahead = "[  $count ](fg:color0 bg:color6)[](fg:color6)";
     conflicted = "[ 󰞇 $count ](fg:color0 bg:color3)[](fg:color3)";
     diverged = "[  󰙁   $ahead_count  $behind_count ](fg:color3 bg:color7)[](fg:color7)";
   };

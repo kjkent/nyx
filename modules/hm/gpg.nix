@@ -1,4 +1,9 @@
-{ config, nixosUser, pkgs, ... }:
+{
+  config,
+  nixosUser,
+  pkgs,
+  ...
+}:
 {
   config = {
     services.gpg-agent = {

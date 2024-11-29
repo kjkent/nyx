@@ -1,9 +1,19 @@
-_: let
-  enabled = { Value = true; };
-  disabled = { Value = false; };
-  enabledLocked = enabled // { Locked = true; };
-  disabledLocked = disabled // { Locked = true; };
-in {
+_:
+let
+  enabled = {
+    Value = true;
+  };
+  disabled = {
+    Value = false;
+  };
+  enabledLocked = enabled // {
+    Locked = true;
+  };
+  disabledLocked = disabled // {
+    Locked = true;
+  };
+in
+{
   config = {
     programs.firefox = {
       enable = true;
@@ -57,16 +67,23 @@ in {
         SearchSuggestEnabled = true;
         ShowHomeButton = false;
         StartDownloadsInTempDirectory = false;
-        
-        Preferences = { # Found by visiting URL: "about:config" in firefox
+
+        Preferences = {
+          # Found by visiting URL: "about:config" in firefox
           "browser.aboutConfig.showWarning" = disabled;
-          "browser.backspace_action" = { Value = 0; };
+          "browser.backspace_action" = {
+            Value = 0;
+          };
           "browser.compactmode.show" = enabled;
           "browser.display.use_system_colors" = enabled;
           "browser.download.autohideButton" = disabled;
           "browser.ml.chat.enabled" = enabled;
-          "browser.ml.chat.provider" = { Value = "https://claude.ai/new"; };
-          "browser.uidensity" = { Value = 1; };
+          "browser.ml.chat.provider" = {
+            Value = "https://claude.ai/new";
+          };
+          "browser.uidensity" = {
+            Value = 1;
+          };
           "browser.warnOnQuitShortcut" = disabled;
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = enabled;
         };
