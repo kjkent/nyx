@@ -74,13 +74,13 @@ appimageTools.wrapType2 {
   extraInstallCommands = ''
     install \
       -D \
-      --mode 644 \
+      --mode 444 \
       --target-directory "$out"/share/icons/hicolor/128x128/apps \
       "${appimageContents}"/share/cura/resources/images/cura-icon.png
 
     install \
       -D \
-      --mode 644 \
+      --mode 444 \
       --target-directory "$out"/share/applications \
       "${desktopItem}"/share/applications/*.desktop
   '';

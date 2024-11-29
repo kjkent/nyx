@@ -5,19 +5,12 @@
   ...
 }:
 let
-  initPkgs = namespace: pkgs: (
-    _: _: with config.nixpkgs; {
-      ${namespace} = import pkgs {
-        system = 
-          hostPlatform.content.system # if wrapped in lib.mkDefault and is attrset
-          or hostPlatform.content # if a default and a string
-          or hostPlatform.system # if not a default and is an attrset
-          or hostPlatform # not a default, just a string
-          ;
-        inherit (config) allowUnfree;
-      };
-    }
-  );
+  initPkgs = namespace: pkgs: (post: pre: with config.nixpkgs; {
+    ${namespace} = import pkgs {
+      inherit (pre.stdenv.hostPlatform) system;
+      inherit (config) allowUnfree;
+    };
+  });
 in
 {
   config = {

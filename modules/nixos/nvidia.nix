@@ -16,6 +16,12 @@
       LIBVA_DRIVER_NAME = "nvidia";
       NVD_BACKEND = "direct";
     };
+    programs = {
+      nix-ld.libraries = with pkgs; [
+        nvidia-vaapi-driver
+        config.boot.kernelPackages.nvidia_x11 
+      ];
+    };
     services = {
       xserver.videoDrivers = [ "nvidia" ];
       ollama.acceleration = "cuda";

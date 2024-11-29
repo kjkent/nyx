@@ -18,6 +18,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     install_dir="$out/share/fonts/${fontName}"
-    install -D --mode 644 --target-directory "$install_dir" *
+    install -D --mode 444 --target-directory "$install_dir" *
   '';
 }

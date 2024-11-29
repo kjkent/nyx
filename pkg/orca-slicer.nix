@@ -1,5 +1,4 @@
-# Adapted from: https://github.com/afresquet/dotfiles/blob/de11f33c5fae9bcdae9bdb8b5e55e4c33e4f6dba/pkgs/cura.nix
-{ lib, pkgs, ... }:
+{ lib, pkgs, stdenv, ... }:
 with pkgs;
 let
   pname = "orca-slicer";
@@ -9,7 +8,7 @@ let
     description = "Orca Slicer is an open source slicer for FDM printers.";
     homepage = "https://github.com/SoftFever/OrcaSlicer";
     changelog = "https://github.com/SoftFever/OrcaSlicer/releases/tag/v${version}";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = [ "x86_64-linux" ];
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
     mainProgram = pname;
@@ -37,37 +36,65 @@ let
       "application/x-amf"
     ];
   };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
-  extraPkgs =
-    p: with p; [
-      libGL
-      libGLX
-      vulkan-loader
-      vulkan-headers
-      webkitgtk_4_0
-      zlib-ng
-    ];
+in stdenv.mkDerivation {
+  inherit meta pname src version;
 
-  extraInstallCommands = ''
-    # This will be plan B if the extraPkg doesn't work 
-    #"${patchelf}"/bin/patchelf --set-rpath "${webkitgtk_4_0}"/lib "$out"/bin/"${pname}"
+  dontUnpack = true;
 
-    # This will be plan C if patchelf doesn't work
-    #ln -s "${webkitgtk_4_0}/lib/libwebkit2gtk-4.0.so.37" \
-    #  "$out"/usr/lib/x86_64-linux-gnu/libwebkit2gtk-4.0.so.37
+  installPhase = ''
+    mkdir -p "$out"
+    cp -a "${appimageContents}"/* "$out/"
+    
+    install \
+      -D \
+      --mode 444 \
+      --target-directory "$out/share/applications" \
+      "${desktopItem}/share/applications/${pname}.desktop"
 
     install \
       -D \
-      --mode 644 \
-      --target-directory "$out"/share/icons/hicolor/128x128/apps \
-      "${appimageContents}"/resources/images/OrcaSlicer_128px.png
+      --mode 444 \
+      --target-directory "$out/share/icons/hicolor/192x192/apps/" \
+      "$out/OrcaSlicer.png" 
 
-    install \
-      -D \
-      --mode 644 \
-      --target-directory "$out"/share/applications \
-      "${desktopItem}"/share/applications/"${pname}".desktop
+    rm "$out/OrcaSlicer.desktop"
+  '';
+
+  postFixup = ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${
+        lib.makeLibraryPath [
+          cairo
+          dbus.lib
+          expat
+          fontconfig.lib
+          gdk-pixbuf
+          glib
+          glibc
+          gst_all_1.gstreamer
+          gst_all_1.gst-plugins-base
+          gtk3
+          kdePackages.wayland.out
+          libdrm
+          libgcc.lib
+          libGL
+          libGLX
+          libudev0-shim
+          libva
+          libxcrypt
+          libz
+          mesa
+          pango
+          (webkitgtk_4_0.overrideAttrs (old: {
+            buildInputs = [ mesa ] ++ old.buildInputs;
+          }))
+          udev
+          vulkan-loader
+          xorg.libX11
+          zlib
+        ]
+      }" \
+      "$out/bin/${pname}"
   '';
 }

@@ -20,7 +20,7 @@
         slurp
         swappy
         (writeShellScriptBin "screenshot" ''
-          grim -g "$(slurp)" - | swappy -f -
+          grim -c -g "$(slurp)" - | swappy -f -
         '')
       ];
     };
