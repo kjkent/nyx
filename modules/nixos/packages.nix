@@ -15,7 +15,7 @@
         hyprpicker
         libreoffice
         obsidian
-        stable.orca-slicer
+        pkgs-24_05.orca-slicer
         protonmail-desktop
         slurp
         sublime4
