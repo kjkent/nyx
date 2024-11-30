@@ -70,6 +70,7 @@ in
 
         Preferences = {
           # Found by visiting URL: "about:config" in firefox
+          "accessibility.typeaheadfind" = disabledLocked;
           "browser.aboutConfig.showWarning" = disabled;
           "browser.backspace_action" = {
             Value = 0;
