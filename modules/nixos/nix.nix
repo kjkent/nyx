@@ -22,6 +22,7 @@
         # Optimise new store contents - `nix-store optimise` cleans old
         auto-optimise-store = true;
         use-xdg-base-directories = true;
+        download-buffer-size = 536870912; # 512MB
         # https://bmcgee.ie/posts/2023/12/til-how-to-optimise-substitutions-in-nix/
         http-connections = 128;
         max-substitution-jobs = 128;
