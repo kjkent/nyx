@@ -10,6 +10,7 @@ _: {
     ./input.nix
     ./kernel.nix
     ./keyboard.nix
+    ./klipper.nix
     ./locale.nix
     ./network
     ./nix.nix

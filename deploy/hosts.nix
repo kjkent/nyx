@@ -4,7 +4,6 @@ in
 {
   kdes = _: {
     imports = [
-      "${modDir}/network/firewall/klipper.nix"
       "${modDir}/amd.nix"
     ];
     config = {
@@ -16,6 +15,7 @@ in
         "HDMI-A-1, 2560x1080, 0x0, 1"
         "DP-1, 1920x1080, -1080x0, 1, transform, 1"
       ];
+      services.klipper.custom.enable = true;
     };
   };
   klap = _: {
