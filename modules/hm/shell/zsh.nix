@@ -36,9 +36,7 @@ in
           searchDownKey = "$terminfo[kcud1]";
         };
         shellAliases = rec {
-          adbp = "adb pair";
           adbc = "adb connect";
-          scr = "scrcpy --keyboard=uhid --stay-awake --no-audio --shortcut-mod=lctrl &>/dev/null &; disown";
           cat = "bat";
           chrome = "google-chrome-stable";
           nap = "systemctl suspend";
@@ -103,16 +101,24 @@ in
           precmd() { precmd() { echo } }
 
           # Alias companion utility funcs for adb & scrcpy
-          adbpc() {
-            adbp "$1" &&
+          phone_ip="192.168.1.103"
+          adbc() {
+            adb connect "$phone_ip:$1"
+          }
+          adbp() {
+            adb pair "$phone_ip:$1" &&
             read -p "Connection Port: " conn_port &&
-            adbc "''${1%%:*}:$conn_port"
+            adbc "$conn_port"
           }
-          scrc() {
-            adbc "$1" && scr
-          }
-          scrp() {
-            adbpc "$1" && scr
+          scr() {
+            adbc "$1"
+            scrcpy \
+              --keyboard=uhid \
+              --stay-awake \
+              --no-audio \
+              --shortcut-mod=lctrl \
+              &>/dev/null &
+            disown
           }
         '';
       };
