@@ -15,6 +15,7 @@ _: {
     ./nix.nix
     ./nixpkgs.nix
     ./nix-index-db.nix
+    ./nvidia.nix
     ./nyx.nix
     ./packages.nix
     ./printing.nix

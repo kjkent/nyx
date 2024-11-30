@@ -3,7 +3,7 @@
   options = {
     hardware.nvidia.enable = with lib; mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable NVIDIA GPU configuration";
     };
   };
