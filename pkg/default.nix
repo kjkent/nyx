@@ -10,7 +10,6 @@
         {
           cura = callPkg ./cura.nix;
           mkFontPkg = callPkg ./mkFontPkg.nix;
-          orca-slicer = callPkg ./orca-slicer.nix;
         }
       )
     ];

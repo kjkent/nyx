@@ -1,35 +1,5 @@
-{ pkgs, ... }: with pkgs; let
-  stdPkgs = [
-    cairo
-    dbus.lib
-    expat
-    fontconfig.lib
-    gdk-pixbuf
-    glib
-    glibc
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gtk3
-    kdePackages.wayland.out
-    libdrm
-    libgcc.lib
-    libGL
-    libGLX
-    libudev0-shim
-    libva
-    libxcrypt
-    libz
-    mesa
-    pango
-    (webkitgtk_4_0.overrideAttrs (old: {
-      buildInputs = [ mesa ] ++ old.buildInputs;
-    }))
-    udev
-    vulkan-loader
-    xorg.libX11
-    zlib
-  ] ++ (appimageTools.multiPkgs pkgs);
-in {
+{ pkgs, ... }: with pkgs;
+{
   config = {
     nixpkgs.config.permittedInsecurePackages = [
       "openssl-1.1.1w" # Needed by sublime4, apparently a non-issue as fix backported.
@@ -45,7 +15,7 @@ in {
         hyprpicker
         libreoffice
         obsidian
-        pkgs.orca-slicer
+        stable.orca-slicer
         protonmail-desktop
         slurp
         sublime4
@@ -127,17 +97,13 @@ in {
       appimage = {
         enable = true;
         binfmt = true; # Automatically run with `appimage-run` interpreter
-        package = (appimage-run.override {
-          extraPkgs = p: with p; [
-            ffmpeg
-            imagemagick
-            vulkan-headers
-          ] ++ stdPkgs;
-        });
+        #package = (appimage-run.override {
+        #  extraPkgs = p: with p; [ ]; # If appimages need extra packages, put here
+        #});
       };
       nix-ld = {
         enable = true;
-        libraries = stdPkgs; 
+        # libraries = [ ]; # Put extra library packages here if needed
       };
       dconf.enable = true;
       direnv = {
