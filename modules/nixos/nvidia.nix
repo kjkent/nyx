@@ -1,6 +1,13 @@
-{ pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 {
-  config = {
+  options = {
+    hardware.nvidia.enable = with lib; mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable NVIDIA GPU configuration";
+    };
+  };
+  config = lib.mkIf config.hardware.nvidia.enable {
     boot = {
       blacklistedKernelModules = [ "nouveau" ];
       extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];

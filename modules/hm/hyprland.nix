@@ -1,4 +1,4 @@
-{ osConfig, pkgs, ... }:
+{ lib, osConfig, pkgs, ... }:
 with osConfig;
 {
   config = {
@@ -45,11 +45,7 @@ with osConfig;
         };
 
         # NVIDIA compat.
-        # TODO: Test if this can be enabled by flipping the booleans.
-        cursor = {
-          no_hardware_cursors = true;
-          allow_dumb_copy = false;
-        };
+        cursor.use_cpu_buffer = lib.mkIf osConfig.hardware.nvidia.enable true;
 
         input = {
           kb_layout = "${hardware.keyboard.layout}";
