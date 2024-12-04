@@ -11,17 +11,13 @@
         cura
         discord
         gimp
-        grim
         hyprpicker
         libreoffice
         obsidian
         pkgs-24_05.orca-slicer
         protonmail-desktop
-        slurp
         sublime4
         super-productivity
-        swappy
-        swaynotificationcenter
         teams-for-linux
         telegram-desktop
         ####

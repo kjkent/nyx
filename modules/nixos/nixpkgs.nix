@@ -16,7 +16,8 @@ in
   config = {
     nixpkgs = {
       overlays = with inputs; [
-        # Makes old stable nixpkgs available as pkgs.pkgs-[relYY_relMM]
+        # Makes nixpkgs revisions/branches available as string val
+        (initPkgs "pkgs-master" nixpkgs-master)
         (initPkgs "pkgs-24_11" nixpkgs-24_11)
         (initPkgs "pkgs-24_05" nixpkgs-24_05)
       ];

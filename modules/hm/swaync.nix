@@ -66,7 +66,6 @@ _: {
         .control-center .notification-row:focus,
         .control-center .notification-row:hover {
           opacity: 0.9;
-
         }
         .notification-row {
           outline: none;
@@ -79,10 +78,8 @@ _: {
           margin: 0px;
         }
         .notification-content {
-
           padding: 10px;
           border-radius: 5px;
-
           margin: 0;
         }
         .notification-default-action {
@@ -91,8 +88,6 @@ _: {
           border-radius: 5px;
         }
         .close-button {
-
-
           text-shadow: none;
           padding: 0;
           border-radius: 5px;
@@ -101,19 +96,12 @@ _: {
         }
         .close-button:hover {
           box-shadow: none;
-
           transition: all .15s ease-in-out;
           border: none
         }
         .notification-action {
-
           border-top: none;
           border-radius: 5px;
-        }
-        .notification-default-action:hover,
-        .notification-action:hover {
-
-
         }
         .notification-default-action {
           border-radius: 5px;
@@ -125,40 +113,26 @@ _: {
         }
         .notification-action:first-child {
           border-bottom-left-radius: 10px;
-
         }
         .notification-action:last-child {
           border-bottom-right-radius: 10px;
-
         }
         .inline-reply {
           margin-top: 8px
         }
         .inline-reply-entry {
-
-
-
-
           border-radius: 5px
         }
         .inline-reply-button {
           margin-left: 4px;
-
-
           border-radius: 5px;
-
         }
         .inline-reply-button:disabled {
           background: initial;
-
           border: 1px solid transparent
-        }
-        .inline-reply-button:hover {
-
         }
         .body-image {
           margin-top: 6px;
-
           border-radius: 5px
         }
         .summary {
@@ -171,7 +145,6 @@ _: {
           font-size: 16px;
           font-weight: 700;
           background: transparent;
-
           text-shadow: none;
           margin-right: 18px
         }
@@ -179,12 +152,9 @@ _: {
           font-size: 15px;
           font-weight: 400;
           background: transparent;
-
           text-shadow: none
         }
         .control-center {
-
-
           border-radius: 5px;
         }
         .control-center-list {
@@ -200,8 +170,6 @@ _: {
           background: alpha(black, 0)
         }
         .widget-title {
-
-
           padding: 5px 10px;
           margin: 10px 10px 5px 10px;
           font-size: 1.5rem;
@@ -209,50 +177,32 @@ _: {
         }
         .widget-title>button {
           font-size: 1rem;
-
           text-shadow: none;
-
           box-shadow: none;
           border-radius: 5px;
         }
-        .widget-title>button:hover {
-
-
-        }
         .widget-dnd {
-
           padding: 5px 10px;
           margin: 10px 10px 5px 10px;
           border-radius: 5px;
           font-size: large;
-
         }
         .widget-dnd>switch {
           border-radius: 5px;
-
-
-        }
-        .widget-dnd>switch:checked {
-
-
         }
         .widget-dnd>switch slider {
-
           border-radius: 5px
         }
         .widget-dnd>switch:checked slider {
-
           border-radius: 5px
         }
         .widget-label {
-            margin: 10px 10px 5px 10px;
+          margin: 10px 10px 5px 10px;
         }
         .widget-label>label {
           font-size: 1rem;
-
         }
         .widget-mpris {
-
           padding: 5px 10px;
           margin: 10px 10px 5px 10px;
           border-radius: 5px;
@@ -280,30 +230,24 @@ _: {
           background: transparent
         }
         .widget-volume {
-
           padding: 5px;
           margin: 10px 10px 5px 10px;
           border-radius: 5px;
           font-size: x-large;
-
         }
         .widget-volume>box>button {
-
           border: none
         }
         .per-app-volume {
-
           padding: 4px 8px 8px;
           margin: 0 8px 8px;
           border-radius: 5px;
         }
         .widget-backlight {
-
           padding: 5px;
           margin: 10px 10px 5px 10px;
           border-radius: 5px;
           font-size: x-large;
-
         }
       '';
     };

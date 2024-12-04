@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-24_11.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-24_05.url = "github:nixos/nixpkgs/nixos-24.05";
     systems.url = "github:nix-systems/default"; # req by nix-auto-follow
