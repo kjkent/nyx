@@ -9,8 +9,7 @@
   imports = [ inputs.stylix.nixosModules.stylix ];
   config = {
     stylix = with pkgs; {
-      #image = "${assetsPath}/wallpaper/cyberpunk.jpg";
-      image = "${assetsPath}/wallpaper/cyberwatch.png";
+      image = "${assetsPath}/wallpaper/firewatch.png";
       enable = true;
       polarity = "dark";
       opacity.terminal = 0.8;

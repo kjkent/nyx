@@ -1,16 +1,11 @@
 _:
 let
-  enabled = {
+  locked = { Locked = true; };
+  yes = locked // {
     Value = true;
   };
-  disabled = {
+  no = locked // {
     Value = false;
-  };
-  enabledLocked = enabled // {
-    Locked = true;
-  };
-  disabledLocked = disabled // {
-    Locked = true;
   };
 in
 {
@@ -24,21 +19,9 @@ in
         DisablePocket = true;
         DisableTelemetry = true;
         DontCheckDefaultBrowser = true;
-        EnableTrackingProtection = enabled // {
+        EnableTrackingProtection = yes // {
           Cryptomining = true;
           Fingerprinting = true;
-        };
-        FirefoxHome = {
-          Pocket = false;
-          SponsoredTopSites = false;
-          SponsoredPocket = false;
-          Snippets = true;
-          TopSites = true;
-        };
-        FirefoxSuggest = {
-          WebSuggestions = true;
-          SponsoredSuggestions = false;
-          ImproveSuggest = false;
         };
         ExtensionSettings = {
           "uBlock0@raymondhill.net" = {
@@ -54,12 +37,28 @@ in
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
           };
         };
+        FirefoxHome = {
+          Pocket = false;
+          SponsoredTopSites = false;
+          SponsoredPocket = false;
+          Snippets = true;
+          TopSites = true;
+        };
+        FirefoxSuggest = {
+          WebSuggestions = true;
+          SponsoredSuggestions = false;
+          ImproveSuggest = false;
+        };
         HardwareAcceleration = true;
+        Homepage = locked // {
+          #URL = "https://.....com";
+          #Additional = [ "https.....com" "https.....com" ];
+          StartPage = "none"; # none/homepage/previous-session/homepage-locked
+        };
         OfferToSaveLogins = false;
         PasswordManagerEnabled = false;
-        PopupBlocking = {
+        PopupBlocking = locked // {
           Default = true;
-          Locked = false;
         };
         PostQuantumKeyAgreementEnabled = true;
         PromptForDownloadLocation = false;
@@ -70,23 +69,22 @@ in
 
         Preferences = {
           # Found by visiting URL: "about:config" in firefox
-          "accessibility.typeaheadfind" = disabledLocked;
-          "browser.aboutConfig.showWarning" = disabled;
-          "browser.backspace_action" = {
-            Value = 0;
-          };
-          "browser.compactmode.show" = enabled;
-          "browser.display.use_system_colors" = enabled;
-          "browser.download.autohideButton" = disabled;
-          "browser.ml.chat.enabled" = enabled;
-          "browser.ml.chat.provider" = {
+          "accessibility.typeaheadfind" = no;
+          "browser.aboutConfig.showWarning" = no;
+          "browser.backspace_action" = locked // { Value = 0; };
+          "browser.compactmode.show" = yes;
+          "browser.display.use_system_colors" = yes;
+          "browser.download.autohideButton" = no;
+          "browser.ml.chat.enabled" = yes;
+          "browser.ml.chat.provider" = locked // {
             Value = "https://claude.ai/new";
           };
-          "browser.uidensity" = {
-            Value = 1;
-          };
-          "browser.warnOnQuitShortcut" = disabled;
-          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = enabled;
+          "browser.sessionstore.max_resumed_crashes" = locked // { Value = -1; }; 
+          # FF sets this to true on reboot, forcing a session restore
+          "browser.sessionstore.resume_session_once" = no;
+          "browser.uidensity" = locked // { Value = 1; };
+          "browser.warnOnQuitShortcut" = no;
+          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = yes;
         };
       };
     };
