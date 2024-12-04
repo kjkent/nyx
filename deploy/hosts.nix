@@ -13,7 +13,7 @@ in
       networking.networkBridge.enable = true;
       programs.hyprland.monitors = [
         "HDMI-A-1, 2560x1080, 0x0, 1"
-        "DP-1, 1920x1080, -1080x0, 1, transform, 1"
+        "DP-1, 1920x1080, -1080x-310, 1, transform, 1"
       ];
       services.klipper.custom.enable = true;
     };
