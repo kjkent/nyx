@@ -1,8 +1,11 @@
 {pkgs, ...}: {
-  config.home.packages = with pkgs; [
-    (writeShellScriptBin "goto" ''
-      cd "$(dirname "$(realpath "$(which "$1")" )" )"
-      $SHELL
-    '')
+  config = {
+    home.packages = with pkgs; [
+      (writeShellScriptBin "goto" ''
+        cd "$(dirname "$(realpath "$(which "$1")" )" )"
+        $SHELL
+      '')
     ];
+    programs.nix-index.enable = true;
+  };
 }

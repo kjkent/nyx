@@ -14,7 +14,7 @@
       polarity = "dark";
       opacity.terminal = 0.8;
       cursor = {
-        package = pkgs-master.bibata-cursors; #https://github.com/NixOS/nixpkgs/pull/359604
+        package = bibata-cursors; # Needs https://github.com/NixOS/nixpkgs/pull/359604
         name = "Bibata-Modern-Ice";
         size = 24;
       };

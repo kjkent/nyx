@@ -4,6 +4,7 @@
     environment.systemPackages = with pkgs; [
       cameractrls
       pavucontrol
+      qmk
     ];
 
     hardware = {

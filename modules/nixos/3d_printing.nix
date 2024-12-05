@@ -1,14 +1,9 @@
-{config, lib, ...}: {
-  options = {
-    services.klipper.custom = {
-      enable = with lib; mkOption {
-        type = types.bool;
-        default = false;
-        description = "Whether to enable self-managed Klipper";
-      };
-    };
-  };
-  config = lib.mkIf config.services.klipper.custom.enable {
+{config, lib, pkgs, ...}: {
+  config = {
+    environment.systemPackages = with pkgs; [
+      orca-slicer
+      cura
+    ];
     networking.firewall = {
       allowedTCPPorts = [
         80 # Fluidd web-app access

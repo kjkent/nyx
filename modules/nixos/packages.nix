@@ -8,13 +8,11 @@
       systemPackages = [
         #### GUI: Office, Notes, Messaging
         beeper
-        cura
         discord
         gimp
         hyprpicker
         libreoffice
         obsidian
-        pkgs-24_05.orca-slicer
         protonmail-desktop
         sublime4
         super-productivity

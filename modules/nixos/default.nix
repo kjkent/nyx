@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./3d_printing.nix
     ./audio.nix
     ./boot.nix
     ./fonts.nix
@@ -10,12 +11,10 @@ _: {
     ./input.nix
     ./kernel.nix
     ./keyboard.nix
-    ./klipper.nix
     ./locale.nix
     ./network
     ./nix.nix
     ./nixpkgs.nix
-    ./nix-index-db.nix
     ./nvidia.nix
     ./nyx.nix
     ./packages.nix
