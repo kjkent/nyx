@@ -43,7 +43,7 @@ in
           please = "sudo \"$SHELL\" -c \"$(fc -ln -1)\"";
           ffs = please;
           tmux = "tmux new -As0";
-          yklean = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+          yklearn = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
 
           ### gtfo my $HOME
           wget = "wget --hsts-file=\"$XDG_DATA_HOME\"/wget/hsts";
