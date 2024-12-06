@@ -1,33 +1,37 @@
 {
   description = "nyx";
 
+  # Inputs should follow nixpkgs used for nixosSystem 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-master.url = "github:nixos/nixpkgs"; # master branch ("extra unstable")
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    systems.url = "github:nix-systems/default"; # req by nix-auto-follow
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager"; # main branch for nixpkgs-unstable, else release-yy.mm
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprland = {
       url = "github:hyprwm/hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     sops-nix = {
       url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     stylix = {
-      url = "github:danth/stylix/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix"; # main branch for nixpkgs-unstable, else release-yy.mm
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    systems.url = "github:nix-systems/default"; # req by nix-auto-follow
   };
 
   outputs =
     inputs@{
       home-manager,
-      nixpkgs,
+      nixpkgs-stable,
+      nixpkgs-unstable,
       self,
       ...
     }:
@@ -41,7 +45,7 @@
 
       mkNixosSpec =
         hostName:
-        nixpkgs.lib.nixosSystem {
+        nixpkgs-unstable.lib.nixosSystem {
           specialArgs = {
             inherit
               assetsPath
@@ -59,7 +63,7 @@
       mkShellSpec =
         hostPlatform:
         let
-          pkgs = import nixpkgs {
+          pkgs = import nixpkgs-stable {
             inherit hostPlatform;
             system = hostPlatform;
             config.allowUnfree = true;
@@ -99,7 +103,7 @@
           };
         };
     in
-    with nixpkgs.lib;
+    with nixpkgs-stable.lib;
     {
       nixosConfigurations = genAttrs nixosHosts mkNixosSpec;
       devShells = genAttrs shellPlatforms mkShellSpec;

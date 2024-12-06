@@ -19,6 +19,8 @@ in
     nixpkgs = {
       overlays = with inputs; [
         # Makes nixpkgs revisions/branches available as string val
+        (initPkgs "master" nixpkgs-master)
+        (initPkgs "stable" nixpkgs-stable)
         (initPkgs "unstable" nixpkgs-unstable)
       ];
       config.allowUnfree = true; # Only for build
