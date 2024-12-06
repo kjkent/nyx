@@ -48,7 +48,7 @@
         powerManagement.finegrained = false; # For dual-GPU systems
         open = false;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest; # .stable, .beta, .production
+        package = config.boot.kernelPackages.nvidiaPackages.beta; # .stable, .beta, .production
       };
       nvidia-container-toolkit.enable = true;
     };
