@@ -33,12 +33,16 @@
       nixpkgs = inputs.nixpkgs-unstable;
 
       assetsPath = ./assets;
-      hmModulesPath = ./modules/hm;
-      nixosModulesPath = ./modules/nixos;
+      hmModulesPath = ./hm;
+      nixosModulesPath = ./nixos;
       shellPlatforms = [ "x86_64-linux" ];
 
       nixosUser = import ./deploy/user.nix;
-      nixosHosts = builtins.attrNames (import ./deploy/hosts.nix);
+      nixosHosts = with nixpkgs.lib; pipe ./deploy/hosts [
+        builtins.readDir
+        (filterAttrs (name: _: hasSuffix ".nix" name))
+        (mapAttrsToList (name: _: removeSuffix ".nix" name))
+      ];
 
       mkNixosSpec = hostName: nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -52,7 +56,11 @@
           self
           ;
         };
-        modules = [ ./modules ];
+        modules = [ 
+          ./nixos
+          ./pkg 
+          ./deploy/hosts/${hostName}.nix
+        ];
       };
 
       mkShellSpec = hostPlatform: let
