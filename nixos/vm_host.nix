@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
   options = with lib; {
     virtualisation.enable = mkOption {
@@ -9,6 +9,9 @@
   };
 
   config = lib.mkIf config.virtualisation.enable {
+    environment.systemPackages = with pkgs; [
+      virt-viewer
+    ];
     programs = {
       virt-manager.enable = true;
       dconf.profiles.user.databases = [

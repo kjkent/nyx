@@ -12,6 +12,10 @@
       xfsprogs
       xz
       # File utils
+      fd
+      duf
+      ncdu
+      ripgrep
       file-roller
       rsync
       tree

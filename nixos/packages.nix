@@ -49,8 +49,6 @@
         (vscode.override { commandLineArgs = [ "--password-store=gnome-libsecret" ]; })
 
         ###### System management & monitoring CLI utils
-        appimagekit
-        appimage-run
         btop
         dconf-editor
         dmidecode
@@ -60,26 +58,17 @@
         pciutils
         pcsc-tools
         pstree
-        tlp # Power management
         usbutils
+        inxi
+        lshw
         util-linux
 
-        cmatrix
         libnotify
         ydotool
-        duf
-        ncdu
         wl-clipboard
         socat
         cowsay
-        ripgrep
-        lshw
-        pkg-config
         brightnessctl
-        virt-viewer
-        libvirt
-        yad
-        inxi
         nh
       ];
       pathsToLink = [
