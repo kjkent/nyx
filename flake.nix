@@ -1,9 +1,10 @@
 {
   description = "nyx";
 
-  # Inputs should follow nixpkgs used for nixosSystem 
+  # Inputs should follow nixpkgs used for nixos.
+  # `inputs` cannot use variables, because nix
   inputs = {
-    nixpkgs-master.url = "github:nixos/nixpkgs"; # master branch ("extra unstable")
+    nixpkgs-master.url = "github:nixos/nixpkgs"; # "extra unstable"
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -27,69 +28,60 @@
     systems.url = "github:nix-systems/default"; # req by nix-auto-follow
   };
 
-  outputs =
-    inputs@{
-      home-manager,
-      nixpkgs-stable,
-      nixpkgs-unstable,
-      self,
-      ...
-    }:
+  outputs = inputs@{self, ...}:
     let
+      nixpkgs = inputs.nixpkgs-unstable;
+
       assetsPath = ./assets;
       hmModulesPath = ./modules/hm;
+      nixosModulesPath = ./modules/nixos;
       shellPlatforms = [ "x86_64-linux" ];
 
       nixosUser = import ./deploy/user.nix;
       nixosHosts = builtins.attrNames (import ./deploy/hosts.nix);
 
-      mkNixosSpec =
-        hostName:
-        nixpkgs-unstable.lib.nixosSystem {
-          specialArgs = {
-            inherit
-              assetsPath
-              hmModulesPath
-              home-manager
-              hostName
-              inputs
-              nixosUser
-              self
-              ;
-          };
-          modules = [ ./modules ];
+      mkNixosSpec = hostName: nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit
+          assetsPath
+          hmModulesPath
+          nixosModulesPath
+          hostName
+          inputs
+          nixosUser
+          self
+          ;
         };
+        modules = [ ./modules ];
+      };
 
-      mkShellSpec =
-        hostPlatform:
-        let
-          pkgs = import nixpkgs-stable {
-            inherit hostPlatform;
-            system = hostPlatform;
-            config.allowUnfree = true;
-          };
-        in
-        {
-          default = pkgs.mkShell {
-            name = "nyx-dev";
+      mkShellSpec = hostPlatform: let
+        pkgs = import nixpkgs {
+          inherit hostPlatform;
+          system = hostPlatform;
+          config.allowUnfree = true;
+        };
+      in {
+        default = pkgs.mkShell {
+          name = "nyx-dev";
 
-            nativeBuildInputs = with pkgs; [
-              # Nix tools
-              nixd # Nix language server
-              nixfmt-rfc-style # Nix formatter
-              statix # Nix static analysis
-              deadnix # Find dead Nix code
-              alejandra # Alternative Nix formatter
+          nativeBuildInputs = with pkgs; [
+            # Nix tools
+            nixd # Nix language server
+            nixfmt-rfc-style # Nix formatter
+            statix # Nix static analysis
+            deadnix # Find dead Nix code
+            alejandra # Alternative Nix formatter
 
-              # Git tools
-              git
-              git-crypt # Encryption for git repositories
+            # Git tools
+            git
+            git-crypt # Encryption for git repositories
 
-              # Additional utilities
-              just # Command runner
-            ];
+            # Additional utilities
+            just # Command runner
+          ];
 
-            shellHook = ''
+          shellHook = ''
               echo "Welcome to the nyx development environment!"
               echo "Available tools:"
               echo "  - nixd: Nix language server"
@@ -99,11 +91,11 @@
               echo "  - git-crypt: Encryption for git repositories"
               echo "  - just: Command runner"
               echo "  - alejandra: Alternative Nix formatter"
-            '';
-          };
+              '';
         };
+      };
     in
-    with nixpkgs-stable.lib;
+      with nixpkgs.lib;
     {
       nixosConfigurations = genAttrs nixosHosts mkNixosSpec;
       devShells = genAttrs shellPlatforms mkShellSpec;
