@@ -59,16 +59,18 @@ with osConfig;
           accel_profile = "flat";
         };
 
-        windowrule = [
-          "float,nm-connection-editor|blueman-manager"
-          "float,swayimg|Viewnior|pavucontrol"
+        windowrule = let
+          f = regex: "float,^${regex}$";
+        in [
+          (f "blueman-manager")
+          (f "nm-connection-editor")
+          (f "pavucontrol")
+          (f "swayimg")
+          (f "Viewnior")
         ];
 
         windowrulev2 = [
           "tile,class:^(\.)?scrcpy(-wrapped)?$"
-          "maxsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
-          "minsize 458 1019,class:^(\.)?scrcpy(-wrapped)?$"
-
           "stayfocused,title:^$,class:^steam$"
           "minsize 1 1,title:^$,class:^steam$"
           "opacity 0.9 0.7,class:^thunar$"
@@ -122,12 +124,7 @@ with osConfig;
           };
         };
 
-        plugins = {
-          hyprtrails = { };
-        };
-
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
 
