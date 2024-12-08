@@ -1,302 +1,256 @@
+# largely yoinked (i.e., full credit to) https://github.com/selfuryon/nixos-config/blob/main/nixos/roles/user/desktop/common/waybar.nix
+
 {
   config,
-  lib,
-  nixosUser,
-  osConfig,
   pkgs,
   ...
-}:
-let
-  clock24h = true;
-in
-with lib;
-        
-{
-  config = {
-    
-    # Configure & Theme Waybar
-    programs.waybar = {
-      enable = true;
-      settings = [
-        {
-          layer = "top";
-          position = "top";
-          modules-center = [ "hyprland/workspaces" ];
-          modules-left = [
-            "idle_inhibitor"
-            "pulseaudio"
-            "cpu"
-            "memory"
-            "disk"
-            "custom/music"
-          ];
-          modules-right = [
-            "backlight"
-            "custom/notifications"
-            "battery"
-            "tray"
-            "clock"
-            "custom/exit"
-          ];
+}: let
+  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+  hostname = "${pkgs.nettools}/bin/hostname";
+  curl = "${pkgs.curl}/bin/curl";
+  jq = "${pkgs.jq}/bin/jq";
+  cat = "${pkgs.coreutils}/bin/cat";
+  cut = "${pkgs.coreutils-full}/bin/cut";
 
-          "hyprland/workspaces" = {
-            format = "{name}";
-            on-scroll-up = "hyprctl dispatch workspace e+1";
-            on-scroll-down = "hyprctl dispatch workspace e-1";
+  checkNixosUpdates = pkgs.writeShellScript "checkUpdates.sh" ''
+    UPDATE='{"text": "Update", "alt": "update", "class": "update"}'
+    NO_UPDATE='{"text": "No Update", "alt": "noupdate", "class": "noupdate"}'
+
+    GITHUB_URL="https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable"
+    #CURRENT_REVISION=$(nixos-version --revision)
+    CURRENT_REVISION=$(${cat} /run/current-system/nixos-version | ${cut} -d. -f4)
+    REMOTE_REVISION=$(${curl} -s $GITHUB_URL | ${jq} '.object.sha' -r )
+    [[ $CURRENT_REVISION == ''${REMOTE_REVISION:0:7} ]] && echo $NO_UPDATE || echo $UPDATE
+  '';
+in {
+  programs.waybar = {
+    enable = true;
+    settings = {
+      primary = {
+        layer = "top";
+        height = 40;
+        margin = "6";
+        position = "top";
+        modules-left = [
+          "custom/nixos"
+          "tray"
+          "idle_inhibitor"
+          "mpris"
+          "hyprland/submap"
+        ];
+        modules-center = ["hyprland/workspaces"];
+        modules-right = ["network" "wireplumber" "battery" "clock" "custom/hostname"];
+
+        "hyprland/workspaces" = {format = "{name}";};
+        "hyprland/submap" = {
+          format = "󱋜 {}";
+          max-length = 8;
+        };
+        "custom/nixos" = {
+          exec = checkNixosUpdates;
+          on-click = checkNixosUpdates;
+          return-type = "json";
+          format = "{icon}";
+          format-icons = {
+            update = "";
+            noupdate = "";
           };
-          clock = {
-            format = if clock24h then '' {:L%H:%M}'' else '' {:L%I:%M %p}'';
-            tooltip-format = "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>";
-          };
-          memory = {
-            interval = 5;
-            format = " {}%";
-          };
-          cpu = {
-            interval = 5;
-            format = " {usage:2}%";
-          };
-          disk = {
-            format = " {percentage_used}%";
-          };
-          network = {
-            format-icons = [
-              "󰤯"
-              "󰤟"
-              "󰤢"
-              "󰤥"
-              "󰤨"
-            ];
-            format-ethernet = " {bandwidthDownOctets}";
-            format-wifi = "{icon}{signalStrength}%";
-            format-disconnected = "󰤮";
-          };
-          tray = {
-            spacing = 10;
-          };
-          "custom/music" = {
-            format = "  {}";
-            escape = true;
-            interval = 5;
-            tooltip = false;
-            exec = "${pkgs.playerctl}/bin/playerctl metadata --format='{{ title }}'";
-            on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
-            max-length = 50;
-          };
-          pulseaudio = {
-            format = "{icon} {volume}% {format_source}";
-            format-bluetooth = "{volume}% {icon} {format_source}";
-            format-bluetooth-muted = "󰝟 {icon} {format_source}";
-            format-muted = "󰝟 {format_source}";
-            format-source = "  {volume}%";
-            format-source-muted = "";
-            format-icons = {
-              headphone = "";
-              hands-free = "";
-              headset = "";
-              phone = "";
-              portable = "";
-              car = "";
-              default = [
-                ""
-                ""
-                ""
-              ];
-            };
-            on-click = "pavucontrol";
-          };
-          idle_inhibitor = {
-            format = "{icon}";
-            format-icons = {
-              activated = "󰈈";
-              deactivated = "󰒲";
+          interval = 10800;
+        };
+        clock = {
+          format = "󱑌  {:%H:%M}";
+          format-alt = "󰸗 {:%d %B %Y (%R)}";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            on-scroll = 1;
+            on-click-right = "mode";
+            format = {
+              months = "<span color='#ffead3'><b>{}</b></span>";
+              days = "<span color='#ecc6d9'><b>{}</b></span>";
+              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
             };
           };
-          backlight = {
-            device = "intel_backlight";
-            format = "{icon}";
-            format-icons = ["" "" "" "" "" "" "" "" ""];
-          }; 
-          "custom/exit" = {
-            on-click = "loginctl terminate-user ${builtins.toString osConfig.users.users.${nixosUser.username}.uid}";
-            format = " 󰩈 ";
+          actions = {
+            on-click-right = "mode";
+            on-click-forward = "tz_up";
+            on-click-backward = "tz_down";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
           };
-          "custom/notifications" = {
-            format = "{icon} {}";
-            format-icons = {
-              notification = " <span foreground='red'><sup></sup></span>";
-              none = "";
-              dnd-notification = "󰪓 <span foreground='red'><sup></sup></span>";
-              dnd-none = "󰪓";
-              inhibited-notification = " <span foreground='red'><sup></sup></span>";
-              inhibited-none = "";
-              dnd-inhibited-notification = "󰪓 span foreground='red'><sup></sup></span>";
-              dnd-inhibited-none = "󰪓";
-            };
-            return-type = "json";
-            exec-if = "which swaync-client";
-            exec = "swaync-client -swb";
-            on-click = "sleep 0.1 && wl-task-waybar";
-            escape = true;
+        };
+        wireplumber = {
+          format = "  {volume}%";
+          format-muted = "󰝟  0%";
+          on-click = pavucontrol;
+        };
+        idle_inhibitor = {
+          format = "{icon}";
+          format-icons = {
+            activated = "";
+            deactivated = "";
           };
-          battery = {
-            states = {
-              warning = 20;
-              critical = 15;
-            };
-            format = "{icon} {capacity}%";
-            format-charging = "󰂄 {capacity}%";
-            format-plugged = "󱘖 {capacity}%";
-            format-icons = [
-              "󰁺"
-              "󰁻"
-              "󰁼"
-              "󰁽"
-              "󰁾"
-              "󰁿"
-              "󰂀"
-              "󰂁"
-              "󰂂"
-              "󰁹"
-            ];
+        };
+        battery = {
+          bat = "BAT0";
+          interval = 40;
+          states = {
+            warning = 30;
+            critical = 15;
           };
-        }
-      ];
-      style = ''
-        /*
-        *
-        * Catppuccin Mocha palette
-        * Maintainer: rubyowo
-        *
-        */
-        
-        @define-color base   #1e1e2e;
-        @define-color mantle #181825;
-        @define-color crust  #11111b;
-        
-        @define-color text     #cdd6f4;
-        @define-color subtext0 #a6adc8;
-        @define-color subtext1 #bac2de;
-        
-        @define-color surface0 #313244;
-        @define-color surface1 #45475a;
-        @define-color surface2 #585b70;
-        
-        @define-color overlay0 #6c7086;
-        @define-color overlay1 #7f849c;
-        @define-color overlay2 #9399b2;
-        
-        @define-color blue      #89b4fa;
-        @define-color lavender  #b4befe;
-        @define-color sapphire  #74c7ec;
-        @define-color sky       #89dceb;
-        @define-color teal      #94e2d5;
-        @define-color green     #a6e3a1;
-        @define-color yellow    #f9e2af;
-        @define-color peach     #fab387;
-        @define-color maroon    #eba0ac;
-        @define-color red       #f38ba8;
-        @define-color mauve     #cba6f7;
-        @define-color pink      #f5c2e7;
-        @define-color flamingo  #f2cdcd;
-        @define-color rosewater #f5e0dc;
-        
-        label.module, #workspaces button {
-          border-radius: 0% 100% 0% 100% / 80%;
-          font-family: BerkeleyMono Nerd Font;
-          font-size: 18px;
-          margin: 0px 6px;
-          padding: 0px 4px;
-          min-height: 0;
-          background-color: @mantle;
-        }
-        
-        window#waybar {
-          margin-top: 2px;
-          background: transparent;
-          color: @text;
-        }
-        
-        #workspaces button {
-          color: @lavender;
-        }
-        
-        #workspaces button.active {
-          color: @teal;
-        }
-        
-        #workspaces button:hover {
-          color: @pink;
-        }
-        
-        #clock {
-          color: @blue;
-        }
-        
-        #battery {
-          color: @green;
-        }
-
-        #cpu {
-          color: @maroon;
-        }
-        #memory {
-          color: @peach;
-        }
-        #disk {
-          color: @yellow;
-        }
-        
-        #battery.charging {
-          color: @green;
-        }
-
-        #idle_inhibitor {
-          color: @lavender;
-        }
-
-        @keyframes blink {
-          to {
-            background-color: @red;
-            color: @mantle;
-          }
-        }
-        
-        #battery.warning:not(.charging) {
-          color: @red;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: steps(12);
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-        }
-        
-        #backlight {
-          color: @sky;
-        }
-        
-        #pulseaudio {
-          color: @red;
-        }
-        
-        #custom-music {
-          color: @green;
-        }
-
-        #custom-notifications {
-          color: @sapphire;
-        }
-        
-        #custom-exit {
-            color: @mauve;
-        }
-      '';
+          format-icons = ["󱊡" "󱊢" "󱊣"];
+          format = "{icon} {capacity}%";
+          format-charging = "󱊥 {capacity}%";
+        };
+        network = {
+          interval = 3;
+          format-wifi = "   {essid}";
+          format-ethernet = "󰈀  Connected";
+          format-disconnected = "";
+          tooltip-format = ''
+            {ifname}
+            {ipaddr}/{cidr}
+            Up: {bandwidthUpBits}
+            Down: {bandwidthDownBits}'';
+          on-click = "";
+        };
+        "custom/hostname" = {exec = "echo $USER@$(${hostname})";};
+        mpris = {
+          format = "{player_icon}";
+          format-paused = "{status_icon}";
+          format-stopped = "{status_icon}";
+          player-icons = {
+            default = "";
+            firefox = "";
+          };
+          status-icons = {
+            paused = "󰏦";
+            stopped = "󰙧";
+          };
+        };
+      };
     };
-    home.packages = [
-      (pkgs.writeShellScriptBin "wl-task-waybar" ''
-        sleep 0.1
-        ${pkgs.swaynotificationcenter}/bin/swaync-client -t &
-      '')
-    ];
+    style = ''
+      /*
+      *
+      * Catppuccin Mocha palette
+      * Maintainer: rubyowo
+      *
+      */
+      
+      @define-color base   #1e1e2e;
+      @define-color mantle #181825;
+      @define-color crust  #11111b;
+      
+      @define-color text     #cdd6f4;
+      @define-color subtext0 #a6adc8;
+      @define-color subtext1 #bac2de;
+      
+      @define-color surface0 #313244;
+      @define-color surface1 #45475a;
+      @define-color surface2 #585b70;
+      
+      @define-color overlay0 #6c7086;
+      @define-color overlay1 #7f849c;
+      @define-color overlay2 #9399b2;
+      
+      @define-color blue      #89b4fa;
+      @define-color lavender  #b4befe;
+      @define-color sapphire  #74c7ec;
+      @define-color sky       #89dceb;
+      @define-color teal      #94e2d5;
+      @define-color green     #a6e3a1;
+      @define-color yellow    #f9e2af;
+      @define-color peach     #fab387;
+      @define-color maroon    #eba0ac;
+      @define-color red       #f38ba8;
+      @define-color mauve     #cba6f7;
+      @define-color pink      #f5c2e7;
+      @define-color flamingo  #f2cdcd;
+      @define-color rosewater #f5e0dc;
+
+      * {
+        font-family: "BerkeleyMono Nerd Font";
+        font-size: 12pt;
+        padding: 0 8px;
+      }
+      .modules-right {
+        margin-right: -15px;
+      }
+      .modules-left {
+        margin-left: -15px;
+      }
+
+      .modules-left:nth-child(1) {
+        background-color: @mauve 
+      }
+      .modules-left:nth-child(2) {
+        background-color: @red
+      }
+      .modules-left:nth-child(3) {
+        background-color: @maroon
+      }
+      .modules-left:nth-child(4) {
+        background-color: @peach
+      }
+      .modules-left:nth-child(5) {
+        backround-color: @yellow
+      }
+
+      .modules-right:nth-child(1) {
+        background-color: @teal 
+      }
+      .modules-right:nth-child(2) {
+        background-color: @sky
+      }
+      .modules-right:nth-child(3) {
+        background-color: @sapphire
+      }
+      .modules-right:nth-child(4) {
+        background-color: @blue
+      }
+      .modules-right:nth-child(5) {
+        backround-color: @lavender
+      }
+
+      window#waybar {
+        opacity: 0.90;
+        color: @crust;
+        padding: 2px;
+        background-color: @mantle;
+        border-radius: 5px 20px 5px;
+      }
+      
+      #workspaces * {
+        padding: 0 4px;
+      }
+      #workspaces button {
+        color: @text;
+        border-radius: 0px;
+        margin: 4px 2px;
+        border-bottom: 4px solid @mauve;
+      }
+      #workspaces button.hidden {
+        background-color: @mantle;
+        color: @surface2;
+      }
+      #workspaces button.focused,
+      #workspaces button.active {
+        border-bottom: 4px solid @sky;
+      }
+      #battery.warning {
+        background: @peach;
+      }
+      #battery.critical {
+        background: @red;
+        color: @mantle;
+      }
+      #tray {
+        color: @text;
+      }
+    '';
   };
 }
+
