@@ -2,7 +2,9 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
-      easyeffects # needs services.dconf.enable = true;
+      ardour
+      audacity
+      easyeffects
       ffmpeg
       imv
       mpv
@@ -17,13 +19,18 @@
       kernelModules = [ "v4l2loopback" ];
     };
     hardware.pulseaudio.enable = false;
-    services.pipewire = {
-      enable = true;
-      alsa = {
+    programs = {
+      dconf.enable = true;
+    };
+    services = {
+      pipewire = {
         enable = true;
-        support32Bit = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+        pulse.enable = true;
       };
-      pulse.enable = true;
     };
   };
 }
