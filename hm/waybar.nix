@@ -172,10 +172,10 @@ in {
 
       * {
         font-family: ${osConfig.stylix.fonts.monospace.name};
-        font-size: 12pt;
+        font-size: 10pt;
         padding: 0;
         min-height: 0px;
-        margin: 6px 0;
+        margin: 4px 0;
       }
 
       ${moduleColor "left" 1 "@mauve"}
