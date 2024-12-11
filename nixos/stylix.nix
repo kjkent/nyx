@@ -9,12 +9,12 @@
   imports = [ inputs.stylix.nixosModules.stylix ];
   config = {
     stylix = with pkgs; {
-      image = "${assetsPath}/wallpaper/firewatch.png";
+      image = "${assetsPath}/wallpaper/mountains.png";
       enable = true;
       polarity = "dark";
       opacity.terminal = 0.8;
       cursor = {
-        package = bibata-cursors; # Needs https://github.com/NixOS/nixpkgs/pull/359604
+        package = bibata-cursors;
         name = "Bibata-Modern-Ice";
         size = 24;
       };
