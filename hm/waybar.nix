@@ -1,5 +1,5 @@
 {pkgs, osConfig, ...}: let
-  swaync = "${pkgs.swaynotificationcenter}/bin/swaync-client";
+  swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   transition = "transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);";
   animateBlink = ''
     border-radius: 32%;
@@ -40,19 +40,23 @@ in {
             on-click = "loginctl terminate-user 1000";
             tooltip = false;
           };
-          "custom/notifications" = {
+          "custom/notification" = {
             tooltip = false;
-            format = "{icon} <span foreground='red'>{}</span>";
+            format = "{icon}";
             format-icons = {
-              notification = "";
+              notification = "<span foreground='red'><sup></sup>{}</span>";
               none = "";
-              dnd-notification = "󰪓";
-              dnd-none = "󰪓";
+              dnd-notification = "<span foreground='red'><sup></sup></span>";
+              dnd-none = "";
+              inhibited-notification = "<span foreground='red'><sup></sup></span>";
+              inhibited-none = "";
+              dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+              dnd-inhibited-none = "";
             };
             return-type = "json";
-            exec-if = "which ${swaync}";
-            exec = "${swaync} -swb";
-            on-click = "${swaync} -t";
+            exec = "${swaync-client} -swb";
+            on-click-release = "${swaync-client} -t -sw";
+            on-click-right = "${swaync-client} -d -sw";
             escape = true;
           };
           "hyprland/workspaces".format = "{name}";
@@ -111,10 +115,11 @@ in {
             format-ethernet = "󰈀";
             format-disconnected = "󱘖";
             tooltip-format = ''
-            {ifname}: {essid}
-            {ipaddr}/{cidr}
-            Up: {bandwidthUpBits}
-            Down: {bandwidthDownBits}'';
+              {ifname}: {essid}
+              {ipaddr}/{cidr}
+              Up: {bandwidthUpBits}
+              Down: {bandwidthDownBits}
+            '';
             on-click = "";
           };
           mpris = {
@@ -178,18 +183,18 @@ in {
         margin: 4px 0;
       }
 
-      ${moduleColor "left" 1 "@mauve"}
-      ${moduleColor "left" 2 "@red"}
-      ${moduleColor "left" 3 "@maroon"}
-      ${moduleColor "left" 4 "@peach"}
-      ${moduleColor "left" 5 "@yellow"}
-      ${moduleColor "left" 6 "@green"}
+        ${moduleColor "left" 1 "@mauve"}
+        ${moduleColor "left" 2 "@red"}
+        ${moduleColor "left" 3 "@maroon"}
+        ${moduleColor "left" 4 "@peach"}
+        ${moduleColor "left" 5 "@yellow"}
+        ${moduleColor "left" 6 "@green"}
 
-      ${moduleColor "right" 1 "@teal"}
-      ${moduleColor "right" 2 "@sky"}
-      ${moduleColor "right" 3 "@sapphire"}
-      ${moduleColor "right" 4 "@blue"}
-      ${moduleColor "right" 5 "@lavender"}
+        ${moduleColor "right" 1 "@teal"}
+        ${moduleColor "right" 2 "@sky"}
+        ${moduleColor "right" 3 "@sapphire"}
+        ${moduleColor "right" 4 "@blue"}
+        ${moduleColor "right" 5 "@lavender"}
 
       window#waybar {
         opacity: 0.90;
@@ -204,7 +209,6 @@ in {
       #idle_inhibitor.activated {
         color: @red;
         ${animateBlink}
-
       }
       #idle_inhibitor.deactivated {
         color: @lavender;
@@ -227,8 +231,7 @@ in {
       }
       @keyframes blink {
         to {
-          border-radius: 32%;
-          margin: 6px 10px;
+          border-radius: 33%;
           background-color: @red;
           color: @mantle;
         }
