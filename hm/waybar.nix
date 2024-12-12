@@ -1,9 +1,8 @@
-{pkgs, osConfig, ...}: let
+{pkgs, config, ...}: let
   swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   transition = "transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);";
   animateBlink = ''
-    border-radius: 32%;
-    margin: 6px 10px;
+    margin: 4px 0;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -16,7 +15,7 @@
     }
   '';
 in {
-  config = {
+  config = with config.lib.stylix.colors; {
     stylix.targets.waybar.enable = false;
     programs.waybar = {
       enable = true;
@@ -30,27 +29,37 @@ in {
             "cpu"
             "memory"
             "disk"
-            "wireplumber"
-            "mpris"
+            "pulseaudio"
           ];
-          modules-center = ["hyprland/workspaces"];
-          modules-right = ["custom/notifications" "tray" "network" "battery" "clock" "custom/exit"];
+          modules-center = [
+            "hyprland/workspaces"
+          ];
+          modules-right = [
+            "tray"
+            "custom/notifications"
+            "network"
+            "battery"
+            "clock" 
+            "custom/exit"
+          ];
           "custom/exit" = {
             format = "  ";
             on-click = "loginctl terminate-user 1000";
             tooltip = false;
           };
-          "custom/notification" = {
+          "custom/notifications" = let 
+            unreadEl = "<span color='#${base08}'><sup> </sup> {}</span>";
+          in {
             tooltip = false;
             format = "{icon}";
             format-icons = {
-              notification = "<span foreground='red'><sup></sup>{}</span>";
+              notification = "${unreadEl}";
               none = "";
-              dnd-notification = "<span foreground='red'><sup></sup></span>";
+              dnd-notification = "";
               dnd-none = "";
-              inhibited-notification = "<span foreground='red'><sup></sup></span>";
+              inhibited-notification = "$";
               inhibited-none = "";
-              dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+              dnd-inhibited-notification = "";
               dnd-inhibited-none = "";
             };
             return-type = "json";
@@ -68,18 +77,20 @@ in {
               mode-mon-col = 3;
               on-scroll = 1;
               on-click-right = "mode";
-              format = {
-                months = "<span color='#ffead3'><b>{}</b></span>";
-                days = "<span color='#ecc6d9'><b>{}</b></span>";
-                weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+              format = let 
+               formatEl = color: "<span color='#${color}'><b>{}</b></span>";
+              in {
+                months = formatEl base0D;
+                days = formatEl base06;
+                weekdays = formatEl base07;
+                today = formatEl base08;
               };
             };
           };
-          wireplumber = {
+          pulseaudio = { # or wireplumber - testing pa to see if formatting is better
             format = "vol\n{volume}%";
-            format-muted = " ";
-            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+            format-muted = "off";
+            on-click-release = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
           idle_inhibitor = {
             format = "{icon}";
@@ -122,124 +133,70 @@ in {
             '';
             on-click = "";
           };
-          mpris = {
-            format = "{player_icon}";
-            format-paused = "{status_icon}";
-            format-stopped = "{status_icon}";
-            player-icons = {
-              default = "";
-              firefox = "";
-              spotify = "";
-            };
-            status-icons = {
-              paused = "";
-              stopped = "";
-            };
-          };
         };
       };
       style = ''
-      /*
-      * Catppuccin Mocha palette
-      * Maintainer: rubyowo
-      */
-
-      @define-color base   #1e1e2e;
-      @define-color mantle #181825;
-      @define-color crust  #11111b;
-
-      @define-color text     #cdd6f4;
-      @define-color subtext0 #a6adc8;
-      @define-color subtext1 #bac2de;
-
-      @define-color surface0 #313244;
-      @define-color surface1 #45475a;
-      @define-color surface2 #585b70;
-
-      @define-color overlay0 #6c7086;
-      @define-color overlay1 #7f849c;
-      @define-color overlay2 #9399b2;
-
-      @define-color lavender  #b4befe;
-      @define-color blue      #89b4fa;
-      @define-color sapphire  #74c7ec;
-      @define-color sky       #89dceb;
-      @define-color teal      #94e2d5;
-      @define-color green     #a6e3a1;
-      @define-color yellow    #f9e2af;
-      @define-color peach     #fab387;
-      @define-color maroon    #eba0ac;
-      @define-color red       #f38ba8;
-      @define-color mauve     #cba6f7;
-      @define-color pink      #f5c2e7;
-      @define-color flamingo  #f2cdcd;
-      @define-color rosewater #f5e0dc;
-
-      * {
-        font-family: ${osConfig.stylix.fonts.monospace.name};
-        font-size: 10pt;
-        padding: 0;
-        min-height: 0px;
-        margin: 4px 0;
-      }
-
-        ${moduleColor "left" 1 "@mauve"}
-        ${moduleColor "left" 2 "@red"}
-        ${moduleColor "left" 3 "@maroon"}
-        ${moduleColor "left" 4 "@peach"}
-        ${moduleColor "left" 5 "@yellow"}
-        ${moduleColor "left" 6 "@green"}
-
-        ${moduleColor "right" 1 "@teal"}
-        ${moduleColor "right" 2 "@sky"}
-        ${moduleColor "right" 3 "@sapphire"}
-        ${moduleColor "right" 4 "@blue"}
-        ${moduleColor "right" 5 "@lavender"}
-
-      window#waybar {
-        opacity: 0.90;
-        background-color: @mantle;
-        border-radius: 6px 24px 6px;
-      }
-
-      #custom-exit {
-       color: @red;
-      }
-
-      #idle_inhibitor.activated {
-        color: @red;
-        ${animateBlink}
-      }
-      #idle_inhibitor.deactivated {
-        color: @lavender;
-      }
-
-      #workspaces button {
-        color: @text;
-        border-radius: 0px;
-        border-bottom: 0px;
-        ${transition}
-      }
-      #workspaces button.focused,
-      #workspaces button.active {
-        border-left: 6px solid @green;
-        ${transition}
-      }
-      #battery.warning {
-        background-color: @peach;
-        color: @mantle;
-      }
-      @keyframes blink {
-        to {
-          border-radius: 33%;
-          background-color: @red;
-          color: @mantle;
+        * {
+          font-family: ${config.stylix.fonts.monospace.name};
+          font-size: 10pt;
+          padding: 0;
+          min-height: 0px;
+          margin: 4px 0;
         }
-      }
-      #battery.critical:not(.charging) {
-        color: @red;
-        ${animateBlink}
-      }
+
+        ${moduleColor "left" 1 "#${base08}"}
+        ${moduleColor "left" 2 "#${base08}"}
+        ${moduleColor "left" 3 "#${base09}"}
+        ${moduleColor "left" 4 "#${base09}"}
+        ${moduleColor "left" 5 "#${base0A}"}
+        ${moduleColor "left" 6 "#${base0A}"}
+
+        ${moduleColor "right" 1 "#${base0D}"}
+        ${moduleColor "right" 2 "#${base0D}"}
+        ${moduleColor "right" 3 "#${base0E}"}
+        ${moduleColor "right" 4 "#${base0E}"}
+        ${moduleColor "right" 5 "#${base0F}"}
+        ${moduleColor "right" 6 "#${base0F}"}
+
+        window#waybar {
+          opacity: 0.90;
+          background-color: #${base00};
+          border-radius: 6px 24px 6px;
+        }
+
+        #custom-exit {
+         color: #${base0B};
+        }
+
+        #idle_inhibitor.activated {
+          ${animateBlink}
+        }
+        
+        #workspaces button {
+          color: #${base05};
+          border-radius: 0px;
+          border-bottom: 0px;
+          ${transition}
+        }
+        #workspaces button.focused,
+        #workspaces button.active {
+          border-left: 6px solid #${base0C};
+          ${transition}
+        }
+        #battery.warning {
+          background-color: #${base0A};
+          color: #${base00};
+        }
+        @keyframes blink {
+          to {
+            background-color: #${base08};
+            color: #${base00};
+          }
+        }
+        #battery.critical:not(.charging) {
+          color: #${base08};
+          ${animateBlink}
+        }
       '';
     };
   };

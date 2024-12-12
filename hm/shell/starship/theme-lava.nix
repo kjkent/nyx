@@ -3,8 +3,8 @@
 {
   right_format = "$time";
   palette = "lava";
-  palettes.lava = {
-    color0 = "#${config.stylix.base16Scheme.base00}";
+  palettes.lava = with config.lib.stylix.colors; {
+    color0 = "#${base00}"; # to match terminal background
     color1 = "#1323D1";
     color2 = "#790F99";
     color3 = "#E61300";

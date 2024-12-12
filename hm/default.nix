@@ -17,7 +17,6 @@
     ./swaync.nix
     ./syncthing.nix
     ./waybar.nix
-    ./wlogout.nix
   ];
   config = {
     home.stateVersion = osConfig.system.stateVersion;
