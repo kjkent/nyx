@@ -2,6 +2,7 @@
   config,
   lib,
   nixosUser,
+  pkgs,
   self,
   ...
 }:
@@ -9,7 +10,12 @@
   config = {
     # Links repo to /etc/self for an always current view of the present config
     # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kpro1wm/
-    environment.etc.self.source = self;
+    environment = {
+      etc.self.source = self;
+      systemPackages = with pkgs; [
+        nh
+      ];
+    };
 
     nix = {
       channel.enable = false; # Unnecessary due to flake but enabled by default

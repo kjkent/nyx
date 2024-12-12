@@ -8,6 +8,7 @@
       systemPackages = [
         #### GUI: Office, Notes, Messaging
         beeper
+        brave
         discord
         gimp
         hyprpicker
@@ -43,12 +44,15 @@
         ninja
         nixd
         neovide
+        opentofu
         shellcheck
         tinyxxd # xxd (usually bundled with vim)
         uv
         (vscode.override { commandLineArgs = [ "--password-store=gnome-libsecret" ]; })
+        ydotool
 
         ###### System management & monitoring CLI utils
+        brightnessctl
         btop
         dconf-editor
         dmidecode
@@ -58,18 +62,12 @@
         pciutils
         pcsc-tools
         pstree
+        socat
         usbutils
         inxi
         lshw
         util-linux
-
-        libnotify
-        ydotool
         wl-clipboard
-        socat
-        cowsay
-        brightnessctl
-        nh
       ];
       pathsToLink = [
         "/share/zsh" # For zsh completion
