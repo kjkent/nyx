@@ -47,23 +47,31 @@ in {
             on-click = "loginctl terminate-user 1000";
             tooltip = false;
           };
-          "custom/notifications" = let 
-            unreadEl = "<span color='#${base08}'><sup> </sup> {}</span>";
+          "custom/notifications" = let
+            newDot = "<span color='#${base08}'><sup>  </sup></span>";
           in {
             tooltip = false;
-            format = "{icon}";
+            format = "{icon}<span color='#${base08}'>{}</span>";
             format-icons = {
-              notification = "${unreadEl}";
+              notification = "" + newDot;
               none = "";
-              dnd-notification = "";
+              dnd-notification = "" + newDot;
               dnd-none = "";
-              inhibited-notification = "$";
-              inhibited-none = "";
-              dnd-inhibited-notification = "";
+              inhibited-notification = "" + newDot;
+              inhibited-none = "";
+              dnd-inhibited-notification = "" + newDot;
               dnd-inhibited-none = "";
             };
             return-type = "json";
-            exec = "${swaync-client} -swb";
+            # ''\<char> is used to insert character verbatim in
+            # indented strings, in this case `"`. Such as ''$
+            # escapes $ in ${interpolations}
+            exec = ''
+              ${swaync-client} -swb | jq \
+                --unbuffered \
+                --compact-output \
+                'select(.text == ''\"0''\").text = ''\"''\"'
+            '';
             on-click-release = "${swaync-client} -t -sw";
             on-click-right = "${swaync-client} -d -sw";
             escape = true;
@@ -89,7 +97,7 @@ in {
           };
           pulseaudio = { # or wireplumber - testing pa to see if formatting is better
             format = "vol\n{volume}%";
-            format-muted = "off";
+            format-muted = "vol\noff";
             on-click-release = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
           idle_inhibitor = {
@@ -151,9 +159,9 @@ in {
         ${moduleColor "left" 5 "#${base0A}"}
         ${moduleColor "left" 6 "#${base0A}"}
 
-        ${moduleColor "right" 1 "#${base0D}"}
-        ${moduleColor "right" 2 "#${base0D}"}
-        ${moduleColor "right" 3 "#${base0E}"}
+        ${moduleColor "right" 1 "#${base0C}"}
+        ${moduleColor "right" 2 "#${base0C}"}
+        ${moduleColor "right" 3 "#${base0D}"}
         ${moduleColor "right" 4 "#${base0E}"}
         ${moduleColor "right" 5 "#${base0F}"}
         ${moduleColor "right" 6 "#${base0F}"}

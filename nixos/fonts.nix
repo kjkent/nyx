@@ -2,6 +2,8 @@
 with pkgs;
 {
   config = {
+    # Allows bat/less to print unicode glyphs (https://github.com/sharkdp/bat/issues/2578#issuecomment-1598332705)
+    environment.sessionVariables.LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
     nixpkgs.overlays = [
       (_: _: {
         nyx-berkeley-mono = mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
