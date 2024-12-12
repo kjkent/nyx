@@ -63,10 +63,9 @@
         ];
       };
 
-      mkShellSpec = hostPlatform: let
+      mkShellSpec = system: let
         pkgs = import nixpkgs {
-          inherit hostPlatform;
-          system = hostPlatform;
+          inherit system;
           config.allowUnfree = true;
         };
       in {
