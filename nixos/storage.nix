@@ -12,7 +12,6 @@
       xfsprogs
       xz
       # File utils
-      fd
       duf
       ncdu
       ripgrep
