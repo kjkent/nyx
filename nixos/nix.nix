@@ -13,11 +13,6 @@
 
     nix = {
       channel.enable = false; # Unnecessary due to flake but enabled by default
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
-      };
       settings = {
         # Optimise new store contents - `nix-store optimise` cleans old
         auto-optimise-store = true;
