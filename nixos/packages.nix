@@ -14,7 +14,7 @@
         hyprpicker
         libreoffice
         obsidian
-        protonmail-desktop
+        stable.protonmail-desktop
         sublime4
         super-productivity
         teams-for-linux
