@@ -5,7 +5,6 @@ _: {
     ./fastfetch.nix
     ./ls-colors.nix
     ./starship
-    ./utils.nix
     ./zsh.nix
   ];
 }

@@ -32,6 +32,12 @@ in
       sessionPath = [ sessionVariables.XDG_BIN_HOME ];
     };
     xdg = {
+      enable = true;
+      cacheHome = "${home}/.cache";
+      configHome = "${home}/.config";
+      dataHome = "${home}/.local/share";
+      stateHome = "${home}/.local/state";
+
       userDirs = {
         enable = true;
         createDirectories = true;
@@ -44,10 +50,6 @@ in
         templates = "${home}/.local/templates";
         videos = "${home}/vids";
       };
-      cacheHome = "${home}/.cache";
-      configHome = "${home}/.config";
-      dataHome = "${home}/.local/share";
-      stateHome = "${home}/.local/state";
     };
   };
 }
