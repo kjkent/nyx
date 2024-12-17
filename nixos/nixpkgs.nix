@@ -22,6 +22,10 @@ in
         (initPkgs "master" nixpkgs-master)
         (initPkgs "stable" nixpkgs-stable)
         (initPkgs "unstable" nixpkgs-unstable)
+
+        # pkgs.{{vscode-marketplace,open-vsx}{,-release},forVSCodeVersion "<ver>"}
+        # overlay checks for compatibility anyway (I think)
+        inputs.vscode-exts.overlays.default
       ];
       config.allowUnfree = true; # Only for build
       hostPlatform = lib.mkDefault "x86_64-linux";

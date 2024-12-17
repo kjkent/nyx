@@ -48,7 +48,6 @@
         shellcheck
         tinyxxd # xxd (usually bundled with vim)
         uv
-        (vscode.override { commandLineArgs = [ "--password-store=gnome-libsecret" ]; })
         ydotool
 
         ###### System management & monitoring CLI utils

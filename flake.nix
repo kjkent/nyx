@@ -24,11 +24,17 @@
       url = "github:danth/stylix"; # main branch for nixpkgs-unstable, else release-yy.mm
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    vscode-exts = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
-    systems.url = "github:nix-systems/default"; # req by nix-auto-follow
+    # nix-auto-follow
+    flake-utils.url = "github:numtide/flake-utils"; # stylix/vscode-exts
+    systems.url = "github:nix-systems/default";
   };
 
-  outputs = inputs@{self, ...}:
+outputs = inputs@{self, ...}:
     let
       nixpkgs = inputs.nixpkgs-unstable;
 

@@ -17,6 +17,7 @@
     ./styling.nix
     ./swaync.nix
     ./syncthing.nix
+    ./vscode.nix
     ./waybar.nix
   ];
   config = {

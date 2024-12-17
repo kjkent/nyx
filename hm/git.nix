@@ -62,6 +62,7 @@ with nixosUser;
         ch = "checkout";
         chb = "checkout -b";
         cl = "clone";
+        cgh = "!git clone https://github.com/$1.git";
         co = "commit -m";
         ca = "commit --amend --no-edit";
         can = "commit --amend --no-edit --no-gpg-sign";
