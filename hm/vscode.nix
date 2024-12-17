@@ -34,23 +34,21 @@
             ms-vscode.cpptools
             ms-vscode.cpptools-extension-pack
           ]);
-        package = let 
-          py-pio = python3.withPackages (p: with p; [ platformio ]);
-        in vscode.fhsWithPackages (p: with p; [
+        package = vscode.fhsWithPackages (p: with p; [
           avrdude
           biome
           dfu-util
           nixd
           nodejs_22
           openocd
+          platformio
           platformio-core
-          py-pio
+          python3
           typescript
         ]);
         userSettings = {
           # (not on nix) "update.mode" = "none";
           # (not on nix) "extensions.autoUpdate" = true;
-          "password-store" = "gnome-libsecret"; # cli: --password-store="gnome-libsecret"
           "terminal.external.linuxExec" = "foot";
           "terminal.integrated.allowMnemonics" = true;
           "terminal.integrated.cursorBlinking" = true;
@@ -81,9 +79,6 @@
           "explorer.confirmDragAndDrop" = false;
           "explorer.confirmDelete" = false;
           "files.autoSaveDelay" = 5000;
-          "platformio-ide.useBuiltinPIOCore" = false;
-          "platformio-ide.useBuiltinPython" = false;
-          "platformio-ide.customPATH" = "${pkgs.platformio-core}/bin:${pkgs.python313}/bin";
           "prettier.printWidth" = 80;
           "prettier.tabWidth" = 2;
           "prettier.useTabs" = true;
