@@ -50,7 +50,7 @@
           linkConfig.MACAddressPolicy = "none"; # Allows bridge to inherit MAC from eth0
         };
 
-        netdevs."20-br0" = {
+        netdevs."21-br0" = {
           netdevConfig = {
             # Also needed to inherit MAC from eth0
             Name = "br0";
@@ -68,15 +68,7 @@
 
         # Interface configurations
         networks = {
-          "30-eth0".networkConfig = {
-            Bridge = "br0";
-            DHCP = "no";
-          };
-          "30-wlan0".networkConfig = lib.mkIf cfg.includeWlan {
-            Bridge = "br0";
-            DHCP = "no";
-          };
-          "40-br0" = {
+          "22-br0" = {
             matchConfig.Name = "br0";
             networkConfig = {
               DHCP = "yes";
@@ -86,6 +78,14 @@
               UseMTU = true;
             };
             ipv6AcceptRAConfig.RouteMetric = 200;
+          };
+          "32-eth0".networkConfig = {
+            Bridge = "br0";
+            DHCP = "no";
+          };
+          "42-wlan0".networkConfig = lib.mkIf cfg.includeWlan {
+            Bridge = "br0";
+            DHCP = "no";
           };
         };
       };
