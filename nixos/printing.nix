@@ -1,6 +1,11 @@
-{ pkgs, ... }:
+{ nixosUser, pkgs, ... }:
 {
   config = {
+    hardware.sane = {
+      enable = true;
+      extraBackends = with pkgs; [ sane-airscan ];
+    };
+
     services = {
       ipp-usb.enable = false;
       printing = {
@@ -11,9 +16,7 @@
         ];
       };
     };
-    hardware.sane = {
-      enable = true;
-      extraBackends = with pkgs; [ sane-airscan ];
-    };
+
+    users.users.${nixosUser.username}.extraGroups = [ "lp" "scanner" ];
   };
 }

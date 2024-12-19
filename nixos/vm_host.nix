@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ config, lib, nixosUser, pkgs, ... }:
 {
   options = with lib; {
     virtualisation.enable = mkOption {
@@ -25,6 +25,8 @@
         }
       ];
     };
+
+    users.users.${nixosUser.username}.extraGroups = [ "kvm" "libvirtd" "render" ];
 
     virtualisation = {
       libvirtd.enable = true;

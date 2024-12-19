@@ -1,8 +1,9 @@
 {
-  lib,
-  hostName,
-  options,
   config,
+  hostName,
+  lib,
+  nixosUser,
+  options,
   ...
 }:
 {
@@ -36,5 +37,10 @@
         ];
       };
     };
+
+    users.users.${nixosUser.username}.extraGroups = [
+      "dialout"
+      "networkmanager"
+    ];
   };
 }

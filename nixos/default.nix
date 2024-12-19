@@ -3,6 +3,7 @@ _: {
     ./3d_printing.nix
     ./audio.nix
     ./boot.nix
+    ./dev.nix
     ./fonts.nix
     ./firmware.nix
     ./graphics.nix

@@ -2,17 +2,6 @@
 let
   uid = 1000;
   gid = uid;
-  groups = [
-    "adbusers"
-    "dialout"
-    "kvm"
-    "libvirtd"
-    "lp"
-    "networkmanager"
-    "render"
-    "scanner"
-    "wheel"
-  ];
 in
 {
   config = {
@@ -30,7 +19,6 @@ in
           homeMode = "750";
           isNormalUser = true;
           description = fullName;
-          extraGroups = groups;
         };
       };
     };

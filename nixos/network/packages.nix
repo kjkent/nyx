@@ -2,7 +2,6 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
-      networkmanagerapplet
       wireguard-tools
       protonvpn-gui
       dnsutils # dig, delv, nslookup, nsupdate

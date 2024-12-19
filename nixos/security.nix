@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ nixosUser, pkgs, ... }:
 {
   config = {
     environment.systemPackages = with pkgs; [
@@ -16,5 +16,7 @@
       rtkit.enable = true; # Allows processes to get scheduling priority
       pam.services.hyprlock = { }; # Required by HM hyprlock module
     };
+
+    users.users.${nixosUser.username}.extraGroups = [ "wheel" ];
   };
 }

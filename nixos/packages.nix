@@ -31,25 +31,6 @@
         jq
         xdg-ninja # Suggests home cleaning tips
 
-        ##### Dev tools
-        android-studio
-        dfu-util
-        docker-compose
-        biome
-        bruno
-        jetbrains.pycharm-community-bin
-        jetbrains.webstorm
-        git
-        meson
-        ninja
-        nixd
-        neovide
-        opentofu
-        shellcheck
-        tinyxxd # xxd (usually bundled with vim)
-        uv
-        ydotool
-
         ###### System management & monitoring CLI utils
         brightnessctl
         btop
@@ -67,13 +48,13 @@
         lshw
         util-linux
         wl-clipboard
+        ydotool
       ];
       pathsToLink = [
         "/share/zsh" # For zsh completion
       ];
     };
     programs = {
-      adb.enable = true;
       appimage = {
         enable = true;
         binfmt = true; # Automatically run with `appimage-run` interpreter
@@ -81,16 +62,7 @@
         #  extraPkgs = p: with p; [ ]; # If appimages need extra packages, put here
         #});
       };
-      nix-ld = {
-        enable = true;
-        # libraries = [ ]; # Put extra library packages here if needed
-      };
       dconf.enable = true;
-      direnv = {
-        enable = true;
-        silent = true;
-        nix-direnv.enable = true;
-      };
     };
 
     services = {

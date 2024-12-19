@@ -54,5 +54,12 @@
         else
           self.rev or (throw "Uncommitted changes; exiting...");
     };
+
+    programs = {
+      nix-ld = {
+        enable = true;
+        # libraries = [ ]; # Put extra library packages here if needed
+      };
+    };
   };
 }
