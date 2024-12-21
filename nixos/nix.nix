@@ -45,14 +45,6 @@
         (lib.sort (x: y: x < y) config.system.nixos.tags)
         ++ [ "${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}" ]
       );
-
-      # Forces a clean git tree so deployments are guaranteed to be committed.
-      # For checking: `NIX_IGNORE_UNCLEAN=1 nix flake check --impure`
-      configurationRevision =
-        if builtins.getEnv "NIX_IGNORE_UNCLEAN" == "1" then
-          "UNCLEAN"
-        else
-          self.rev or (throw "Uncommitted changes; exiting...");
     };
 
     programs = {

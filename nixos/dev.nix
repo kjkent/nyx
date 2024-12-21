@@ -26,7 +26,13 @@
         silent = true;
         nix-direnv.enable = true;
       };
-      wireshark.enable = true;
+      wireshark = {
+        enable = true;
+        # Otherwise uses wireshark-cli... even though the package looks
+        # like it installs wireshark??
+        # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/wireshark.nix
+        package = pkgs.wireshark;
+      };
     };
 
     users.users.${nixosUser.username}.extraGroups = [ "adbusers" "wireshark" ];
