@@ -1,6 +1,7 @@
 { nixosUser, pkgs, ... }: {
   config = {
     environment.systemPackages = with pkgs; [
+      adafruit-nrfutil
       android-studio
       arduino-cli
       arduino-ide
