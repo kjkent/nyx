@@ -1,10 +1,34 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   home = config.home.homeDirectory;
 in
 {
   config = {
     home = rec {
+      activation = let
+        dirsToCreate = with config.home.sessionVariables; [
+          ANDROID_HOME
+          ANDROID_USER_HOME
+          CUDA_CACHE_PATH
+          DOTNET_CLI_HOME
+          STACK_ROOT
+          CARGO_HOME
+          NPM_CONFIG_CACHE
+          NUGET_PACKAGES
+          PLATFORMIO_CORE_DIR
+          PLATFORMIO_CACHE_DIR
+          PLATFORMIO_BUILD_CACHE_DIR
+          TASKDATA
+          W3M_HOME
+          XDG_BIN_HOME
+        ];
+      in {
+        init = with lib; hm.dag.entryAfter ["writeBoundary"] ''
+          ${builtins.concatStringsSep "\n" 
+          (map (dir: "mkdir -p ${dir}") dirsToCreate)
+          }  
+        '';
+      };
       sessionVariables = with config.xdg; rec {
         # gtfo my HOME goddamnit
         ANDROID_HOME = "${dataHome}/android";
