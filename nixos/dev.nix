@@ -2,6 +2,8 @@
   config = {
     environment.systemPackages = with pkgs; [
       android-studio
+      arduino-cli
+      arduino-ide
       dfu-util
       docker-compose
       biome
