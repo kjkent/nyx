@@ -10,9 +10,15 @@
         7125 # Moonraker API
       ];
     };
-    # Persistent printer tty at /dev/tty3DP
-    services.udev.extraRules = ''
-      SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="tty3D"
-    '';
+    # Persistent printer tty at /dev/tty3DPrinter with current user access
+    services.udev.packages = [
+      (pkgs.writeTextFile rec { 
+        name = "3d-printer";
+        text = ''
+          SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", TAG+="uaccess", SYMLINK+="tty3dPrinter"
+        '';
+        destination = "/etc/udev/rules.d/70-${name}.rules";
+      })
+    ];
   };
 }
