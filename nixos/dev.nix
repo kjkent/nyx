@@ -5,10 +5,11 @@
       android-studio
       arduino-cli
       arduino-ide
-      dfu-util
-      docker-compose
       biome
       bruno
+      dfu-util
+      docker-compose
+      fritzing
       jetbrains.pycharm-community-bin
       jetbrains.webstorm
       git
