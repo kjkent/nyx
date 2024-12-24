@@ -95,6 +95,10 @@ in {
               };
             };
           };
+          tray = {
+            icon-size = 26;
+            spacing = 8;
+          };
           pulseaudio = { # or wireplumber - testing pa to see if formatting is better
             format = "vol\n{volume}%";
             format-muted = "vol\noff";
@@ -173,7 +177,8 @@ in {
         }
 
         #custom-exit {
-         color: #${base0B};
+          color: #D5FF80;
+          text-shadow: 0 0 10px #D5FF80, 0 0 10px #148100;
         }
 
         #idle_inhibitor.activated {

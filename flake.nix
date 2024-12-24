@@ -44,11 +44,9 @@ outputs = inputs@{self, ...}:
       shellPlatforms = [ "x86_64-linux" ];
 
       nixosUser = import ./deploy/user.nix;
-      nixosHosts = with nixpkgs.lib; pipe ./deploy/hosts [
-        builtins.readDir
-        (filterAttrs (name: _: hasSuffix ".nix" name))
-        (mapAttrsToList (name: _: removeSuffix ".nix" name))
-      ];
+      nixosHosts = nixpkgs.lib.filterAttrs # Returns subdirectories
+        (k: v: v == "directory")           # within ./deploy
+        builtins.readDir ./deploy;         # (Place host config within)
 
       mkNixosSpec = hostName: nixpkgs.lib.nixosSystem {
         specialArgs = {

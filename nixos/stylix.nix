@@ -11,7 +11,7 @@
 let
   # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
   # Use any theme from link without `.yaml`.
-  palette = theme: builtins.toPath "${base16-schemes}/share/themes/${theme}.yaml";
+  theme = name: builtins.toPath "${base16-schemes}/share/themes/${name}.yaml";
 
   # Theme ideas:
   # - catpuccin-mocha
@@ -25,7 +25,7 @@ in {
   config = {
     stylix = {
       image = "${assetsPath}/wallpaper/mountains.png";
-      base16Scheme = palette "ayu-mirage"; 
+      base16Scheme = theme "ayu-mirage"; 
       enable = true;
       polarity = "dark";
       opacity.terminal = 0.8;

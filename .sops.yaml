@@ -3,3 +3,11 @@ keys:
 
 creation_rules:
   - pgp: *kjkent
+
+stores:
+  json:
+    indent: 2
+  json_binary:
+    indent: 2
+  yaml:
+    indent: 2

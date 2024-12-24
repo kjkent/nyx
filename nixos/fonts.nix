@@ -6,7 +6,7 @@ with pkgs;
     environment.sessionVariables.LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
     nixpkgs.overlays = [
       (_: _: {
-        nyx-berkeley-mono = mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
+        berkeley-mono = mkFontPkg "Berkeley Mono (inc Nerd Fonts)" {
           source = "${assetsPath}/fonts/berkeley-mono.gitcrypt.tar.xz";
         };
       })
@@ -27,12 +27,12 @@ with pkgs;
         };
       };
       packages = [
+        berkeley-mono
+        font-awesome
+        material-icons
         noto-fonts-emoji-blob-bin
         noto-fonts-emoji
         noto-fonts-cjk-sans
-        font-awesome
-        material-icons
-        nyx-berkeley-mono
       ];
     };
   };
