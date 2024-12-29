@@ -24,9 +24,7 @@ in
           echo ""
           echo "Commands:"
           echo "- rb: Fetch Nyx from GitHub and rebuild local machine"
-          echo "- check (dir): Check a local flake builds."
           echo "- clone (https|ssh) (dir): Clone via (https|ssh) to (dir). Default ssh + pwd"
-          echo "- up (dir): Update and flake.lock in local Nyx repo"
           echo ""
         }
 
@@ -60,9 +58,6 @@ in
           "$escalate" nixos-rebuild --option tarball-ttl 0 --refresh --flake ./ switch
 
           rm -rf "$build_dir"
-        elif [ "$1" = "check" ]
-        then
-          NIX_IGNORE_UNCLEAN=1 nix flake check --impure "$2"
         elif [ "$1" = "clone" ]
         then
           if [[ "$(resolve_dest $3)" ]]
@@ -71,14 +66,6 @@ in
           else
             git clone "$ssh_uri" "$(resolve_dest $2)"
           fi
-        elif [ "$1" = "up" ]
-        then
-          up_dir="''${2:-$PWD}"
-
-          cd "$up_dir" &&
-          nix flake update && 
-          nix run github:fzakaria/nix-auto-follow -- -i && 
-          nix run github:fzakaria/nix-auto-follow -- -c
         else
           usage
         fi
