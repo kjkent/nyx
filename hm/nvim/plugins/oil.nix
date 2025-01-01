@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config = {
     programs.neovim = {
-      plugins = [ pkgs.vimPlugins.oil-nvim ];
+      plugins = [pkgs.vimPlugins.oil-nvim];
       extraLuaConfig = ''
         local keymap = vim.keymap
         keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

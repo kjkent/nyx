@@ -1,4 +1,8 @@
-{pkgs, config, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   transition = "transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);";
   animateBlink = ''
@@ -39,7 +43,7 @@ in {
             "custom/notifications"
             "network"
             "battery"
-            "clock" 
+            "clock"
             "custom/exit"
           ];
           "custom/exit" = {
@@ -85,8 +89,8 @@ in {
               mode-mon-col = 3;
               on-scroll = 1;
               on-click-right = "mode";
-              format = let 
-               formatEl = color: "<span color='#${color}'><b>{}</b></span>";
+              format = let
+                formatEl = color: "<span color='#${color}'><b>{}</b></span>";
               in {
                 months = formatEl base0D;
                 days = formatEl base06;
@@ -99,7 +103,8 @@ in {
             icon-size = 26;
             spacing = 8;
           };
-          pulseaudio = { # or wireplumber - testing pa to see if formatting is better
+          pulseaudio = {
+            # or wireplumber - testing pa to see if formatting is better
             format = "vol\n{volume}%";
             format-muted = "vol\noff";
             on-click-release = "${pkgs.pavucontrol}/bin/pavucontrol";
@@ -184,7 +189,7 @@ in {
         #idle_inhibitor.activated {
           ${animateBlink}
         }
-        
+
         #workspaces button {
           color: #${base05};
           border-radius: 0px;
@@ -214,4 +219,3 @@ in {
     };
   };
 }
-

@@ -1,5 +1,5 @@
-{ pkgs, ... }: with pkgs;
-{
+{pkgs, ...}:
+with pkgs; {
   config = {
     nixpkgs.config.permittedInsecurePackages = [
       "openssl-1.1.1w" # Needed by sublime4, apparently a non-issue as fix backported.
@@ -70,10 +70,10 @@
     };
 
     systemd.services.flatpak-repo = {
-      path = [ flatpak ];
+      path = [flatpak];
       script = ''
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        '';
+      '';
     };
   };
 }

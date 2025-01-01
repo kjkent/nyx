@@ -1,5 +1,4 @@
-{ assetsPath, ... }:
-{
+{assetsPath, ...}: {
   config = {
     programs.fastfetch = {
       enable = true;

@@ -1,5 +1,10 @@
-{ config, lib, nixosUser, pkgs, ... }:
 {
+  config,
+  lib,
+  nixosUser,
+  pkgs,
+  ...
+}: {
   options = with lib; {
     virtualisation.enable = mkOption {
       type = types.bool;
@@ -18,15 +23,15 @@
         {
           settings = {
             "org/virt-manager/virt-manager/connections" = {
-              autoconnect = [ "qemu:///system" ];
-              uris = [ "qemu:///system" ];
+              autoconnect = ["qemu:///system"];
+              uris = ["qemu:///system"];
             };
           };
         }
       ];
     };
 
-    users.users.${nixosUser.username}.extraGroups = [ "kvm" "libvirtd" "render" ];
+    users.users.${nixosUser.username}.extraGroups = ["kvm" "libvirtd" "render"];
 
     virtualisation = {
       libvirtd.enable = true;

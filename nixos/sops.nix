@@ -1,4 +1,9 @@
-{ inputs, ... }:
-{
-  imports = [ inputs.sops-nix.nixosModules.sops ];
+{inputs, ...}: {
+  imports = [inputs.sops-nix.nixosModules.sops];
+
+  config = {
+    sops = {
+      defaultSopsFormat = "yaml"; # or "json"
+    };
+  };
 }

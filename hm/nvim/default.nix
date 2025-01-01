@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  imports = [ ./plugins ];
+{pkgs, ...}: {
+  imports = [./plugins];
   config = {
     programs = {
       neovim = {

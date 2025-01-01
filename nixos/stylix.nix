@@ -7,12 +7,11 @@
   inputs,
   pkgs,
   ...
-}: with pkgs; 
-let
+}:
+with pkgs; let
   # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
   # Use any theme from link without `.yaml`.
   palette = theme: builtins.toPath "${base16-schemes}/share/themes/${theme}.yaml";
-
   # Theme ideas:
   # - catpuccin-mocha
   # - ayu-mirage
@@ -21,11 +20,11 @@ let
   # - tokyo-night-moon
   # - spaceduck
 in {
-  imports = [ inputs.stylix.nixosModules.stylix ];
+  imports = [inputs.stylix.nixosModules.stylix];
   config = {
     stylix = {
       image = "${assetsPath}/wallpaper/mountains.png";
-      base16Scheme = palette "ayu-mirage"; 
+      base16Scheme = palette "ayu-mirage";
       enable = true;
       polarity = "dark";
       opacity.terminal = 0.8;
@@ -41,7 +40,7 @@ in {
           name = "Montserrat";
         };
         monospace = {
-          package = nyx-berkeley-mono;
+          package = berkeley-mono;
           name = "BerkeleyMono Nerd Font";
         };
         emoji = {

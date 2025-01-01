@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config.home.packages = [
     (pkgs.writeShellScriptBin "list-bindings" ''
       yad --width=800 --height=650 \

@@ -1,16 +1,21 @@
-{ lib, pkgs, config, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   options = {
-    hardware.nvidia.enable = with lib; mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether to enable NVIDIA GPU configuration";
-    };
+    hardware.nvidia.enable = with lib;
+      mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to enable NVIDIA GPU configuration";
+      };
   };
   config = lib.mkIf config.hardware.nvidia.enable {
     boot = {
-      blacklistedKernelModules = [ "nouveau" ];
-      extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+      blacklistedKernelModules = ["nouveau"];
+      extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
       initrd.kernelModules = [
         "nvidia"
         "nvidia_drm"
@@ -26,11 +31,11 @@
     programs = {
       nix-ld.libraries = with pkgs; [
         nvidia-vaapi-driver
-        config.boot.kernelPackages.nvidia_x11 
+        config.boot.kernelPackages.nvidia_x11
       ];
     };
     services = {
-      xserver.videoDrivers = [ "nvidia" ];
+      xserver.videoDrivers = ["nvidia"];
       ollama.acceleration = "cuda";
       tabby.acceleration = "cuda";
     };

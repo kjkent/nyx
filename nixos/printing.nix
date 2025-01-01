@@ -1,9 +1,12 @@
-{ nixosUser, pkgs, ... }:
 {
+  nixosUser,
+  pkgs,
+  ...
+}: {
   config = {
     hardware.sane = {
       enable = true;
-      extraBackends = with pkgs; [ sane-airscan ];
+      extraBackends = with pkgs; [sane-airscan];
     };
 
     services = {
@@ -17,6 +20,6 @@
       };
     };
 
-    users.users.${nixosUser.username}.extraGroups = [ "lp" "scanner" ];
+    users.users.${nixosUser.username}.extraGroups = ["lp" "scanner"];
   };
 }

@@ -1,7 +1,6 @@
 # Adapted from: https://github.com/afresquet/dotfiles/blob/de11f33c5fae9bcdae9bdb8b5e55e4c33e4f6dba/pkgs/cura.nix
-{ pkgs, ... }:
-with pkgs;
-let
+{pkgs, ...}:
+with pkgs; let
   pname = "cura";
   version = "5.9.0";
 
@@ -10,8 +9,8 @@ let
     homepage = "https://ultimaker.com/software/ultimaker-cura/";
     changelog = "https://github.com/Ultimaker/Cura/releases/tag/${version}";
     license = licenses.lgpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
     mainProgram = pname;
   };
 
@@ -20,7 +19,7 @@ let
     hash = "sha256-STtVeM4Zs+PVSRO3cI0LxnjRDhOxSlttZF+2RIXnAp4=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 
   desktopItem = makeDesktopItem {
     name = pname;
@@ -29,7 +28,7 @@ let
     terminal = false;
     desktopName = "Ultimaker Cura";
     comment = meta.description;
-    categories = [ "Utility" ];
+    categories = ["Utility"];
     mimeTypes = [
       "model/3mf"
       "application/vnd.ms-3mfdocument"
@@ -60,28 +59,28 @@ let
     ];
   };
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
-  extraPkgs =
-    p: with p; [
-      vulkan-loader
-      vulkan-headers
-      libGL
-      libGLX
-      zlib-ng
-    ];
+  appimageTools.wrapType2 {
+    inherit pname version src;
+    extraPkgs = p:
+      with p; [
+        vulkan-loader
+        vulkan-headers
+        libGL
+        libGLX
+        zlib-ng
+      ];
 
-  extraInstallCommands = ''
-    install \
-      -D \
-      --mode 444 \
-      --target-directory "$out"/share/icons/hicolor/128x128/apps \
-      "${appimageContents}"/share/cura/resources/images/cura-icon.png
+    extraInstallCommands = ''
+      install \
+        -D \
+        --mode 444 \
+        --target-directory "$out"/share/icons/hicolor/128x128/apps \
+        "${appimageContents}"/share/cura/resources/images/cura-icon.png
 
-    install \
-      -D \
-      --mode 444 \
-      --target-directory "$out"/share/applications \
-      "${desktopItem}"/share/applications/*.desktop
-  '';
-}
+      install \
+        -D \
+        --mode 444 \
+        --target-directory "$out"/share/applications \
+        "${desktopItem}"/share/applications/*.desktop
+    '';
+  }

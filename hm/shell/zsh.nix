@@ -5,12 +5,10 @@
   osConfig,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (nixosUser) username;
   zshInUse = osConfig.users.users.${username}.shell == pkgs.zsh;
-in
-{
+in {
   config = lib.mkIf zshInUse {
     programs = {
       zsh = {

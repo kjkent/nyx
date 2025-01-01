@@ -8,8 +8,7 @@
 #   })
 # ];
 # ```
-{ stdenv, ... }:
-fontName: fontSpec:
+{stdenv, ...}: fontName: fontSpec:
 stdenv.mkDerivation {
   pname = fontName;
   version = "1.0.0";

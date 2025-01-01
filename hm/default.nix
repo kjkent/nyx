@@ -1,5 +1,4 @@
-{ osConfig, ... }:
-{
+{osConfig, ...}: {
   imports = [
     ./environment.nix
     ./firefox.nix

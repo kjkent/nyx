@@ -3,16 +3,15 @@
   inputs,
   lib,
   ...
-}:
-let
-  initPkgs = namespace: pkgs: (post: pre: with config.nixpkgs; {
-    ${namespace} = import pkgs {
-      inherit (pre.stdenv.hostPlatform) system;
-      inherit (config) allowUnfree;
-    };
-  });
-in
-{
+}: let
+  initPkgs = namespace: pkgs: (post: pre:
+    with config.nixpkgs; {
+      ${namespace} = import pkgs {
+        inherit (pre.stdenv.hostPlatform) system;
+        inherit (config) allowUnfree;
+      };
+    });
+in {
   config = {
     # In effect during runtime
     environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";

@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config = {
     programs.neovim = {
-      plugins = [ pkgs.vimPlugins.noice-nvim ];
+      plugins = [pkgs.vimPlugins.noice-nvim];
       extraLuaConfig = ''
         require("noice").setup({
           lsp = {

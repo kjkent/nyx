@@ -17,7 +17,7 @@ _: {
         "net.ipv4.tcp_fastopen" = 3; # 1: default, 3: incoming+outgoing, 1027: enable for all, inc non-specified
         "net.ipv4.tcp_slow_start_after_idle" = 0;
       };
-      kernelModules = [ "tcp_bbr" ];
+      kernelModules = ["tcp_bbr"];
     };
   };
 }

@@ -1,6 +1,5 @@
-{ nixosUser, ... }:
-with nixosUser;
-{
+{nixosUser, ...}:
+with nixosUser; {
   config = {
     programs.git = {
       enable = true;
@@ -16,7 +15,7 @@ with nixosUser;
 
       maintenance = {
         enable = false;
-        repositories = [ ]; # Absolute paths
+        repositories = []; # Absolute paths
       };
 
       extraConfig = {

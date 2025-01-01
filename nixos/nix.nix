@@ -4,8 +4,7 @@
   nixosUser,
   self,
   ...
-}:
-{
+}: {
   config = {
     # Links repo to /etc/self for an always current view of the present config
     # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kpro1wm/
@@ -34,7 +33,7 @@
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
-        trusted-users = [ "${nixosUser.username}" ];
+        trusted-users = ["${nixosUser.username}"];
       };
     };
 
@@ -43,7 +42,7 @@
       # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kppoogf/
       nixos.label = lib.concatStringsSep "-" (
         (lib.sort (x: y: x < y) config.system.nixos.tags)
-        ++ [ "${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}" ]
+        ++ ["${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}"]
       );
     };
 

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   config = {
     networking = {
       useNetworkd = true;
@@ -33,7 +32,7 @@
     in {
       enable = true;
       netdevs = {
-        # VLANs have 3 networkd components: 
+        # VLANs have 3 networkd components:
         #   - Define VLAN           ("30-eth0.100.netdev")
         #   - Define IF + link VLAN ("31-eth0.network")
         #   - Define VLAN network   ("32-eth0.100.network")
@@ -54,7 +53,7 @@
           };
           networkConfig = {
             DHCP = lib.mkDefault "yes"; # "no" if bridged
-            VLAN = [ vlan.name ];
+            VLAN = [vlan.name];
           };
           dhcpV4Config = {
             RouteMetric = 400;
@@ -71,8 +70,9 @@
           networkConfig = {
             DHCP = "no";
           };
-          addresses = [ # !addressConfig
-            { Address = vlan.ipCidr; }
+          addresses = [
+            # !addressConfig
+            {Address = vlan.ipCidr;}
           ];
         };
         "42-${wlan.name}" = {

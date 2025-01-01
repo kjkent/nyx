@@ -1,12 +1,14 @@
-{ nixosUser, pkgs, ... }:
-let
+{
+  nixosUser,
+  pkgs,
+  ...
+}: let
   host = "github";
   repo = "${nixosUser.username}/nyx";
   flakeUri = "${host}:${repo}";
   sshUri = "git@${host}.com/${repo}.git";
   httpsUri = "https://${host}.com/${repo}.git";
-in
-{
+in {
   config = {
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "nyx" ''

@@ -5,14 +5,13 @@
   nixosUser,
   options,
   ...
-}:
-{
-  imports = [ ./firewall ];
+}: {
+  imports = [./firewall];
   config = {
     networking = {
       inherit hostName;
       networkmanager.enable = false;
-      timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+      timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     };
 
     programs = {

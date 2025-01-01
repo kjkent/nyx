@@ -1,51 +1,62 @@
-{config, inputs, pkgs, ...}: with pkgs; {
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+with pkgs; {
   config = {
     programs = {
       vscode = {
         enable = true;
         enableUpdateCheck = false;
-        extensions = (
-          # In multiple `with` exprs, earlier order == namespace priority.
-          with vscode-marketplace-release; with vscode-marketplace; [
-            astro-build.astro-vscode
-            biomejs.biome
-            ms-python.black-formatter
-            ms-vscode.cmake-tools
-            matthewpi.caddyfile-support
-            catppuccin.catppuccin-vsc-icons
-            llvm-vs-code-extensions.vscode-clangd
-            naumovs.color-highlight
-            ms-azuretools.vscode-docker
-            editorconfig.editorconfig
-            ms-vscode.makefile-tools
-            unifiedjs.vscode-mdx
-            jnoortheen.nix-ide
-            christian-kohler.npm-intellisense
-            platformio.platformio-ide
-            yoavbls.pretty-ts-errors
-            alefragnani.project-manager
-            ms-python.vscode-pylance
-            ms-python.python
-            timonwong.shellcheck
-            bradlc.vscode-tailwindcss
-          ]) ++ (with vscode-extensions; [
+        extensions =
+          (
+            # In multiple `with` exprs, earlier order == namespace priority.
+            with vscode-marketplace-release;
+            with vscode-marketplace; [
+              astro-build.astro-vscode
+              biomejs.biome
+              ms-python.black-formatter
+              ms-vscode.cmake-tools
+              matthewpi.caddyfile-support
+              catppuccin.catppuccin-vsc-icons
+              llvm-vs-code-extensions.vscode-clangd
+              naumovs.color-highlight
+              ms-azuretools.vscode-docker
+              editorconfig.editorconfig
+              ms-vscode.makefile-tools
+              unifiedjs.vscode-mdx
+              jnoortheen.nix-ide
+              christian-kohler.npm-intellisense
+              platformio.platformio-ide
+              yoavbls.pretty-ts-errors
+              alefragnani.project-manager
+              ms-python.vscode-pylance
+              ms-python.python
+              timonwong.shellcheck
+              bradlc.vscode-tailwindcss
+            ]
+          )
+          ++ (with vscode-extensions; [
             # Removed from nix-vscode-extensions
             # https://github.com/nix-community/nix-vscode-extensions/issues/69
             ms-vscode.cpptools
             ms-vscode.cpptools-extension-pack
           ]);
-        package = vscode.fhsWithPackages (p: with p; [
-          avrdude
-          biome
-          dfu-util
-          nixd
-          nodejs_22
-          openocd
-          platformio
-          platformio-core
-          python3
-          typescript
-        ]);
+        package = vscode.fhsWithPackages (p:
+          with p; [
+            avrdude
+            biome
+            dfu-util
+            nixd
+            nodejs_22
+            openocd
+            platformio
+            platformio-core
+            python3
+            typescript
+          ]);
         userSettings = {
           # (not on nix) "update.mode" = "none";
           # (not on nix) "extensions.autoUpdate" = true;
@@ -102,10 +113,10 @@
           "caddyfile.executable" = "/usr/bin/caddy";
           "projectManager.supportSymlinksOnBaseFolders" = true;
           "projectManager.showParentFolderInfoOnDuplicates" = true;
-          "projectManager.tags" = [ "Work" "Web" "Embedded" "Android" ];
+          "projectManager.tags" = ["Work" "Web" "Embedded" "Android"];
           "projectManager.removeCurrentProjectFromList" = false;
           "projectManager.git.baseFolders" = [
-            "${config.home.homeDirectory}/dev" 
+            "${config.home.homeDirectory}/dev"
           ];
           "git.openRepositoryInParentFolders" = "never";
           "black-formatter.importStrategy" = "fromEnvironment";

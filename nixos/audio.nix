@@ -1,13 +1,16 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     boot = {
-      extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-      kernelModules = [ "v4l2loopback" ];
+      extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+      kernelModules = ["v4l2loopback"];
     };
 
     environment.systemPackages = with pkgs; [
-      ardour
+      #ardour           # audio editing software
       audacity
       easyeffects
       ffmpeg
@@ -23,21 +26,25 @@
     hardware.pulseaudio.enable = false;
 
     nixpkgs.overlays = [
-      (post: pre: with pre; let
-        spotx = fetchFromGitHub {
-          owner = "SpotX-Official";
-          repo = "SpotX-Bash";
-          rev = "fa0ea870b878fa38d6aa33d61d4191d3854d0e71";
-          hash = "sha256-/KGH8pKG2KNfo8m49bEk0PKYAS21YdCVUeMHunZH4fA=";
-        };
-        in {
-          spotify = spotify.overrideAttrs (pkg: {
-            buildInputs = [perl unzip zip];
-            postInstall = (pkg.postInstall or "") + ''
-              bash ${spotx}/spotx.sh -P $out/share/spotify/ -c
-            '';
-          });
-        }
+      (
+        post: pre:
+          with pre; let
+            spotx = fetchFromGitHub {
+              owner = "SpotX-Official";
+              repo = "SpotX-Bash";
+              rev = "fa0ea870b878fa38d6aa33d61d4191d3854d0e71";
+              hash = "sha256-/KGH8pKG2KNfo8m49bEk0PKYAS21YdCVUeMHunZH4fA=";
+            };
+          in {
+            spotify = spotify.overrideAttrs (pkg: {
+              buildInputs = [perl unzip zip];
+              postInstall =
+                (pkg.postInstall or "")
+                + ''
+                  bash ${spotx}/spotx.sh -P $out/share/spotify/ -c
+                '';
+            });
+          }
       )
     ];
 

@@ -1,4 +1,8 @@
-{ nixosUser, pkgs, ... }: {
+{
+  nixosUser,
+  pkgs,
+  ...
+}: {
   config = {
     environment.systemPackages = with pkgs; [
       adafruit-nrfutil
@@ -38,7 +42,7 @@
         package = pkgs.wireshark;
       };
     };
-    
+
     # Gives logged-in user access to any USB device enumerating a ttyUSB
     # or ttyACM device -- if the rule works (pls). Also tells ModemManager
     # to leave it alone as (old) reports state interference.
@@ -56,6 +60,6 @@
       })
     ];
 
-    users.users.${nixosUser.username}.extraGroups = [ "adbusers" "wireshark" ];
+    users.users.${nixosUser.username}.extraGroups = ["adbusers" "wireshark"];
   };
 }

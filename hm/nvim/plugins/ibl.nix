@@ -1,7 +1,11 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     programs.neovim = {
-      plugins = [ pkgs.vimPlugins.indent-blankline-nvim ];
+      plugins = [pkgs.vimPlugins.indent-blankline-nvim];
       extraLuaConfig = with config.lib.stylix.colors; ''
         local highlight = { "a", "b", "c", "d", "e", "f", "g" }
 

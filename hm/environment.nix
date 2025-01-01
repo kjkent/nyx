@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  home = config.home.homeDirectory;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  home = config.home.homeDirectory;
+in {
   config = {
     home = rec {
       activation = let
@@ -23,11 +25,13 @@ in
           XDG_BIN_HOME
         ];
       in {
-        init = with lib; hm.dag.entryAfter ["writeBoundary"] ''
-          ${builtins.concatStringsSep "\n" 
-          (map (dir: "mkdir -p ${dir}") dirsToCreate)
-          }  
-        '';
+        init = with lib;
+          hm.dag.entryAfter ["writeBoundary"] ''
+            ${
+              builtins.concatStringsSep "\n"
+              (map (dir: "mkdir -p ${dir}") dirsToCreate)
+            }
+          '';
       };
       sessionVariables = with config.xdg; rec {
         # gtfo my HOME goddamnit
@@ -53,7 +57,7 @@ in
         # Unofficial XDG dir
         XDG_BIN_HOME = "${home}/.local/bin";
       };
-      sessionPath = [ sessionVariables.XDG_BIN_HOME ];
+      sessionPath = [sessionVariables.XDG_BIN_HOME];
     };
     xdg = {
       enable = true;

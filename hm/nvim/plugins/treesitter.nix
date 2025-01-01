@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config = {
     programs.neovim = {
-      plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
+      plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
       extraLuaConfig = ''
         require('nvim-treesitter.configs').setup {
           ensure_installed = {},

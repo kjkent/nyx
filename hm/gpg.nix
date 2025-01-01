@@ -3,8 +3,7 @@
   nixosUser,
   pkgs,
   ...
-}:
-{
+}: {
   config = {
     services.gpg-agent = {
       enable = true;
@@ -18,7 +17,7 @@
       maxCacheTtl = 7200;
       maxCacheTtlSsh = 7200;
       pinentryPackage = pkgs.pinentry-gnome3;
-      sshKeys = [ nixosUser.gpg.keygrip ];
+      sshKeys = [nixosUser.gpg.keygrip];
       verbose = true;
     };
 

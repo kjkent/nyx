@@ -1,6 +1,5 @@
 # Adapted from https://github.com/fredericrous/dotfiles/blob/main/private_dot_config/starship.toml
-{ config, ... }:
-{
+{config, ...}: {
   right_format = "$time";
   palette = "lava";
   palettes.lava = with config.lib.stylix.colors; {

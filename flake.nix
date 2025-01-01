@@ -1,6 +1,4 @@
 {
-  description = "nyx";
-
   # Inputs should follow nixpkgs used for nixos.
   # inputs cannot use variables, because nix
   inputs = {
@@ -34,82 +32,82 @@
     systems.url = "github:nix-systems/default";
   };
 
-outputs = inputs@{self, ...}:
-    let
-      nixpkgs = inputs.nixpkgs-unstable;
+  outputs = inputs @ {self, ...}: let
+    nixpkgs = inputs.nixpkgs-unstable;
 
-      assetsPath = ./assets;
-      hmModulesPath = ./hm;
-      nixosModulesPath = ./nixos;
-      shellPlatforms = [ "x86_64-linux" ];
+    assetsPath = ./assets;
+    hmModulesPath = ./hm;
+    nixosModulesPath = ./nixos;
+    shellPlatforms = ["x86_64-linux"];
 
-      nixosUser = import ./deploy/user.nix;
-      nixosHosts = with nixpkgs.lib; pipe ./deploy/hosts [
-        builtins.readDir
-        (filterAttrs (name: _: hasSuffix ".nix" name))
-        (mapAttrsToList (name: _: removeSuffix ".nix" name))
-      ];
+    nixosUser = import ./deploy/user.nix;
 
-      mkNixosSpec = hostName: nixpkgs.lib.nixosSystem {
+    # hostnames enumerated from dir names within ./deploy/hosts
+    # "shared" is ignored, for shared config.
+    nixosHosts =
+      builtins.attrNames (     # return attribute names...
+      (nixpkgs.lib.filterAttrs # ...of attrset from filtering for...
+      (k: v: v == "directory" && k != "shared") # ...directories not named "shared"...
+      (builtins.readDir ./deploy/hosts))); # ...from listing files/dirs in ./deploy/hosts
+
+    mkNixosSpec = hostName:
+      nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit
-          assetsPath
-          hmModulesPath
-          nixosModulesPath
-          hostName
-          inputs
-          nixosUser
-          self
-          ;
+            assetsPath
+            hmModulesPath
+            nixosModulesPath
+            hostName
+            inputs
+            nixosUser
+            self
+            ;
         };
-        modules = [ 
+        modules = [
           ./nixos
-          ./pkg 
-          ./deploy/hosts/${hostName}.nix
+          ./pkg
+          ./deploy/hosts/${hostName}
         ];
       };
 
-      mkShellSpec = system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      in {
-        default = pkgs.mkShell {
-          name = "nyx-dev";
-
-          nativeBuildInputs = with pkgs; [
-            # Nix tools
-            nixd # Nix language server
-            nixfmt-rfc-style # Nix formatter
-            statix # Nix static analysis
-            deadnix # Find dead Nix code
-            alejandra # Alternative Nix formatter
-
-            # Git tools
-            git
-            git-crypt # Encryption for git repositories
-
-            # Additional utilities
-            just # Command runner
-          ];
-
-          shellHook = ''
-              echo "Welcome to the nyx development environment!"
-              echo "Available tools:"
-              echo "  - nixd: Nix language server"
-              echo "  - nixfmt: Nix formatter (RFC style)"
-              echo "  - statix: Static analysis for Nix"
-              echo "  - deadnix: Find dead Nix code"
-              echo "  - git-crypt: Encryption for git repositories"
-              echo "  - just: Command runner"
-              echo "  - alejandra: Alternative Nix formatter"
-              '';
-        };
+    mkShellSpec = system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
       };
-    in
-      with nixpkgs.lib;
-    {
+    in {
+      default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          # Nix tools
+          nixd # Nix language server
+          nixfmt-rfc-style # Nix formatter
+          statix # Nix static analysis
+          deadnix # Find dead Nix code
+          alejandra # Alternative Nix formatter
+
+          # Git tools
+          git
+          git-crypt # Encryption for git repositories
+
+          # Additional utilities
+          just # Command runner
+        ];
+
+        shellHook = ''
+          echo "Welcome to the nyx development environment!"
+          echo "Available tools:"
+          echo "  - nixd: Nix language server"
+          echo "  - nixfmt: Nix formatter (RFC style)"
+          echo "  - statix: Static analysis for Nix"
+          echo "  - deadnix: Find dead Nix code"
+          echo "  - git-crypt: Encryption for git repositories"
+          echo "  - just: Command runner"
+          echo "  - alejandra: Alternative Nix formatter"
+        '';
+      };
+    };
+  in
+    with nixpkgs.lib; {
       nixosConfigurations = genAttrs nixosHosts mkNixosSpec;
       devShells = genAttrs shellPlatforms mkShellSpec;
     };

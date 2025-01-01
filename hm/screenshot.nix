@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     home = {
       # 'Screenshots' allows compat with Android (FAT32 fs is case insensitive)
