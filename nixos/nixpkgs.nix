@@ -7,7 +7,7 @@
   initPkgs = namespace: pkgs: (post: pre:
     with config.nixpkgs; {
       ${namespace} = import pkgs {
-        inherit (pre.stdenv.hostPlatform) system;
+        inherit (pre.hostPlatform) system;
         inherit (config) allowUnfree;
       };
     });
@@ -18,7 +18,6 @@ in {
     nixpkgs = {
       overlays = with inputs; [
         # Makes nixpkgs revisions/branches available as string val
-        (initPkgs "master" nixpkgs-master)
         (initPkgs "stable" nixpkgs-stable)
         (initPkgs "unstable" nixpkgs-unstable)
 
