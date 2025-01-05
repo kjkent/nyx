@@ -6,12 +6,21 @@
 }:
 with osConfig; {
   config = {
-    home.packages = with pkgs; [hyprpicker];
+    home.packages = with pkgs; [
+      hyprpicker
+      hyprpolkitagent
+    ];
     wayland.windowManager.hyprland = {
       enable = true;
-      # Adds `dbus-update-activation-environment --systemd --all`
-      systemd.variables = ["--all"];
-      settings = {
+      systemd = {
+        # conflicts with `uwsm` session management in nixos module
+        enable = false; 
+        # Adds `dbus-update-activation-environment --systemd --all`
+        variables = ["--all"];
+      };
+      settings = let 
+        uw = exe: "uwsm app -- ${exe}";
+      in {
         "$mod" = "SUPER";
         env = [
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
@@ -34,8 +43,9 @@ with osConfig; {
         ];
 
         exec-once = [
-          "waybar"
-          "swaync"
+          (uw "systemctl --user start hyprpolkitagent")
+          (uw "waybar")
+          (uw "swaync")
         ];
 
         monitor = programs.hyprland.monitors;
@@ -134,15 +144,15 @@ with osConfig; {
 
         bind =
           [
-            "$mod,Return,exec,foot"
-            "$mod,B,exec,exec firefox"
-            "$mod,S,exec,screenshot"
-            "$mod,D,exec,rofi -show drun"
-            "$mod,O,exec,obsidian"
-            "$mod,C,exec,hyprpicker -a"
-            "$mod,G,exec,gimp"
-            "$mod,F,exec,thunar"
-            "$mod,M,exec,spotify"
+            "$mod,Return,exec,${uw "foot"}"
+            "$mod,B,exec,${uw "firefox"}"
+            "$mod,S,exec,${uw "screenshot"}"
+            "$mod,D,exec,${uw "rofi -show drun"}"
+            "$mod,O,exec,${uw "obsidian"}"
+            "$mod,C,exec,${uw "hyprpicker -a"}"
+            "$mod,G,exec,${uw "gimp"}"
+            "$mod,F,exec,${uw "thunar"}"
+            "$mod,M,exec,${uw "spotify"}"
             "$mod,Q,killactive"
             "$mod,P,pseudo"
             "$mod SHIFT,/,togglesplit"
