@@ -58,7 +58,7 @@
       };
     };
     services = {
-      # S.M.A.R.T
+      gvfs.enable = true;
       smartd.enable = false;
       fstrim.enable = true; # Periodic SSD trimming
     };

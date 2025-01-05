@@ -1,13 +1,14 @@
 {pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
-      wireguard-tools
-      protonvpn-gui
       dnsutils # dig, delv, nslookup, nsupdate
-      nmap
       ethtool # Low-level ethernet cli tool
+      impala # wifi management tui
       inetutils
       iw # Low-level wifi adapter cli tool
+      protonvpn-gui
+      nmap
+      wireguard-tools
     ];
   };
 }
