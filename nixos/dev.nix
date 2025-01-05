@@ -10,6 +10,11 @@
         arduino-cli
         arduino-ide
       ];
+      python = [
+        python3
+        pyupgrade
+        uv
+      ];
       sigrok = [
         libsigrok # needs to be included in services.udev.packages
         libsigrokdecode
@@ -17,7 +22,9 @@
         sigrok-cli
         sigrok-firmware-fx2lafw
       ];
-    in [
+
+      bundles = arduino ++ python ++ sigrok;
+    in bundles ++ [
       android-studio
       ansible
       biome
@@ -38,10 +45,7 @@
       opentofu
       shellcheck
       tinyxxd # xxd (usually bundled with vim)
-      uv
-    ]
-      ++ arduino
-      ++ sigrok;
+    ];
 
     programs = {
       adb.enable = true;
