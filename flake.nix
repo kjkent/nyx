@@ -9,22 +9,11 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    sops-nix = {
-      url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    stylix = {
-      url = "github:danth/stylix/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    vscode-exts = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+
+    hyprland.url = "github:hyprwm/hyprland/v0.46.2-b";
+    sops-nix.url = "github:mic92/sops-nix";
+    stylix.url = "github:danth/stylix/release-24.11";
+    vscode-exts.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs = inputs @ {self, ...}: let
