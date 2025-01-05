@@ -12,6 +12,9 @@
         gtk-application-prefer-dark-theme = 1;
       };
     };
+    home.packages = with pkgs; [
+      hyprpaper
+    ];
     qt = {
       enable = true;
       style.name = "adwaita-dark";
