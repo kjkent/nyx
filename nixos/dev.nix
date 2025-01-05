@@ -7,12 +7,15 @@
     environment.systemPackages = with pkgs; [
       adafruit-nrfutil
       android-studio
+      ansible
       arduino-cli
       arduino-ide
       biome
       bruno
       dfu-util
       docker-compose
+      espflash
+      esptool
       fritzing
       jetbrains.pycharm-community-bin
       jetbrains.webstorm
