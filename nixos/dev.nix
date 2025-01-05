@@ -22,6 +22,7 @@
       ansible
       biome
       bruno
+      clang
       dfu-util
       docker-compose
       espflash
