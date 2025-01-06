@@ -43,6 +43,7 @@
       nixd
       neovide
       opentofu
+      saleae-logic-2
       shellcheck
       tinyxxd # xxd (usually bundled with vim)
     ];
@@ -79,8 +80,9 @@
         destination = "/etc/udev/rules.d/70-${name}.rules";
       };
     in [
-      uaccess-usb-tty
       libsigrok
+      saleae-logic-2
+      uaccess-usb-tty
     ];
     users.users.${nixosUser.username}.extraGroups = ["adbusers" "wireshark"];
   };
