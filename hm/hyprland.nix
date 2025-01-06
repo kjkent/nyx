@@ -84,6 +84,9 @@ with osConfig; {
         ];
 
         windowrulev2 = [
+          # pulseview: normal windows have file title, so this only matches
+          # settings (hopefully)
+          "float,initialTitle:^PulseView$"
           "tile,class:^(\.)?scrcpy(-wrapped)?$"
           "stayfocused,title:^$,class:^steam$"
           "minsize 1 1,title:^$,class:^steam$"
