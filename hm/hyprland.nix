@@ -10,6 +10,7 @@ with osConfig; {
       hyprpicker
       hyprpolkitagent
     ];
+    services.hyprpaper.enable = true; # stylix handles setting wallpaper using hyprpaper
     wayland.windowManager.hyprland = {
       enable = true;
       systemd = {
@@ -84,8 +85,7 @@ with osConfig; {
         ];
 
         windowrulev2 = [
-          # pulseview: normal windows have file title, so this only matches
-          # settings (hopefully)
+          # pulseview: normal windows have file title; only matches settings
           "float,initialTitle:^PulseView$"
           "tile,class:^(\.)?scrcpy(-wrapped)?$"
           "stayfocused,title:^$,class:^steam$"
@@ -147,7 +147,7 @@ with osConfig; {
 
         bind =
           [
-            "$mod,Return,exec,${uw "foot"}"
+            "$mod,Return,exec,${uw "ghostty"}"
             "$mod,B,exec,${uw "firefox"}"
             "$mod,S,exec,${uw "screenshot"}"
             "$mod,D,exec,${uw "rofi -show drun"}"

@@ -60,7 +60,7 @@ with pkgs; {
         userSettings = {
           # (not on nix) "update.mode" = "none";
           # (not on nix) "extensions.autoUpdate" = true;
-          "terminal.external.linuxExec" = "foot";
+          "terminal.external.linuxExec" = "ghostty";
           "terminal.integrated.allowMnemonics" = true;
           "terminal.integrated.cursorBlinking" = true;
           "terminal.integrated.cursorStyleInactive" = "underline";

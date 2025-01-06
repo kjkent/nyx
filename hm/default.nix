@@ -6,7 +6,6 @@
     ./gpg.nix
     ./hyprland.nix
     ./hyprlock.nix
-    ./list-bindings.nix
     ./nix.nix
     ./nvim
     ./rofi.nix
