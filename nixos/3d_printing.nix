@@ -6,7 +6,7 @@
 }: {
   config = {
     environment.systemPackages = with pkgs; [
-      orca-slicer
+      stable.orca-slicer
       cura
     ];
     networking.firewall = {
