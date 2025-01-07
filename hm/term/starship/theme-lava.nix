@@ -1,4 +1,5 @@
 # Adapted from https://github.com/fredericrous/dotfiles/blob/main/private_dot_config/starship.toml
+# TODO: For some reason, git ahead count is not showing
 {config, ...}: {
   right_format = "$time";
   palette = "lava";
