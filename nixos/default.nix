@@ -15,7 +15,6 @@ _: {
     ./locale.nix
     ./network
     ./nix.nix
-    ./nixpkgs.nix
     ./nvidia.nix
     ./nyx.nix
     ./packages.nix
