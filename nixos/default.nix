@@ -16,7 +16,6 @@ _: {
     ./network
     ./nix.nix
     ./nvidia.nix
-    ./nyx.nix
     ./packages.nix
     ./printing.nix
     ./security.nix
