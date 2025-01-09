@@ -22,8 +22,7 @@
     hmModulesPath = ./hm;
     nixosModulesPath = ./nixos;
     shellPlatforms = ["x86_64-linux"];
-
-    nixosUser = import ./deploy/user.nix;
+    nixosUser = import ./user;
 
     # hostnames enumerated from dir names within ./deploy/hosts
     # "shared" is ignored, for shared config.
@@ -31,7 +30,7 @@
       builtins.attrNames (     # return attribute names...
       (nixpkgs.lib.filterAttrs # ...of attrset from filtering for...
       (k: v: v == "directory" && k != "shared") # ...directories not named "shared"...
-      (builtins.readDir ./deploy/hosts))); # ...from listing files/dirs in ./deploy/hosts
+      (builtins.readDir ./hosts))); # ...from listing files/dirs in ./deploy/hosts
 
     mkNixosSpec = hostName:
       nixpkgs.lib.nixosSystem {
@@ -47,9 +46,10 @@
             ;
         };
         modules = [
+          ./hosts/${hostName}
           ./nixos
           ./pkg
-          ./deploy/hosts/${hostName}
+          ./sops
         ];
       };
 

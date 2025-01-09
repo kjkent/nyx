@@ -38,6 +38,37 @@ Sometimes it can't find a file because:
 
 Because why not _shrug_. God damnit.
 
+## Attic commands
+
+Login:
+
+```shell
+attic login system <url: https://hostname.tld> <token>
+```
+
+Create cache:
+
+```shell
+attic cache create \
+    --priority 44 \
+    --upstream-cache-key-name hyprland.cachix.org-1 \
+    --upstream-cache-key-name nix-community.cachix.org-1 \
+    --upstream-cache-key-name numtide.cachix.org-1 \
+  system
+```
+
+Push to cache:
+
+```shell
+attic push system /run/current-system
+```
+
+Get cache info:
+
+```shell
+attic cache info system
+```
+
 ## Acknowledgements
 
 - Nyx is a heavily refactored fork of [ZaneyOS](https://gitlab.com/zaney/zaneyos).
@@ -45,3 +76,6 @@ Because why not _shrug_. God damnit.
   config and Wayland styling is still based on ZaneyOS, and this was a great repo to learn from.
 
 - [NixOS Hardware Repo](https://github.com/NixOS/nixos-hardware) for host-specific optimisations.
+
+- [LGUG2Z](https://lgug2z.com/articles/deploying-a-cloudflare-r2-backed-nix-binary-cache-attic-on-fly-io/)
+  for info on setting up a Nix binary cache within docker, using [attic](https://github.com/zhaofengli/attic)

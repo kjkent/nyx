@@ -1,5 +1,13 @@
+# to get server key: 
+# sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key -o /dev/null
+# see: https://github.com/Mic92/sops-nix?tab=readme-ov-file#usage-example
 keys:
-  - &kjkent F0954AC5C9A90C70794CCA88B02F66B6C1A75107
+  - &admin_kjkent F0954AC5C9A90C70794CCA88B02F66B6C1A75107
+  - &server_klap 17b06a974dbaa3517bc99c3e67e1cfc34c0b35d5
 
 creation_rules:
-  - pgp: *kjkent
+  - path_regex: sops/secrets/.*$
+    key_groups:
+    - pgp:
+      - *admin_kjkent
+      #- *server_klap

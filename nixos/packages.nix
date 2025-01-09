@@ -22,13 +22,13 @@ with pkgs; {
         ####
 
         ###### User CLI
-        scrcpy # Android
-        tmux
-        tio
         chafa # Convert images to ASCII art
         glow # Render markdown in terminal
-        less
         jq
+        less
+        scrcpy # Android
+        tio
+        tmux
         xdg-ninja # Suggests home cleaning tips
 
         ###### System management & monitoring CLI utils

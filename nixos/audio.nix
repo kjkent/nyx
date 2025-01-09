@@ -23,7 +23,7 @@
       vlc
     ];
 
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
 
     nixpkgs.overlays = [
       (

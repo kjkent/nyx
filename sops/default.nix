@@ -1,5 +1,8 @@
 {inputs, ...}: {
-  imports = [inputs.sops-nix.nixosModules.sops];
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+    #./attic.nix
+  ];
 
   config = {
     sops = {

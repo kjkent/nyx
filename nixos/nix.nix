@@ -3,6 +3,7 @@
   inputs,
   lib,
   nixosUser,
+  pkgs,
   self,
   ...
 }: let
@@ -20,6 +21,9 @@ in {
       # Needed for post-install. allowUnfree in flake config only used for
       # flake install. Makes sense -__-.
       sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+      systemPackages = with pkgs; [
+        attic-client
+      ];
     };
 
     nix = {
@@ -37,13 +41,21 @@ in {
           "nix-command"
           "flakes"
         ];
+        
+        #netrc-file = config.sops.secrets."attic/netrc".path;
+        
+        # cache.nixos.org included by default with priority 40
         substituters = [
-          "https://hyprland.cachix.org"
-          "https://nix-community.cachix.org"
+          "https://attic.x000.dev/system?priority=39"
+          "https://hyprland.cachix.org?priority=41"
+          "https://nix-community.cachix.org?priority=42"
+          "https://numtide.cachix.org?priority=43"
         ];
         trusted-public-keys = [
+          "system:NgfOpMK4QQiRqYipPuNrdGcpZg7ZvKcAKbgu42Carl8="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         ];
         trusted-users = ["${nixosUser.username}"];
       };

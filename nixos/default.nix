@@ -20,7 +20,6 @@ _: {
     ./printing.nix
     ./security.nix
     ./session.nix
-    ./sops.nix
     ./storage.nix
     ./stylix.nix
     ./thunar.nix
