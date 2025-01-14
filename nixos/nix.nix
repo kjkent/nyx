@@ -35,9 +35,9 @@ in {
         download-buffer-size = 536870912; # 512MB
         # https://bmcgee.ie/posts/2023/12/til-how-to-optimise-substitutions-in-nix/
         http-connections = 128;
+        max-jobs = 1;
         max-silent-time = 3600; # kills build after 1hr with no logging
         max-substitution-jobs = 128;
-        max-jobs = 1; #begone, oom - "auto" == too much?
         experimental-features = [
           "nix-command"
           "flakes"
