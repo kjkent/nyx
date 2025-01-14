@@ -3,6 +3,7 @@ _: {
     ./3d_printing.nix
     ./audio.nix
     ./boot.nix
+    ./bt.nix
     ./dev.nix
     ./fonts.nix
     ./firmware.nix
@@ -18,6 +19,7 @@ _: {
     ./nvidia.nix
     ./packages.nix
     ./printing.nix
+    ./ram.nix
     ./security.nix
     ./session.nix
     ./storage.nix

@@ -18,7 +18,7 @@ with pkgs; {
         sublime4
         super-productivity
         teams-for-linux
-        telegram-desktop
+        #telegram-desktop
         ####
 
         ###### User CLI

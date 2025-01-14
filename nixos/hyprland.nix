@@ -30,7 +30,15 @@ in {
   # `hypr.<pkg>` as I am not 100% sure if overlays apply within the same file
   config = {
     # Causes NixOS to configure Electron/CEF apps to run on native Wayland
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    environment = {
+      sessionVariables.NIXOS_OZONE_WL = "1";
+      systemPackages = [
+        hypr.hyprland-qtutils
+        hypr.hyprland-protocols
+        hypr.hyprpicker
+        hypr.hyprpolkitagent
+      ];
+    };
 
     hardware.graphics = {
       enable = true;

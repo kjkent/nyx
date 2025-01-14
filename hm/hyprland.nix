@@ -6,10 +6,6 @@
 }:
 with osConfig; {
   config = {
-    home.packages = with pkgs; [
-      hyprpicker
-      hyprpolkitagent
-    ];
     services.hyprpaper.enable = true; # stylix handles setting wallpaper using hyprpaper
     wayland.windowManager.hyprland = {
       enable = true;
@@ -60,7 +56,7 @@ with osConfig; {
         };
 
         # NVIDIA compat.
-        cursor.use_cpu_buffer = lib.mkIf osConfig.hardware.nvidia.enable true;
+        cursor.use_cpu_buffer = lib.mkIf hardware.nvidia.enable true;
 
         input = {
           kb_layout = "${hardware.keyboard.layout}";

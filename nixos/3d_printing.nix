@@ -6,7 +6,7 @@
 }: {
   config = {
     environment.systemPackages = with pkgs; [
-      stable.orca-slicer
+      #orca-slicer may be causing crazy builds
       cura
     ];
     networking.firewall = {

@@ -5,8 +5,8 @@ alias sudo="$([ "$UID" = "0" ] && command sudo)"
 
 host_name="$1"
 disk="$2"
-esp_name="nyx_efi"
-crypt_name="nyx_luks"
+esp_name="nyx_esp"
+crypt_name="nyx_crypt"
 root_name="nyx_root"
 
 if ([ "$1" != "klap" ] && [ "$1" != "kdes" ]) || [[ "$2" != "/dev/"* ]]; then
@@ -39,7 +39,7 @@ else
 	sudo mount /dev/mapper/"$root_name" /mnt
 
 	# Format & mount ESP
-	sudo mkfs.vfat -F 32 -n "$efi_name" "${disk}p1"
+	sudo mkfs.vfat -F 32 -n "$esp_name" "${disk}p1"
 	sudo mkdir -p /mnt/boot
 	sudo mount "${disk}p1" /mnt/boot
 

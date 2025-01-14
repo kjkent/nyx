@@ -27,7 +27,7 @@
         fsType = "xfs";
       };
       "/boot" = {
-        device = "/dev/disk/by-label/nyx_efi";
+        device = "/dev/disk/by-label/nyx_esp";
         fsType = "vfat";
         options = [
           "rw"
@@ -42,21 +42,7 @@
         ];
       };
     };
-    zramSwap.enable = true;
-    swapDevices = [];
-    boot = {
-      initrd.luks.devices.nyx_root.device = "/dev/disk/by-label/nyx_luks";
-      kernel.sysctl = {
-        "vm.swappiness" = 180;
-        "vm.watermark_boost_factor" = 0;
-        "vm.watermark_scale_factor" = 125;
-        "vm.page-cluster" = 0;
-      };
-      tmp = {
-        useTmpfs = true;
-        tmpfsSize = "30%";
-      };
-    };
+    boot.initrd.luks.devices.nyx_root.device = "/dev/disk/by-label/nyx_crypt";
     services = {
       gvfs.enable = true;
       smartd.enable = false;

@@ -13,5 +13,5 @@
         enableGraphical = true;
       };
     };
-  }
+  };
 }

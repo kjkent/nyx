@@ -13,8 +13,8 @@ with pkgs; {
         extensions =
           (
             # In multiple `with` exprs, earlier order == namespace priority.
-            with vscode-marketplace-release;
-            with vscode-marketplace; [
+            with vscode-marketplace;
+            with vscode-marketplace-release; [
               astro-build.astro-vscode
               biomejs.biome
               ms-python.black-formatter

@@ -35,8 +35,9 @@ in {
         download-buffer-size = 536870912; # 512MB
         # https://bmcgee.ie/posts/2023/12/til-how-to-optimise-substitutions-in-nix/
         http-connections = 128;
+        max-silent-time = 3600; # kills build after 1hr with no logging
         max-substitution-jobs = 128;
-        max-jobs = "auto";
+        max-jobs = 1; #begone, oom - "auto" == too much?
         experimental-features = [
           "nix-command"
           "flakes"
@@ -109,6 +110,18 @@ in {
       # prevent OOS error during builds when using zram/tmp on tmpfs
       services.nix-daemon.environment.TMPDIR = nixTmpDir;
       tmpfiles.rules = [ "d ${nixTmpDir} 0755 root root 1d" ];
+
+      # OOM config (https://discourse.nixos.org/t/nix-build-ate-my-ram/35752)
+      slices."nix-daemon".sliceConfig = {
+        ManagedOOMMemoryPressure = "kill";
+        ManagedOOMMemoryPressureLimit = "90%";
+      };
+      services."nix-daemon".serviceConfig = {
+        Slice = "nix-daemon.slice";
+        # If kernel OOM does occur, strongly prefer 
+        # killing nix-daemon child processes
+        OOMScoreAdjust = 1000;
+      };
     };
 
     programs = {
