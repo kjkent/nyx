@@ -6,8 +6,19 @@ keys:
   - &server_klap 17b06a974dbaa3517bc99c3e67e1cfc34c0b35d5
 
 creation_rules:
-  - path_regex: sops/secrets/.*$
+  # Matches any file in any path with '.sops' in the filename
+  - path_regex: '\.sops.*$'
     key_groups:
     - pgp:
       - *admin_kjkent
       #- *server_klap
+
+# configuring json indent uses spaces instead of 
+# tabs for json, making them also valid YAML.
+stores:
+  json_binary:
+    indent: 2
+  json:
+    indent: 2
+  yaml:
+    indent: 2
