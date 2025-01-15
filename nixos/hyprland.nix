@@ -7,15 +7,17 @@ config,
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
 
-  # hypr-pkgs == packages for hyprland itself
+  # packages built by hyprland - unsure of which 
   hypr-pkgs = inputs.hyprland.packages.${system};
-  # pkgs-hypr == os nixpkgs used to build hypr, so we can match mesa versions
-  pkgs-hypr = import inputs.hyprland.inputs.nixpkgs {
+  # nixpkgs used to build hypr, so we can match mesa versions
+  nixpkgs-hypr = import inputs.hyprland.inputs.nixpkgs {
     inherit (config.nixpkgs.config) allowUnfree;
     inherit system;
   };
 
-  hypr = hypr-pkgs // pkgs-hypr;
+  # rightmost takes precedence -- we want to use hyprland input where
+  # possible to benefit from caching (+ presumably update speed)
+  hypr = nixpkgs-hypr // hypr-pkgs;
 in {
   options = with lib; {
     programs.hyprland = {
@@ -50,13 +52,18 @@ in {
 
     nixpkgs.overlays = [
       # ensures nixos and hyprland using same packages to avoid conflict.
-      # originally used with/inherit but encountered odd behavior
-      (post: pre: {
-        mesa = hypr.mesa;
+      (post: pre: with hypr; {
+        inherit
+        hyprland
+        hyprland-qtutils
+        hyprland-protocols
+        hyprpaper
+        hyprpicker
+        hyprpolkitagent
+        mesa
+        xdg-desktop-portal-hyprland
+        ;
         pkgsi1686Linux.mesa = hypr.pkgsi686Linux.mesa;
-
-        hyprland = hypr.hyprland; 
-        xdg-desktop-portal-hyprland = hypr.xdg-desktop-portal-hyprland;
       })
     ];
 

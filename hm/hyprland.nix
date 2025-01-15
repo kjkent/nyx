@@ -6,15 +6,11 @@
 }:
 with osConfig; {
   config = {
-    services.hyprpaper.enable = true; # stylix handles setting wallpaper using hyprpaper
+    services.hyprpaper.enable = true; # stylix sets wallpaper using hyprpaper
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd = {
-        # conflicts with `uwsm` session management in nixos module
-        enable = false; 
-        # Adds `dbus-update-activation-environment --systemd --all`
-        variables = ["--all"];
-      };
+      # conflicts with `uwsm` session management in nixos module
+      systemd.enable = false;
       settings = let 
         uw = exe: "uwsm app -- ${exe}";
       in {
@@ -40,7 +36,8 @@ with osConfig; {
         ];
 
         exec-once = [
-          (uw "systemctl --user start hyprpolkitagent")
+          (uw "dbus-update-activation-environment --systemd --all")
+          (uw "systemctl --user start hyprpaper hyprpolkitagent")
           (uw "waybar")
           (uw "swaync")
         ];
