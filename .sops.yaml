@@ -6,7 +6,7 @@ keys:
   - &host_klap   17B06A974DBAA3517BC99C3E67E1CFC34C0B35D5
   - &host_kdes   98DF92E6BA29DE2B6DAA4F463FEAD52561CC8169
 creation_rules:
-  - path_regex: 'sops/secrets/.*$'
+  - path_regex: 'sops/.*'
     key_groups:
     - pgp:
       - *user_kjkent
