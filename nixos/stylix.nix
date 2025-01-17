@@ -24,7 +24,7 @@ in {
   config = {
     stylix = {
       image = "${assetsPath}/wallpaper/mountains.png";
-      base16Scheme = palette "ayu-mirage";
+      base16Scheme = palette "spaceduck";
       enable = true;
       polarity = "dark";
       opacity.terminal = 0.8;
