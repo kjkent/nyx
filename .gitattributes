@@ -1,5 +1,0 @@
-# For git-crypt
-**/*.gitcrypt.* filter=git-crypt diff=git-crypt
-
-# ensure .gitattributes is not encrypted
-**/.gitattributes !filter !diff

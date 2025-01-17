@@ -43,20 +43,24 @@ in {
           "flakes"
         ];
         
-        #netrc-file = config.sops.secrets."attic/netrc".path;
+        netrc-file = config.sops.secrets."nix-netrc".path;
         
         # cache.nixos.org included by default with priority 40
         substituters = [
           "https://attic.x000.dev/system?priority=39"
+          "https://cache.nixos.org?priority=40"
           "https://hyprland.cachix.org?priority=41"
           "https://nix-community.cachix.org?priority=42"
           "https://numtide.cachix.org?priority=43"
+          "https://cuda-maintainers.cachix.org?priority=44"
         ];
         trusted-public-keys = [
           "system:NgfOpMK4QQiRqYipPuNrdGcpZg7ZvKcAKbgu42Carl8="
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+          "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
         ];
         trusted-users = ["${nixosUser.username}"];
       };

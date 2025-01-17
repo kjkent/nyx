@@ -79,3 +79,5 @@ attic cache info system
 
 - [LGUG2Z](https://lgug2z.com/articles/deploying-a-cloudflare-r2-backed-nix-binary-cache-attic-on-fly-io/)
   for info on setting up a Nix binary cache within docker, using [attic](https://github.com/zhaofengli/attic)
+attic cache configure system --upstream-cache-key-name cache.nixos.org-1 --upstream-cache-key-name hyprland.cachix.org-1 --upstream-cache-key-name nix-community.cachix.org-1 --upstream-cache-key-name numtide.cachix.org-1 --upstream-cache-key-name cuda-maintainers.cachix.org-1
+sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key -name "Host SSH: $HOST" -email "root@$HOST" -comment ""

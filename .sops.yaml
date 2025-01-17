@@ -2,16 +2,16 @@
 # sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key -o /dev/null
 # see: https://github.com/Mic92/sops-nix?tab=readme-ov-file#usage-example
 keys:
-  - &admin_kjkent F0954AC5C9A90C70794CCA88B02F66B6C1A75107
-  - &server_klap 17b06a974dbaa3517bc99c3e67e1cfc34c0b35d5
-
+  - &user_kjkent F0954AC5C9A90C70794CCA88B02F66B6C1A75107
+  - &host_klap   17B06A974DBAA3517BC99C3E67E1CFC34C0B35D5
+  - &host_kdes   98DF92E6BA29DE2B6DAA4F463FEAD52561CC8169
 creation_rules:
-  # Matches any file in any path with '.sops' in the filename
-  - path_regex: '\.sops.*$'
+  - path_regex: 'sops/secrets/.*$'
     key_groups:
     - pgp:
-      - *admin_kjkent
-      #- *server_klap
+      - *user_kjkent
+      - *host_klap
+      - *host_kdes
 
 # configuring json indent uses spaces instead of 
 # tabs for json, making them also valid YAML.

@@ -30,8 +30,8 @@
         NVD_BACKEND = "direct";
       };
       systemPackages = with pkgs; [
-        cudaPackages.cudnn;
-        cudaPackages.cutensor;
+        cudaPackages.cudnn
+        cudaPackages.cutensor
       ];
     };
 

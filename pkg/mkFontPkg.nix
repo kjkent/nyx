@@ -4,7 +4,7 @@
 # ```
 # fonts.packages = [
 #   (pkg.mkFontPkg "Comic Sans" {
-#     source = "${self}/sops/comic-sans.tar.gz"
+#     source = "${self}/fonts/comic-sans.tar.gz"
 #   })
 # ];
 # ```

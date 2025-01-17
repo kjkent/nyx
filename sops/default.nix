@@ -7,10 +7,17 @@
     sops = {
       defaultSopsFormat = "yaml"; # or "json"
       secrets = {
-        #attic_netrc = {
-        #  format = "binary";
-        #  sopsFile = ./secrets/attic_netrc.sops;
-        #};
+        nix-netrc = {
+          format = "binary";
+          sopsFile = ./secrets/nix-netrc.sops.yaml;
+        };
+        fonts-berkeleyMono = {
+          format = "binary";
+          sopsFile = ./secrets/fonts-berkeleyMono.tar.xz.sops.yaml;
+        };
+        sshd-hostKeys = {
+          sopsFile = ./secrets/sshd-hostKeys.yaml.sops.yaml;
+        };
       };
     };
   };
