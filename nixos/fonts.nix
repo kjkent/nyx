@@ -12,7 +12,7 @@ with pkgs; {
     nixpkgs.overlays = [
       (_: _: {
         berkeley-mono = mkFontPkg "Berkeley Mono (with Nerd Fonts)" {
-          source = ../assets/fonts/berkeleyMono.gitcrypt.tar.xz; 
+          source = ../assets/fonts/berkeleyMono_v2.gitcrypt.tar.xz; 
         };
       })
     ];
