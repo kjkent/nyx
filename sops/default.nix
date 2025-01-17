@@ -9,14 +9,10 @@
       secrets = {
         nix-netrc = {
           format = "binary";
-          sopsFile = ./secrets/nix-netrc.sops.yaml;
-        };
-        fonts-berkeleyMono = {
-          format = "binary";
-          sopsFile = ./secrets/fonts-berkeleyMono.tar.xz.sops.yaml;
+          sopsFile = ./secrets/nix-netrc;
         };
         sshd-hostKeys = {
-          sopsFile = ./secrets/sshd-hostKeys.yaml.sops.yaml;
+          sopsFile = ./secrets/sshd-hostKeys.yaml;
         };
       };
     };
