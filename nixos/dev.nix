@@ -28,7 +28,7 @@
       android-studio
       ansible
       biome
-      bruno
+      #bruno # goddamn electron, more like universe-spanning builds
       clang
       dfu-util
       docker-compose
