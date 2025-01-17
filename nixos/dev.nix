@@ -43,6 +43,7 @@
       nixd
       neovide
       opentofu
+      processing
       saleae-logic-2
       shellcheck
       tinyxxd # xxd (usually bundled with vim)
