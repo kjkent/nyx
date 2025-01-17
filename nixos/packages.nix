@@ -8,6 +8,7 @@ with pkgs; {
       systemPackages = [
         #### GUI: Office, Notes, Messaging
         beeper
+        blender
         brave
         discord
         gimp
