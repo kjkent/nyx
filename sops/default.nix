@@ -6,11 +6,8 @@
   config = {
     sops = {
       defaultSopsFormat = "yaml"; # or "json"
-      secrets = {
-        sshd-hostKeys = {
-          sopsFile = ./secrets/sshd-hostKeys.yaml;
-        };
-      };
+      # Format: secrets.<key_name>.sopsFile = <e.g YAML file in which key_name present at top level, val must be str>
+      #secrets = {};
     };
   };
 }
