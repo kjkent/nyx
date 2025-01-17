@@ -6,11 +6,20 @@ with pkgs; {
       kernelParams = [
         "i915.enable_guc=3"
         "i915.enable_fbc=1"
-        "i915.enable_psr=0" # 2 == awful flickering. 3 == less awful flickering.
+        # PSR:
+        # 0 == ...
+        # 2 == awful flickering
+        # 3 == less awful flickering
+        "i915.enable_psr=0"
       ];
     };
-    environment.sessionVariables = {
-      LIBVA_DRIVER_NAME = "iHD";
+    environment = {
+      sessionVariables = {
+        LIBVA_DRIVER_NAME = "iHD";
+      };
+      systemPackages = [
+        libva-utils
+      ];
     };
     hardware.graphics = {
       enable = true;

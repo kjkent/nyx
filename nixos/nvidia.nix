@@ -22,12 +22,23 @@
         "nvidia_modeset"
       ];
     };
-    environment.sessionVariables = {
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      GBM_BACKEND = "nvidia-drm";
-      LIBVA_DRIVER_NAME = "nvidia";
-      NVD_BACKEND = "direct";
+    environment = {
+      sessionVariables = {
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        GBM_BACKEND = "nvidia-drm";
+        LIBVA_DRIVER_NAME = "nvidia";
+        NVD_BACKEND = "direct";
+      };
+      systemPackages = with pkgs; [
+        cudaPackages.cudnn;
+        cudaPackages.cutensor;
+      ];
     };
+
+    # nixos manual: "May cause mass rebuild"
+    # build packages with cuda support by default
+    nixpkgs.config.cudaSupport = true;
+
     programs = {
       nix-ld.libraries = with pkgs; [
         nvidia-vaapi-driver
