@@ -43,8 +43,6 @@ in {
           "flakes"
         ];
         
-        netrc-file = config.sops.secrets."nix-netrc".path;
-        
         # cache.nixos.org included by default with priority 40
         substituters = [
           "https://attic.x000.dev/system?priority=39"
