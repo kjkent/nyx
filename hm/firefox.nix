@@ -11,6 +11,7 @@ in {
         policies = {
           DisplayBookmarksToolbar = "always";
           DisableFirefoxStudies = true;
+          DisableFormHistory = true;
           DisablePocket = true;
           DisableTelemetry = true;
           DontCheckDefaultBrowser = true;
@@ -54,6 +55,7 @@ in {
               #Additional = [ "https.....com" "https.....com" ];
               StartPage = "none"; # none/homepage/previous-session/homepage-locked
             };
+          NoDefaultBookmarks = true;
           OfferToSaveLogins = false;
           PasswordManagerEnabled = false;
           PopupBlocking =
@@ -63,6 +65,7 @@ in {
             };
           PostQuantumKeyAgreementEnabled = true;
           PromptForDownloadLocation = false;
+          RequestedLocales = [ "en-GB" "en-US" "en-CA" ];
           SearchBar = "unified";
           SearchSuggestEnabled = true;
           ShowHomeButton = false;
@@ -76,12 +79,7 @@ in {
             "browser.compactmode.show" = yes;
             "browser.display.use_system_colors" = yes;
             "browser.download.autohideButton" = no;
-            "browser.ml.chat.enabled" = yes;
-            "browser.ml.chat.provider" =
-              locked
-              // {
-                Value = "https://claude.ai/new";
-              };
+            "browser.ml.chat.enabled" = no;
             "browser.sessionstore.max_resumed_crashes" = locked // {Value = -1;};
             # FF sets this to true on reboot, forcing a session restore
             "browser.sessionstore.resume_session_once" = no;
