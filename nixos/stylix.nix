@@ -41,7 +41,7 @@ in {
         };
         monospace = {
           package = berkeley-mono;
-          name = "BerkeleyMono NF";
+          name = "BerkeleyMono Nerd Font";
         };
         emoji = {
           package = noto-fonts-emoji-blob-bin;
