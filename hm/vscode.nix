@@ -63,7 +63,7 @@ pkgs,
     "terminal.integrated.gpuAcceleration" = "auto";
     "terminal.integrated.smoothScrolling" = true;
     # (stylix) "workbench.colorTheme" = "Catppuccin Mocha";
-    # (stylix) "terminal.integrated.fontFamily" = "BerkeleyMono Nerd Font";
+    # (stylix) "terminal.integrated.fontFamily" = "BerkeleyMono NF";
     # (stylix) "editor.fontFamily" = lib.mkDefault "Berkeley Mono";
     "editor.fontLigatures" = true;
     "editor.formatOnPaste" = true;

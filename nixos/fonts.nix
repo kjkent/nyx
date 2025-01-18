@@ -11,8 +11,13 @@ with pkgs; {
 
     nixpkgs.overlays = [
       (_: _: {
-        berkeley-mono = mkFontPkg "Berkeley Mono (with Nerd Fonts)" {
+        berkeley-mono = mkFontPkg "Berkeley Mono (including NF glyphs)" {
           source = ../assets/fonts/berkeleyMono_v2.gitcrypt.tar.xz; 
+        };
+      })
+      (_: _: {
+        ms-fonts = mkFontPkg "MS Fonts" {
+          source = ../assets/fonts/msFonts.gitcrypt.tar.xz; 
         };
       })
     ];
@@ -28,7 +33,7 @@ with pkgs; {
           ];
           monospace = [
             "Berkeley Mono"
-            "BerkeleyMono Nerd Font"
+            "BerkeleyMono NF"
           ];
         };
       };
