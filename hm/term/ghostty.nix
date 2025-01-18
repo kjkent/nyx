@@ -22,6 +22,7 @@ in {
             "ctrl+s>k=new_split:up"
             "ctrl+s>l=new_split:right"
             "ctrl+s>e=equalize_splits"
+            "ctrl+shift+s=toggle_split_zoom"
 
             "ctrl+h=goto_split:left"
             "ctrl+j=goto_split:bottom"
@@ -30,6 +31,13 @@ in {
 
             "ctrl+q=close_surface"
             "ctrl+shift+q=close_all_windows"
+
+            "ctrl+shift+c=copy_to_clipboard"
+            "ctrl+shift+v=paste_from_clipboard"
+            "ctrl+shift+p=paste_from_selection"
+
+            "ctrl+]=scroll_page_up"
+            "ctrl+[=scroll_page_down"
           ];
         };
       };
