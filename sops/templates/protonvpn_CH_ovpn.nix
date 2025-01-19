@@ -1,5 +1,6 @@
-{config, ...}: {sops.templates."protonvpn_CH.ovpn".content = let
-sops = config.sops.placeholder.protonvpn.openvpn;
+{config, lib, ...}: {sops.templates."protonvpn_CH_ovpn".content = let
+getSecret = id: lib.attrsets.attrByPath 
+  [ "protonvpn_openvpn_${id}" ] "undefined :(" config.sops.placeholder;
 in ''
 # ==============================================================================
 # Copyright (c) 2023 Proton AG (Switzerland)
@@ -27,9 +28,9 @@ in ''
 # ==============================================================================
 
 # If you are a paying user you can also enable the ProtonVPN ad blocker (NetShield) or Moderate NAT:
-# Use: "${sops.username}+f1" as username to enable anti-malware filtering
-# Use: "${sops.username}+f2" as username to additionally enable ad-blocking filtering
-# Use: "${sops.username}+nr" as username to enable Moderate NAT
+# Use: "${getSecret "username"}+f1" as username to enable anti-malware filtering
+# Use: "${getSecret "username"}+f2" as username to additionally enable ad-blocking filtering
+# Use: "${getSecret "username"}+nr" as username to enable Moderate NAT
 # Note that you can combine the "+nr" suffix with other suffixes.
 
 client
@@ -115,8 +116,8 @@ reneg-sec 0
 remote-cert-tls server
 
 <auth-user-pass>
-user ${sops.username}
-password ${sops.password}
+user ${getSecret "username"}
+password ${getSecret "password"}
 </auth-user-pass>
 
 script-security 2
@@ -124,10 +125,10 @@ up /etc/openvpn/update-resolv-conf
 down /etc/openvpn/update-resolv-conf
 
 <ca>
-${sops.ca_cert}
+${getSecret "ca_cert"}
 </ca>
 
 <tls-crypt>
-${sops.tls_key}
+${getSecret "tls_key"}
 </tls-crypt>
 '';}

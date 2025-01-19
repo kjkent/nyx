@@ -73,7 +73,7 @@
         servers = {
           protonvpn = {
             autoStart = false;
-            config = "config ${config.sops.templates."protonvpn_CH.ovpn".path}";
+            config = "config ${config.sops.templates."protonvpn_CH_ovpn".path}";
           };
         };
       };

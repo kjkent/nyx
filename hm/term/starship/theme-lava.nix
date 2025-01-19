@@ -29,7 +29,7 @@
     style = "fg:color0 bg:color5";
     truncate_to_repo = true;
     fish_style_pwd_dir_length = 1;
-    format = "[ $path$read_only ]($style)[](fg:color5)";
+    format = "[$path$read_only ]($style)[](fg:color5)";
     read_only = "  ";
   };
 

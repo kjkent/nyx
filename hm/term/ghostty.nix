@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}: let
+{config, lib, osConfig, pkgs, ...}: let
 in {
   config = {
     programs = {
@@ -10,6 +10,7 @@ in {
         installVimSyntax = true;
         package = pkgs.unstable.ghostty; 
         settings = {
+          background-opacity = osConfig.stylix.opacity.terminal; # 0..1
           copy-on-select = false;
           cursor-click-to-move = true; # alt-click to jump to mouse!
           focus-follows-mouse = true;
@@ -51,6 +52,10 @@ in {
           title = "👻";
           theme = "spaceduck";
           window-decoration = false;
+          window-padding-x = 10;
+          window-padding-y = 10;
+          window-padding-balance = true;
+          window-padding-color = "extend"; # or "background"
         };
         themes = {
           catppuccin-mocha = {

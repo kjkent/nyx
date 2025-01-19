@@ -154,7 +154,7 @@ in {
       };
       style = ''
         * {
-          font-family: ${config.stylix.fonts.monospace.name};
+          font-family: "${config.stylix.fonts.monospace.name}", "Symbols Nerd Font";
           font-size: 10pt;
           padding: 0;
           min-height: 0px;

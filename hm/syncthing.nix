@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, lib, osConfig, ...}: {
   config = {
     services = {
       syncthing = {
@@ -11,6 +11,9 @@
           "--allow-newer-config"
         ];
       };
+    };
+    systemd.user.services.syncthing = {
+      Unit.After = lib.mkIf (osConfig ? sops) [ "sops-nix.service" ];
     };
   };
 }

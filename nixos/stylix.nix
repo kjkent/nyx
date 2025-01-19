@@ -33,20 +33,20 @@ in {
         name = "Bibata-Modern-Ice";
         size = 24;
       };
-      fonts = {
-        serif = config.stylix.fonts.sansSerif;
-        sansSerif = {
-          package = montserrat;
-          name = "Montserrat";
+      fonts = rec {
+        emoji = {
+          package = noto-fonts-emoji-blob-bin;
+          name = "Blobmoji";
         };
         monospace = {
           package = berkeley-mono;
           name = "Berkeley Mono";
         };
-        emoji = {
-          package = noto-fonts-emoji-blob-bin;
-          name = "Blobmoji";
+        sansSerif = {
+          package = montserrat;
+          name = "Montserrat";
         };
+        serif = sansSerif;
       };
     };
   };

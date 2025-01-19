@@ -11,8 +11,8 @@ with pkgs; {
 
     nixpkgs.overlays = [
       (_: _: {
-        berkeley-mono = mkFontPkg "Berkeley Mono (v2.002)" {
-          source = ../assets/fonts/berkeley-mono.gitcrypt.tar.xz; 
+        berkeley-mono = mkFontPkg "Berkeley Mono" {
+          source = ../assets/fonts/berkeley-mono-ttf.gitcrypt.tar.xz; 
         };
       })
       (_: _: {

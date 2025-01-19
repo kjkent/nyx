@@ -108,3 +108,22 @@ sudo ssh-to-pgp \
 
 - [LGUG2Z](https://lgug2z.com/articles/deploying-a-cloudflare-r2-backed-nix-binary-cache-attic-on-fly-io/)
   for info on setting up a Nix binary cache within docker, using [attic](https://github.com/zhaofengli/attic)
+
+## notes:
+
+### sops
+
+- For a yaml document with the following structure;
+
+```YAML
+protonvpn:
+  openvpn:
+    username: hello_wolrd
+    password: v_secure_password_1
+```
+
+sops can access a nested key to extract and decrypt its value, with this command (note the key address syntax):
+
+```Shell
+sops --extract '["protonvpn"]["openvpn"]["username"]' --decrypt sops.yaml
+```

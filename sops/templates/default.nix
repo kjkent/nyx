@@ -1,5 +1,5 @@
 {
   imports = [
-    ./protonvpn_CH.ovpn.nix
+    ./protonvpn_CH_ovpn.nix
   ];
 }
