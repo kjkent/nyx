@@ -1,8 +1,17 @@
 _: {
   config = {
     boot = {
-      loader.systemd-boot.enable = true;
-      loader.efi.canTouchEfiVariables = true;
+      loader = {
+        systemd-boot = {
+          enable = true;
+          consoleMode = "max";
+          edk2-uefi-shell.enable = true;
+          memtest86.enable = true;
+          rebootForBitlocker = true;
+        };
+        efi.canTouchEfiVariables = true;
+      };
+      timeout = 0;
 
       plymouth.enable = true;
       initrd = {

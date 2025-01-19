@@ -67,17 +67,8 @@ with osConfig; {
           accel_profile = "flat";
         };
 
-        windowrule = let
-          f = regex: "float,^${regex}$";
-        in [
-          (f "blueman-manager")
-          (f "nm-connection-editor")
-          (f "pavucontrol")
-          (f "swayimg")
-          (f "Viewnior")
-        ];
-
         windowrulev2 = [
+          "float,class:^org.pulseaudio.pavucontrol$"
           # pulseview: normal windows have file title; only matches settings
           "float,initialTitle:^PulseView$"
           "tile,class:^(\.)?scrcpy(-wrapped)?$"

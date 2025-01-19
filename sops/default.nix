@@ -1,11 +1,12 @@
 {inputs, ...}: {
   imports = [
     inputs.sops-nix.nixosModules.sops
+    ./templates
   ];
 
   config = {
     sops = {
-      defaultSopsFormat = "yaml";
+      defaultSopsFile = ./sops.yaml
     };
   };
 }

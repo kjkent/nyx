@@ -69,6 +69,14 @@
           X11Forwarding = true;
         };
       };
+      openvpn = {
+        servers = {
+          protonvpn = {
+            autoStart = false;
+            config = "config ${config.sops.templates."protonvpn_CH.ovpn".path}";
+          };
+        };
+      };
       resolved = {
         enable = true;
         dnssec = "false"; # Sept 2023: SD devs state implementation is not robust enough.
