@@ -53,8 +53,8 @@ pkgs,
   ];
 
   userSettings = {
-    # (not on nix) "update.mode" = "none";
-    # (not on nix) "extensions.autoUpdate" = true;
+    "update.mode" = "none";
+    "extensions.autoUpdate" = true;
     "terminal.external.linuxExec" = "ghostty";
     "terminal.integrated.allowMnemonics" = true;
     "terminal.integrated.cursorBlinking" = true;

@@ -10,8 +10,8 @@ _: {
           rebootForBitlocker = true;
         };
         efi.canTouchEfiVariables = true;
+        timeout = 0;
       };
-      timeout = 0;
 
       plymouth.enable = true;
       initrd = {

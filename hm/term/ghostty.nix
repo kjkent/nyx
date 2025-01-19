@@ -13,7 +13,11 @@ in {
           copy-on-select = false;
           cursor-click-to-move = true; # alt-click to jump to mouse!
           focus-follows-mouse = true;
-          font-family = "BerkeleyMono Nerd Font";
+          font-family = [ # order of precedence
+            "Berkeley Mono"
+            "Symbols Nerd Font"
+            "Blobmoji" # uses noto by default
+          ];
           keybind = [
             "ctrl+t>c=new_tab"
             "ctrl+t>p=previous_tab"

@@ -11,13 +11,18 @@ with pkgs; {
 
     nixpkgs.overlays = [
       (_: _: {
-        berkeley-mono = mkFontPkg "Berkeley Mono (including Nerd Font glyphs)" {
-          source = ../assets/fonts/berkeleyMono_v2.gitcrypt.tar.xz; 
+        berkeley-mono = mkFontPkg "Berkeley Mono (v2.002)" {
+          source = ../assets/fonts/berkeley-mono.gitcrypt.tar.xz; 
         };
       })
       (_: _: {
-        ms-fonts = mkFontPkg "MS Fonts" {
-          source = ../assets/fonts/msFonts.gitcrypt.tar.xz; 
+        ms-fonts = mkFontPkg "MS fonts" {
+          source = ../assets/fonts/ms.gitcrypt.tar.xz; 
+        };
+      })
+      (_: _: {
+        symbols-nerd-font = mkFontPkg "Nerd Fonts icons" {
+          source = ../assets/fonts/symbols-nerd-font.gitcrypt.tar.xz; 
         };
       })
     ];
@@ -33,7 +38,7 @@ with pkgs; {
           ];
           monospace = [
             "Berkeley Mono"
-            "BerkeleyMono Nerd Font"
+            "Symbols Nerd Font"
           ];
         };
       };
@@ -41,9 +46,11 @@ with pkgs; {
         berkeley-mono
         font-awesome
         material-icons
+        ms-fonts
         noto-fonts-emoji-blob-bin
         noto-fonts-emoji
         noto-fonts-cjk-sans
+        symbols-nerd-font 
       ];
     };
   };

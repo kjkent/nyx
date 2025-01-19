@@ -6,7 +6,7 @@
 
   config = {
     sops = {
-      defaultSopsFile = ./sops.yaml
+      defaultSopsFile = ./sops.yaml;
     };
   };
 }

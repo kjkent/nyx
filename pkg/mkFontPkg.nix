@@ -8,6 +8,7 @@
 #   })
 # ];
 # ```
+# TODO: Make this accept remote (eg GitHub via fetchFromGitHub/fetchZip) source
 {stdenv, ...}: fontName: fontSpec:
 stdenv.mkDerivation {
   pname = fontName;
