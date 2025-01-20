@@ -1,6 +1,8 @@
 <h1 align="center">🌙 nyx</h1>
 
-A work-in-progress NixOS flake.
+> [!WARNING] This is a work-in-progress NixOS flake. While nearing stability,
+> it is currently to be avoided unless prepared for your computer to detonate.
+> The below text is mostly just a mash of notes to myself.
 
 ## Nix quirks encountered so far:
 
@@ -25,18 +27,13 @@ modules = [ ${flakeRoot}/host/${host}.nix ];
 
 ### Cryptic error messages
 
-The above string interpolation quoting can yield an error like
-
-```nix
-error: opening file '/nix/store/nwxxmnx1brixq37paj3fs04flc63cqrx-source/host/default.nix': No such file or directory
-```
-Not helpful in a multi-file config, sometimes the filename can be found in a trace but often not.
+They get easier to understand as time goes on.
 
 Sometimes it can't find a file because:
 
 ### Files not staged in Git are ignored
 
-Because why not _shrug_. God damnit.
+But unstaged _changes_ are.
 
 ## Useful commands
 
@@ -71,7 +68,7 @@ Get cache info:
 attic cache info system
 ```
 
-Reconfigure cache attribute:
+Set cache settings (per-setting overwrite, not append):
 
 ```shell
 attic cache configure system \
@@ -82,9 +79,47 @@ attic cache configure system \
   --upstream-cache-key-name cuda-maintainers.cachix.org-1
 ```
 
+### sops
+
+- For a yaml document with the following structure;
+
+```YAML
+protonvpn:
+  openvpn:
+    username: hello_wolrd
+    password: v_secure_password_1
+```
+
+sops can access a nested key to extract and decrypt its value, with this command (note the key address syntax):
+
+```Shell
+sops --extract '["protonvpn"]["openvpn"]["username"]' --decrypt sops.yaml
+```
+
 ### nix-sops
 
-Convert host SSH key (RSA only) to GPG format for SOPS decrypting.
+- The above syntax doesn't work with sops-nix, which has its own quirks with secrets
+  nested within objects.
+
+- Your sops file can be multi-level as above, however `config.sops.secrets.protonvpn.openvpn.username`
+  will not work. Use a flat structure and reference the nested key within.
+
+  Note that sops-nix doesn't accept the above sops way of addressing a secret, instead
+  levels are denoted by `/`:
+
+```Nix
+{inputs, ...}: {
+  imports = [inputs.sops-nix.nixosModules.sops];
+  config.sops = {
+    defaultSopsFile = ./sops.yaml;
+    secrets = {
+      protonvpn_openvpn_username.key = "protonvpn/openvpn/username";
+    };
+  };
+}
+```
+
+- Convert host SSH key (RSA only) to GPG format for SOPS decrypting.
 The saved ascii-armored pubkey must be imported: `gpg --import <file>`.
 `ssh-to-pgp` will also output (to stdout) the key's fingerprint,
 for inclusion in `.sops.yaml`.
@@ -111,19 +146,3 @@ sudo ssh-to-pgp \
 
 ## notes:
 
-### sops
-
-- For a yaml document with the following structure;
-
-```YAML
-protonvpn:
-  openvpn:
-    username: hello_wolrd
-    password: v_secure_password_1
-```
-
-sops can access a nested key to extract and decrypt its value, with this command (note the key address syntax):
-
-```Shell
-sops --extract '["protonvpn"]["openvpn"]["username"]' --decrypt sops.yaml
-```
