@@ -29,10 +29,13 @@ in {
     nix = {
       channel.enable = false; # Unnecessary due to flake but enabled by default
       settings = {
+        connect-timeout = 5;
+        min-free = 1073741824; # 1 GiB
+        fallback = true; # don't fail if remote builder unavailable
         # Optimise new store contents - `nix-store optimise` cleans old
         auto-optimise-store = true;
         use-xdg-base-directories = true;
-        download-buffer-size = 536870912; # 512MB
+        download-buffer-size = 536870912; # 512MiB
         # https://bmcgee.ie/posts/2023/12/til-how-to-optimise-substitutions-in-nix/
         http-connections = 128;
         max-jobs = 1;
