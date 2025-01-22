@@ -124,6 +124,8 @@ script-security 2
 up /etc/openvpn/update-resolv-conf
 down /etc/openvpn/update-resolv-conf
 
+dhcp-option DOMAIN-ROUTE .
+
 <ca>
 ${getSecret "ca_cert"}
 </ca>

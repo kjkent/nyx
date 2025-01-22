@@ -4,10 +4,12 @@
   lib,
   nixosUser,
   options,
+  pkgs,
   ...
 }: {
   imports = [./firewall];
   config = {
+    environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
     networking = {
       inherit hostName;
       networkmanager.enable = false;
