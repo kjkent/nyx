@@ -116,13 +116,18 @@ reneg-sec 0
 remote-cert-tls server
 
 <auth-user-pass>
-user ${getSecret "username"}
-password ${getSecret "password"}
+${getSecret "username"}
+${getSecret "password"}
 </auth-user-pass>
 
 script-security 2
 up /etc/openvpn/update-resolv-conf
 down /etc/openvpn/update-resolv-conf
+
+fast-io
+sndbuf 512000
+rcvbuf 512000
+txqueuelen 2000
 
 dhcp-option DOMAIN-ROUTE .
 
