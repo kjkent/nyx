@@ -37,7 +37,7 @@ with osConfig; {
 
         exec-once = [
           (uw "dbus-update-activation-environment --systemd --all")
-          (uw "systemctl --user start hyprpaper hyprpolkitagent")
+          (uw "systemctl --user start hyprpaper")
           (uw "waybar")
           (uw "swaync")
         ];

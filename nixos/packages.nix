@@ -12,7 +12,6 @@ with pkgs; {
         brave
         discord
         gimp
-        hyprpicker
         libreoffice
         obsidian
         protonmail-desktop
