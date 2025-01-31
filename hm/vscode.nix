@@ -1,56 +1,59 @@
 {
-config,
-inputs,
-pkgs,
-...
+  config,
+  inputs,
+  pkgs,
+  ...
 }: let
-  extensions = with pkgs; (
-    # In multiple `with` exprs, earlier order == namespace priority.
-    with vscode-marketplace-release;
-    with vscode-marketplace; [
-      redhat.ansible
-      astro-build.astro-vscode
-      biomejs.biome
-      ms-python.black-formatter
-      ms-vscode.cmake-tools
-      matthewpi.caddyfile-support
-      catppuccin.catppuccin-vsc-icons
-      llvm-vs-code-extensions.vscode-clangd
-      ms-azuretools.vscode-docker
-      editorconfig.editorconfig
-      naumovs.color-highlight
-      ms-vscode.makefile-tools
-      unifiedjs.vscode-mdx
-      jnoortheen.nix-ide
-      christian-kohler.npm-intellisense
-      platformio.platformio-ide
-      yoavbls.pretty-ts-errors
-      alefragnani.project-manager
-      tamasfe.even-better-toml
-      ms-python.vscode-pylance
-      ms-python.python
-      timonwong.shellcheck
-      bradlc.vscode-tailwindcss
-    ]
-  ) ++ (with vscode-extensions; [
-    # Removed from nix-vscode-extensions
-    # https://github.com/nix-community/nix-vscode-extensions/issues/69
-    ms-vscode.cpptools
-    ms-vscode.cpptools-extension-pack
-  ]);
+  extensions = with pkgs;
+    (
+      # In multiple `with` exprs, earlier order == namespace priority.
+      with vscode-marketplace-release;
+      with vscode-marketplace; [
+        redhat.ansible
+        astro-build.astro-vscode
+        biomejs.biome
+        ms-python.black-formatter
+        ms-vscode.cmake-tools
+        matthewpi.caddyfile-support
+        catppuccin.catppuccin-vsc-icons
+        llvm-vs-code-extensions.vscode-clangd
+        ms-azuretools.vscode-docker
+        editorconfig.editorconfig
+        naumovs.color-highlight
+        ms-vscode.makefile-tools
+        unifiedjs.vscode-mdx
+        jnoortheen.nix-ide
+        christian-kohler.npm-intellisense
+        platformio.platformio-ide
+        yoavbls.pretty-ts-errors
+        alefragnani.project-manager
+        tamasfe.even-better-toml
+        ms-python.vscode-pylance
+        ms-python.python
+        timonwong.shellcheck
+        bradlc.vscode-tailwindcss
+      ]
+    )
+    ++ (with vscode-extensions; [
+      # Removed from nix-vscode-extensions
+      # https://github.com/nix-community/nix-vscode-extensions/issues/69
+      ms-vscode.cpptools
+      ms-vscode.cpptools-extension-pack
+    ]);
 
-  fhsPackages = p: with p; [
-    avrdude
-    biome
-    dfu-util
-    nixd
-    nodejs_22
-    openocd
-    platformio
-    platformio-core
-    python3
-    typescript
-  ];
+  fhsPackages = p:
+    with p; [
+      avrdude
+      biome
+      dfu-util
+      nixd
+      nodejs_22
+      openocd
+      platformio
+      platformio-core
+      python3
+      typescript
+    ];
 
   userSettings = {
     "update.mode" = "none";
@@ -191,7 +194,9 @@ in {
         package = (
           (pkgs.vscode.override {
             commandLineArgs = "--password-store=gnome-libsecret";
-          }).fhsWithPackages fhsPackages
+          })
+          .fhsWithPackages
+          fhsPackages
         );
       };
     };

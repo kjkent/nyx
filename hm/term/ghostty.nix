@@ -1,4 +1,10 @@
-{config, lib, osConfig, pkgs, ...}: let
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
 in {
   config = {
     programs = {
@@ -8,13 +14,14 @@ in {
         enableBashIntegration = true;
         enableZshIntegration = true;
         installVimSyntax = true;
-        package = pkgs.unstable.ghostty; 
+        package = pkgs.unstable.ghostty;
         settings = {
           background-opacity = osConfig.stylix.opacity.terminal; # 0..1
           copy-on-select = false;
           cursor-click-to-move = true; # alt-click to jump to mouse!
           focus-follows-mouse = true;
-          font-family = [ # order of precedence
+          font-family = [
+            # order of precedence
             "Berkeley Mono"
             "Symbols Nerd Font"
             "Blobmoji" # uses noto by default

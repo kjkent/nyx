@@ -1,4 +1,9 @@
-{config, lib, osConfig, ...}: {
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}: {
   config = {
     services = {
       syncthing = {
@@ -13,7 +18,7 @@
       };
     };
     systemd.user.services.syncthing = {
-      Unit.After = lib.mkIf (osConfig ? sops) [ "sops-nix.service" ];
+      Unit.After = lib.mkIf (osConfig ? sops) ["sops-nix.service"];
     };
   };
 }

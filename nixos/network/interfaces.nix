@@ -1,4 +1,9 @@
-{config, lib, pkgs, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   bridge.name = "br0";
   eth.name = "eth0";
   wlan.name = "wlan0";
@@ -9,7 +14,8 @@
     ipCidr = "192.168.100.101/24";
   };
 in {
-  options = with lib; with types; {
+  options = with lib;
+  with types; {
     networking.networkBridge = {
       enable = mkOption {
         type = bool;
@@ -116,10 +122,12 @@ in {
             };
             networkConfig = {
               Bridge = lib.mkIf bridging bridge.name;
-              DHCP = if bridging then "no" else "yes";
+              DHCP =
+                if bridging
+                then "no"
+                else "yes";
               VLAN = [vlan.name];
               UseDomains = true; # Enables acquiring search path from DHCP
-
             };
             dhcpV4Config = {
               RouteMetric = 400;
@@ -145,7 +153,10 @@ in {
             matchConfig.Name = wlan.name;
             networkConfig = {
               Bridge = lib.mkIf wlanBridging bridge.name;
-              DHCP = if wlanBridging then "no" else "yes";
+              DHCP =
+                if wlanBridging
+                then "no"
+                else "yes";
               IgnoreCarrierLoss = "10s";
               UseDomains = true;
             };
@@ -167,7 +178,8 @@ in {
           "systemd-networkd.service"
           "sys-subsystem-net-devices-${wlan.name}.device"
         ];
-      in lib.mkIf wlanBridging {
+      in
+        lib.mkIf wlanBridging {
           after = deps;
           wants = deps;
           description = "Set WDS/4addr mode for ${wlan.name} and reconfigure systemd-networkd.";

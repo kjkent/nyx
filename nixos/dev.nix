@@ -2,7 +2,8 @@
   nixosUser,
   pkgs,
   ...
-}: with pkgs; {
+}:
+with pkgs; {
   config = {
     environment.systemPackages = let
       arduino = [
@@ -24,30 +25,32 @@
       ];
 
       bundles = arduino ++ python ++ sigrok;
-    in bundles ++ [
-      android-studio
-      ansible
-      biome
-      bruno
-      clang
-      dfu-util
-      docker-compose
-      espflash
-      esptool
-      fritzing
-      jetbrains.pycharm-community-bin
-      jetbrains.webstorm
-      git
-      meson
-      ninja
-      nixd
-      neovide
-      opentofu
-      processing
-      saleae-logic-2
-      shellcheck
-      tinyxxd # xxd (usually bundled with vim)
-    ];
+    in
+      bundles
+      ++ [
+        android-studio
+        ansible
+        biome
+        bruno
+        clang
+        dfu-util
+        docker-compose
+        espflash
+        esptool
+        fritzing
+        jetbrains.pycharm-community-bin
+        jetbrains.webstorm
+        git
+        meson
+        ninja
+        nixd
+        neovide
+        opentofu
+        processing
+        saleae-logic-2
+        shellcheck
+        tinyxxd # xxd (usually bundled with vim)
+      ];
 
     programs = {
       adb.enable = true;

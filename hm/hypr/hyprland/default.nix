@@ -1,8 +1,8 @@
 {
-lib,
-osConfig,
-pkgs,
-...
+  lib,
+  osConfig,
+  pkgs,
+  ...
 }:
 with osConfig; {
   imports = [

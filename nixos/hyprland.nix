@@ -1,9 +1,9 @@
 {
-inputs,
-lib,
-pkgs,
-config,
-...
+  inputs,
+  lib,
+  pkgs,
+  config,
+  ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
 
@@ -13,8 +13,7 @@ config,
   # https://github.com/hyprwm/Hyprland/blob/ef03f6911694413b1b06aba727ad9ab089a511f7/flake.nix#L128
   hyprPkgs = inputs.hyprland.packages.${system};
   # references nixpkgs unstable
-  nixpkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system}; 
-
+  nixpkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
 in {
   options = with lib; {
     programs.hyprland = {

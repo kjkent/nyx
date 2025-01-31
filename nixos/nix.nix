@@ -45,7 +45,7 @@ in {
           "nix-command"
           "flakes"
         ];
-        
+
         # cache.nixos.org included by default with priority 40
         substituters = [
           "https://attic.x000.dev/system?priority=39"
@@ -68,14 +68,15 @@ in {
     };
 
     nixpkgs = {
-      overlays = with inputs; let 
-        initPkgs = namespace: pkgs: (post: pre:
-          with config.nixpkgs; {
-            ${namespace} = import pkgs {
-              inherit (pre.hostPlatform) system;
-              inherit (config) allowUnfree;
-            };
-          }
+      overlays = with inputs; let
+        initPkgs = namespace: pkgs: (
+          post: pre:
+            with config.nixpkgs; {
+              ${namespace} = import pkgs {
+                inherit (pre.hostPlatform) system;
+                inherit (config) allowUnfree;
+              };
+            }
         );
       in [
         # Makes nixpkgs revisions/branches available as string val
@@ -92,9 +93,11 @@ in {
         (final: prev: {
           nixos-rebuild = prev.nixos-rebuild.overrideAttrs (oldAttrs: {
             nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [prev.makeWrapper];
-            postInstall = oldAttrs.postInstall + ''
-              wrapProgram $out/bin/nixos-rebuild --set TMPDIR ${nixTmpDir}
-            '';
+            postInstall =
+              oldAttrs.postInstall
+              + ''
+                wrapProgram $out/bin/nixos-rebuild --set TMPDIR ${nixTmpDir}
+              '';
           });
         })
       ];
@@ -114,7 +117,7 @@ in {
     systemd = {
       # prevent OOS error during builds when using zram/tmp on tmpfs
       services.nix-daemon.environment.TMPDIR = nixTmpDir;
-      tmpfiles.rules = [ "d ${nixTmpDir} 0755 root root 1d" ];
+      tmpfiles.rules = ["d ${nixTmpDir} 0755 root root 1d"];
 
       # OOM config (https://discourse.nixos.org/t/nix-build-ate-my-ram/35752)
       slices."nix-daemon".sliceConfig = {
@@ -123,7 +126,7 @@ in {
       };
       services."nix-daemon".serviceConfig = {
         Slice = "nix-daemon.slice";
-        # If kernel OOM does occur, strongly prefer 
+        # If kernel OOM does occur, strongly prefer
         # killing nix-daemon child processes
         OOMScoreAdjust = 1000;
       };

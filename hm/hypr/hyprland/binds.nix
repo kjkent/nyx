@@ -1,5 +1,5 @@
 {
-  config.wayland.windowManager.hyprland.settings = let 
+  config.wayland.windowManager.hyprland.settings = let
     uw = exe: "uwsm app -- ${exe}";
   in {
     "$mod" = "SUPER";
@@ -82,6 +82,5 @@
       ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
       ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
     ];
-
   };
 }

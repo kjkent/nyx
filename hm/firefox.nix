@@ -1,4 +1,9 @@
-{lib, osConfig, pkgs, ...}: let
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
   locked = {Locked = true;};
   yes = locked // {Value = true;};
   no = locked // {Value = false;};
@@ -65,7 +70,7 @@ in {
             };
           PostQuantumKeyAgreementEnabled = true;
           PromptForDownloadLocation = false;
-          RequestedLocales = [ "en-GB" "en-US" "en-CA" ];
+          RequestedLocales = ["en-GB" "en-US" "en-CA"];
           SearchBar = "unified";
           SearchSuggestEnabled = true;
           ShowHomeButton = false;
@@ -93,15 +98,17 @@ in {
       # Mostly for NVIDIA but may benefit i915 too?
       enableVaapiConfig = {
         package = pkgs.firefox.overrideAttrs (oldAttrs: {
-          buildCommand = oldAttrs.buildCommand + ''
-            wrapProgram "$executablePath" \
-              --set MOZ_DISABLE_RDD_SANDBOX 1
-          '';
+          buildCommand =
+            oldAttrs.buildCommand
+            + ''
+              wrapProgram "$executablePath" \
+                --set MOZ_DISABLE_RDD_SANDBOX 1
+            '';
         });
         policies.Preferences = {
           "gfx.x11-egl.force-enabled" = yes;
           # Intel UHD 620 == no AV1 decoding
-          "media.av1.enabled" = 
+          "media.av1.enabled" =
             if osConfig.hardware.nvidia.enable
             then yes
             else no;
@@ -110,6 +117,7 @@ in {
           "widget.dmabuf.force-enabled" = yes;
         };
       };
-    in lib.recursiveUpdate firefoxConfig enableVaapiConfig;
+    in
+      lib.recursiveUpdate firefoxConfig enableVaapiConfig;
   };
 }

@@ -20,9 +20,9 @@
         catPatterns = patterns: builtins.concatStringsSep "|" patterns;
         preferPatterns = [
           "firefox" # .firefox-unwrapped
-          "clang"   # clang++
+          "clang" # clang++
           "java" # java + .java-unwrapped //"If it's written in java it's uninmportant enough it's ok to kill it"
-          "^ninja$" 
+          "^ninja$"
           "^nix$"
           "^node$"
         ];
@@ -41,7 +41,7 @@
       in [
         "--prefer '${catPatterns preferPatterns}'"
         "--avoid '${catPatterns avoidPatterns}'"
-      ]; 
+      ];
     };
     swapDevices = [];
     zramSwap.enable = true;
