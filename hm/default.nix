@@ -4,8 +4,7 @@
     ./firefox.nix
     ./git.nix
     ./gpg.nix
-    ./hyprland.nix
-    ./hyprlock.nix
+    ./hypr
     ./nix.nix
     ./nvim
     ./rofi.nix
