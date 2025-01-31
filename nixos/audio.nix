@@ -4,11 +4,6 @@
   ...
 }: {
   config = {
-    boot = {
-      extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
-      kernelModules = ["v4l2loopback"];
-    };
-
     environment.systemPackages = with pkgs; [
       #ardour           # audio editing software
       audacity
@@ -19,7 +14,6 @@
       pavucontrol
       playerctl
       spotify
-      v4l-utils
       vlc
     ];
 
