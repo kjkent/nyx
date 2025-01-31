@@ -35,6 +35,11 @@ Sometimes it can't find a file because:
 
 But unstaged _changes_ are.
 
+### Misc
+
+- `builtins.toPath` deprecated in favor of `/. + <string>` for absolute paths,
+   and `./. + <string>` for relative paths. jesus christ.
+
 ## Useful commands
 
 ### Attic

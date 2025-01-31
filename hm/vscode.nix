@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }: let
@@ -191,13 +190,12 @@ in {
         enable = true;
         enableUpdateCheck = false;
         inherit extensions userSettings;
-        package = (
+        package =
           (pkgs.vscode.override {
             commandLineArgs = "--password-store=gnome-libsecret";
           })
           .fhsWithPackages
-          fhsPackages
-        );
+          fhsPackages;
       };
     };
   };

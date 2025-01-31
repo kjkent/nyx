@@ -11,7 +11,7 @@
 with pkgs; let
   # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
   # Use any theme from link without `.yaml`.
-  palette = theme: builtins.toPath "${base16-schemes}/share/themes/${theme}.yaml";
+  palette = theme: "${base16-schemes}/share/themes/${theme}.yaml";
   # Theme ideas:
   # - catpuccin-mocha
   # - ayu-mirage

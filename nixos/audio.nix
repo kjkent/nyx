@@ -19,7 +19,7 @@
 
     nixpkgs.overlays = [
       (
-        post: pre:
+        _post: pre:
           with pre; let
             spotx = fetchFromGitHub {
               owner = "SpotX-Official";

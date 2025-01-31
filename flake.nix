@@ -26,13 +26,11 @@
 
     # hostnames enumerated from dir names within ./deploy/hosts
     # "shared" is ignored, for shared config.
-    nixosHosts = builtins.attrNames ( # return attribute names...
-      (nixpkgs.lib.filterAttrs # ...of attrset from filtering for...
-        
-        (k: v: v == "directory" && k != "shared") # ...directories not named "shared"...
-        
-        (builtins.readDir ./hosts))
-    ); # ...from listing files/dirs in ./deploy/hosts
+    nixosHosts = builtins.attrNames (nixpkgs.lib.filterAttrs # ...of attrset from filtering for...
+      
+      (k: v: v == "directory" && k != "shared") # ...directories not named "shared"...
+      
+      (builtins.readDir ./hosts)); # ...from listing files/dirs in ./deploy/hosts
 
     mkNixosSpec = hostName:
       nixpkgs.lib.nixosSystem {
@@ -77,13 +75,11 @@
         shellHook = ''
           echo "Welcome to the nyx development environment!"
           echo "Available tools:"
-          echo "  - nixd: Nix language server"
-          echo "  - nixfmt: Nix formatter (RFC style)"
-          echo "  - statix: Static analysis for Nix"
+          echo "  - alejandra: Nix formatter"
           echo "  - deadnix: Find dead Nix code"
           echo "  - git-crypt: Encryption for git repositories"
-          echo "  - just: Command runner"
-          echo "  - alejandra: Alternative Nix formatter"
+          echo "  - nixd: Nix language server"
+          echo "  - statix: Static analysis for Nix"
         '';
       };
     };

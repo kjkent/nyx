@@ -70,7 +70,7 @@ in {
     nixpkgs = {
       overlays = with inputs; let
         initPkgs = namespace: pkgs: (
-          post: pre:
+          _post: pre:
             with config.nixpkgs; {
               ${namespace} = import pkgs {
                 inherit (pre.hostPlatform) system;
@@ -90,7 +90,7 @@ in {
         # nixos-rebuild ignores tmpdir set (elsewhere in file) to avoid OOS
         # during build when tmp on tmpfs. workaround is this overlay. see:
         # https://github.com/NixOS/nixpkgs/issues/293114#issuecomment-2381582141
-        (final: prev: {
+        (_final: prev: {
           nixos-rebuild = prev.nixos-rebuild.overrideAttrs (oldAttrs: {
             nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [prev.makeWrapper];
             postInstall =
