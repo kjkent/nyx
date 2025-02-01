@@ -1,6 +1,5 @@
 {inputs, osConfig, ...}: {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
     ./environment.nix
     ./firefox.nix
     ./git.nix
@@ -12,7 +11,6 @@
     ./screenshot.nix
     ./styling.nix
     ./swaync.nix
-    ./syncthing.nix
     ./term
     ./vscode.nix
     ./waybar.nix

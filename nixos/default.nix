@@ -25,6 +25,7 @@ _: {
     ./session.nix
     ./storage.nix
     ./stylix.nix
+    ./syncthing.nix
     ./thunar.nix
     ./user.nix
     ./vm_host.nix

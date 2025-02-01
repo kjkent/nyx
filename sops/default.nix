@@ -1,11 +1,7 @@
-{inputs, ...}: {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
+{inputs, self, ...}: with inputs.sops-nix; {
+  imports = [nixosModules.sops];
 
   config = {
-    sops = {
-      defaultSopsFile = ./sops.yaml;
-    };
+    sops.defaultSopsFile = ./sops.yaml;
   };
 }
