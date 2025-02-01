@@ -9,7 +9,6 @@
 }: {
   imports = [./firewall];
   config = {
-    environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
     networking = {
       inherit hostName;
       networkmanager.enable = false;
@@ -69,14 +68,6 @@
         settings = {
           AllowUsers = [nixosUser.username "root"];
           X11Forwarding = true;
-        };
-      };
-      openvpn = {
-        servers = {
-          protonvpn = {
-            autoStart = false;
-            config = "config ${config.sops.templates."protonvpn_CH_ovpn".path}";
-          };
         };
       };
       resolved = {
