@@ -8,6 +8,8 @@
   config = let
     userHome = "/home/${nixosUser.username}";
     configDir = "${userHome}/.config/syncthing";
+
+    devices = import "${self}/hosts/shared/syncthingDevices.nix" {inherit lib;};
   in {
     services = {
       syncthing = {

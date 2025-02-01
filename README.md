@@ -42,6 +42,14 @@ But unstaged _changes_ are.
 
 ## Useful commands
 
+### Nix REPL
+
+Evaluate and recursively print a module/file, while passing lib as an argument:
+
+```Nix
+:p import ./syncthingDevices.nix {lib = import <nixpkgs/lib>;}
+```
+
 ### Attic
 
 Login:
