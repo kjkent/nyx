@@ -3,13 +3,13 @@
   hostName,
   lib,
   nixosUser,
+  self,
   ...
 }: {
   config = let
     userHome = "/home/${nixosUser.username}";
     configDir = "${userHome}/.config/syncthing";
-
-    devices = import "${self}/hosts/shared/syncthingDevices.nix" {inherit lib;};
+    stPeers = import "${self}/hosts/shared/syncthingDevices.nix" {inherit hostName lib;};
   in {
     services = {
       syncthing = {
@@ -19,22 +19,22 @@
         cert = config.sops.secrets."syncthing_cert_${hostName}".path;
         databaseDir = "${userHome}/.local/share/syncthing";
         dataDir = userHome;
-        extraFlags = [
-          "--no-default-folder"
-        ];
+        extraFlags = ["--no-default-folder"];
         group = nixosUser.username;
         openDefaultPorts = true;
         overrideFolders = false; # remove these overrides when configured in nix
-        overrideDevices = false;
+        overrideDevices = true;
         settings = {
-          relaysEnabled = true;
+          devices = stPeers;
           options = {
             urAccepted = -1; # usage reporting disabled
           };
+          relaysEnabled = true;
         };
         user = nixosUser.username;
       };
     };
+
     sops.secrets = let
       owner = nixosUser.username;
       restartUnits = ["syncthing.service"];
@@ -48,6 +48,7 @@
         key = "syncthing/key/${hostName}";
       };
     };
+
     systemd.services.syncthing.after = ["sops-nix.service"];
   };
 }

@@ -6,6 +6,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       #ardour           # audio editing software
+      alsa-utils
       audacity
       easyeffects
       ffmpeg
