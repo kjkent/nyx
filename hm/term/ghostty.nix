@@ -60,7 +60,7 @@
           window-padding-x = 10;
           window-padding-y = 10;
           window-padding-balance = true;
-          window-padding-color = "extend"; # or "background"
+          window-padding-color = "background"; # "extend" or "background"
         };
         themes = {
           catppuccin-mocha = {
