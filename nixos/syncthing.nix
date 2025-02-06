@@ -9,7 +9,7 @@
   config = let
     userHome = "/home/${nixosUser.username}";
     configDir = "${userHome}/.config/syncthing";
-    stPeers = import "${self}/hosts/shared/syncthingDevices.nix" {inherit hostName lib;};
+    stPeers = import "${self}/hosts/shared/syncthing/devices.nix" {inherit hostName lib;};
   in {
     services = {
       syncthing = {
