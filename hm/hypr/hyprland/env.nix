@@ -8,14 +8,17 @@
 
       ### XDG Spec
       "XDG_CURRENT_DESKTOP,Hyprland"
-      "XDG_SESSION_TYPE,wayland"
       "XDG_SESSION_DESKTOP,Hyprland"
+      "XDG_SESSION_TYPE,wayland"
 
       ### Toolkit Backends
+      "CLUTTER_BACKEND,wayland"
       "GDK_BACKEND,wayland,x11,*"
       "SDL_VIDEODRIVER=wayland"
-      "QT_QPA_PLATFORM=wayland;xcb"
-      "CLUTTER_BACKEND,wayland"
+      # doesn't work with android studio
+      # https://github.com/NixOS/nixpkgs/issues/267176
+      #"QT_QPA_PLATFORM=wayland;xcb" 
+      "QT_QPA_PLATFORM=xcb;wayland"
 
       # QT
       "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
