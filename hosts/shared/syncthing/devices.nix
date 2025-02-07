@@ -1,43 +1,32 @@
 {hostName, lib}: let
 
-  devices = [
-    {
+  devices = {
+    kdes = {
       id = "LDIW2XW-6KVDKV5-KLEHNFG-U7HE3KW-KCRIACC-GUTQVTW-ZFWOQSX-TT2VVQA";
       ip = "192.168.1.101";
-      name = "kdes";
-    }
-    {
+    };
+    klap = {
       id = "4FRHEEH-GY5UTNB-2OKO4CR-NOACVKU-Y4PI7GF-6R4MXNR-SJXOV56-HW2OZAB";
       ip = "192.168.1.102";
-      name = "klap";
-    }
-    {
+    };
+    kpho = {
       id = "IVUEMOX-NCI23UB-F3S6DCX-XI5OTJH-BQ457QB-OVQGQBM-FVV6IFE-DY7AGQP";
       ip = "192.168.1.103";
-      name = "kpho";
-    }
-    {
+    };
+    sync = {
       id = "IDLBSPE-NGLFDW2-C54LVKQ-OGBPDC5-XGR2EFM-IMAGNIZ-IUVVRAH-VVC5QQF";
       ip = "192.168.2.2";
-      name = "sync";
-    }
-  ];
+    };
+  };
 
-  networks = [
-    {
-      search = "home.x000.dev";
-      subnet = "192.168.1";
-    }
-    {
-      search = "x000.dev";
-      subnet = "192.168.2";
-    }
-  ];
+  searchDomains = {
+    "192.168.1" = "home.x000.dev";
+    "192.168.2" = "x000.dev";
+  };
 
   generateSyncthingPeers = let
-    # explicit inheritance due to importance of output integrity
-    inherit (builtins) concatMap filter map throw toString;
-    inherit (lib.attrsets) filterAttrs genAttrs;
+    inherit (builtins) attrNames concatMap filter map throw toString;
+    inherit (lib.attrsets) filterAttrs mapAttrs;
     inherit (lib.lists) findSingle;
     inherit (lib.strings) hasPrefix;
     inherit (lib.trivial) pipe;
@@ -48,7 +37,13 @@
       getSearch = ip: let 
         multi = throw "${ip} matches multiple subnets"; 
         none = throw "${ip} matches no subnets"; 
-      in (findSingle (n: hasPrefix n.subnet ip) none multi networks).search;
+      in searchDomains.${(
+        # returns value of searchDomain for key that's the prefix of ip
+        findSingle (n: hasPrefix n ip)
+          none
+          multi 
+          (attrNames searchDomains)
+      )};
 
       port = toString 22000;
 
@@ -66,31 +61,22 @@
     ++ ["dynamic"]; # fallback to autodiscover via relays.
 
     # Remove current device from device list
-    rmNixosHost = devices: filter (device: device.name != hostName) devices;
+    rmNixosHost = devices: filterAttrs (k: v: k != hostName) devices;
 
     # Inject `addresses = [...]` to each device
-    injectAddresses = devices: map
-      (device: device // {addresses = with device; genAddresses name ip;})
+    injectAddresses = devices: mapAttrs
+      (k: v: v // {addresses = genAddresses k v.ip;})
       devices;
 
-    # Remove ip from every device in list
-    rmIp = devices: map 
-      (device: filterAttrs (k: v: k != "ip") device)
+    # Remove ip from every device
+    rmIp = devices: mapAttrs
+      (k: v: filterAttrs (k: v: k != "ip") v)
       devices;
-
-    convertToAttrset = devices: let
-      multi = throw "convertToAttrset: multiple devices match name";
-      none = throw "convertToAttrset: no devices match name";
-    in (genAttrs
-      (map (i: i.name) devices)
-      (name: findSingle (i: i.name == name) none multi devices)
-    );
 
     # rmIp must come after injectAddresses, which needs ip.
   in devices: pipe devices [
     rmNixosHost
     injectAddresses
     rmIp
-    convertToAttrset
   ];
 in (generateSyncthingPeers devices)

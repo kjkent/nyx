@@ -1,15 +1,14 @@
 {
-  config,
-  hostName,
-  lib,
-  nixosUser,
-  self,
-  ...
+config,
+hostName,
+lib,
+nixosUser,
+self,
+...
 }: {
   config = let
     userHome = "/home/${nixosUser.username}";
     configDir = "${userHome}/.config/syncthing";
-    stPeers = import "${self}/hosts/shared/syncthing/devices.nix" {inherit hostName lib;};
   in {
     services = {
       syncthing = {
@@ -22,10 +21,13 @@
         extraFlags = ["--no-default-folder"];
         group = nixosUser.username;
         openDefaultPorts = true;
-        overrideFolders = false; # remove these overrides when configured in nix
+        overrideFolders = true;
         overrideDevices = true;
-        settings = {
-          devices = stPeers;
+        settings = let
+          devices = import "${self}/hosts/shared/syncthing/devices.nix" {inherit hostName lib;};
+          folders = import "${self}/hosts/shared/syncthing/folders.nix" {inherit hostName lib;};
+        in {
+          inherit devices folders;
           options = {
             urAccepted = -1; # usage reporting disabled
           };
