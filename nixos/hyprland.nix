@@ -38,14 +38,15 @@ in {
       package32 = nixpkgs-hypr.pkgsi686Linux.mesa.drivers;
     };
 
-    programs.hyprland = with hyprPkgs; {
-      enable = true;
-      # use hyprland-built packages for hyprland and xdg-deskop-portal-hyprland
-      package = hyprland;
-      portalPackage = xdg-desktop-portal-hyprland;
-      withUWSM = true;
+    programs = {
+      hyprland = with hyprPkgs; {
+        enable = true;
+        package = hyprland;
+        portalPackage = xdg-desktop-portal-hyprland;
+        withUWSM = true;
+      };
+      uwsm.enable = true; # uwsm.waylandCompositors populated by hyprland.withUWSM
     };
-
     xdg.portal = let
       portals = [
         hyprPkgs.xdg-desktop-portal-hyprland

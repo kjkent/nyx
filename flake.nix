@@ -27,9 +27,7 @@
     # hostnames enumerated from dir names within hosts/
     # "shared" is ignored, for shared config.
     nixosHosts = builtins.attrNames (nixpkgs.lib.filterAttrs # ...of attrset from filtering for...
-      
       (k: v: v == "directory" && k != "shared") # ...directories not named "shared"...
-      
       (builtins.readDir ./hosts)); # ...from listing files/dirs in hosts/
 
     mkNixosSpec = hostName:
