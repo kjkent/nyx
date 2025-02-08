@@ -19,6 +19,8 @@ usage() {
 host_name="${1:?$(usage 1)}"
 disk="${2:?$(usage 1)}"
 
+# Install needed packages
+sudo nix-env -iA git git-crypt gnupg pinentry-all sops
 
 # Partition disk. 2GB ESP & remaining root.
 sudo sgdisk \
@@ -32,6 +34,7 @@ sudo sgdisk \
 # Format LUKS partition, decrypt, set perf tweaks
 sudo cryptsetup luksFormat --label "$crypt_name" "${disk}p2"
 sudo cryptsetup open \
+  --allow-discards \
   --perf-no_read_workqueue \
   --perf-no_write_workqueue \
   --persistent \
@@ -44,9 +47,32 @@ sudo mkdir -p /mnt
 sudo mount /dev/mapper/"$root_name" /mnt
 
 # Format & mount ESP
-sudo mkfs.vfat -F 32 -n "$esp_name" "${disk}p1"
+sudo mkfs.vfat -F 32 -n "$esp_name" --codepage=437 "${disk}p1"
 sudo mkdir -p /mnt/boot
 sudo mount "${disk}p1" /mnt/boot
+
+# Ensure git-crypted files are decrypted (here we goooo)
+echo "pinentry-program $(which pinentry-gnome3)" > ~/.gnupg/gpg-agent.conf
+gpgconf -R all
+gpg --import <(nix eval --raw --file "$dir0/user/default.nix" gpg.pubKey)
+gpg --key-status
+git-crypt unlock
+
+sudo systemctl stop sshd
+
+for type in "ed25519" "rsa"; do
+  sops --decrypt \
+       --extract \
+       '["sshd"]["priv_keys"]["'"$host_name"'"]["'"$type"'"]' \
+       "$dir0/sops/sops.yaml" | \
+       sudo tee "/etc/ssh/ssh_host_${type}_key" > /dev/null
+
+  sops --decrypt \
+       --extract \
+       '["sshd"]["pub_keys"]["'"$host_name"'"]["'"$type"'"]' \
+       "$dir0/sops/sops.yaml" | \
+       sudo tee "/etc/ssh/ssh_host_${type}_key.pub" > /dev/null
+done
 
 # Prompt to install host SSH keys (I'm currently too tired to script it)
 confirmed="SEND IT"
@@ -63,5 +89,6 @@ sudo nixos-install \
   --flake "$dir0/#${host_name}" \
   --impure \
   --no-channel-copy \
-  -v -v -v
+  --verbose
+
 

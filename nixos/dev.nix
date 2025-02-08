@@ -30,6 +30,7 @@ with pkgs; {
       ++ [
         android-studio
         ansible
+        ansible-lint
         biome
         bruno
         clang

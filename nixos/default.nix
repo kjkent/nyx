@@ -8,6 +8,7 @@ _: {
     ./fonts.nix
     ./firmware.nix
     ./graphics.nix
+    ./greetd.nix
     ./hm.nix
     ./hyprland.nix
     ./input.nix
@@ -22,12 +23,12 @@ _: {
     ./printing.nix
     ./ram.nix
     ./security.nix
-    ./session.nix
     ./storage.nix
     ./stylix.nix
     ./syncthing.nix
     ./thunar.nix
     ./user.nix
     ./vm_host.nix
+    ./xfce.nix
   ];
 }

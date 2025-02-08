@@ -30,7 +30,7 @@ in {
       opacity.terminal = 0.8;
       cursor = {
         package = bibata-cursors;
-        name = "Bibata-Modern-Ice";
+        name = "Bibata-Modern-Rainbow";
         size = 24;
       };
       fonts = rec {

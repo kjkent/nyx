@@ -2,24 +2,24 @@
   # Inputs should follow nixpkgs used for nixos.
   # inputs cannot use variables, because nix
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-24_11.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixos-24_11";
     };
 
     # Run main until this lands in a release (>0.47.2):
     # https://github.com/hyprwm/Hyprland/pull/9350
     hyprland.url = "github:hyprwm/hyprland";
     sops-nix.url = "github:mic92/sops-nix";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.11";
     vscode-exts.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs = inputs @ {self, ...}: let
-    nixpkgs = inputs.nixpkgs-stable;
+    nixpkgs = inputs.nixos-24_11;
     assetsPath = ./assets;
     hmModulesPath = ./hm;
     nixosModulesPath = ./nixos;

@@ -80,8 +80,8 @@ in {
         );
       in [
         # Makes nixpkgs revisions/branches available as string val
-        (initPkgs "stable" nixpkgs-stable)
-        (initPkgs "unstable" nixpkgs-unstable)
+        (initPkgs "stable" nixos-24_11)
+        (initPkgs "unstable" nixos-unstable)
 
         # pkgs.{{vscode-marketplace,open-vsx}{,-release},forVSCodeVersion "<ver>"}
         # overlay checks for compatibility anyway (I think)
