@@ -20,11 +20,12 @@
     };
 
     services = {
-      avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
-      };
+      ## journalctl message from avahi suggests disabling due to other ipv4 stack (from resolved)
+      #avahi = {
+      #  enable = true;
+      #  nssmdns4 = true;
+      #  openFirewall = true;
+      #};
       openssh = {
         enable = true;
         authorizedKeysInHomedir = false;

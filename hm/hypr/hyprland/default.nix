@@ -3,7 +3,7 @@
   osConfig,
   ...
 }:
-with osConfig; {
+{
   imports = [
     ./binds.nix
     ./env.nix
@@ -14,9 +14,17 @@ with osConfig; {
     services.hyprpaper.enable = true; # stylix sets wallpaper using hyprpaper
     wayland.windowManager.hyprland = {
       enable = true;
-      # conflicts with `uwsm` session management in nixos module
-      systemd.enable = false;
-      settings = {
+      # if on HM > 02-2026, set the Hyprland and XDPH packages to null to use the ones from the NixOS module
+      # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#using-the-home-manager-module-with-nixos
+      #package = null;
+      #portalPackage = null;
+      inherit (osConfig.programs.hyprland) package;
+      systemd = {
+        enable = true;
+        enableXdgAutostart = true;
+        variables = ["--all"]; # == `exec-once = dbus-update-activation-environment --systemd --all`
+      };
+      settings = with osConfig; {
         monitor = programs.hyprland.monitors;
         cursor.use_cpu_buffer = lib.mkIf hardware.nvidia.enable true;
         input = {

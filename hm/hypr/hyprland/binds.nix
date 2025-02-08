@@ -1,19 +1,17 @@
 {
-  config.wayland.windowManager.hyprland.settings = let
-    uw = exe: "uwsm app -- ${exe}";
-  in {
+  config.wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
     bind =
       [
-        "$mod,Return,exec,${uw "ghostty"}"
-        "$mod,B,exec,${uw "firefox"}"
-        "$mod,S,exec,${uw "screenshot"}"
-        "$mod,O,exec,${uw "obsidian"}"
-        "$mod,C,exec,${uw "hyprpicker -a"}"
-        "$mod,G,exec,${uw "gimp"}"
-        "$mod,F,exec,${uw "thunar"}"
-        "$mod,M,exec,${uw "spotify"}"
-        "$mod,D,exec,rofi -show drun -run-command \"uwsm app -- {cmd}\""
+        "$mod,Return,exec,ghostty"
+        "$mod,B,exec,firefox"
+        "$mod,S,exec,screenshot"
+        "$mod,O,exec,obsidian"
+        "$mod,C,exec,hyprpicker -a"
+        "$mod,G,exec,gimp"
+        "$mod,F,exec,thunar"
+        "$mod,M,exec,spotify"
+        "$mod,D,exec,rofi -show drun"
         "$mod,Q,killactive"
         "$mod,P,pseudo"
         "$mod SHIFT,/,togglesplit"

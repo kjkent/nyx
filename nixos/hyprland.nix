@@ -42,9 +42,7 @@ in {
         enable = true;
         package = hyprland;
         portalPackage = xdg-desktop-portal-hyprland;
-        withUWSM = true;
       };
-      uwsm.enable = true; # uwsm.waylandCompositors populated by hyprland.withUWSM
     };
     xdg.portal = let
       portals = [

@@ -6,15 +6,15 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Run main until this lands in a release (>0.47.2):
     # https://github.com/hyprwm/Hyprland/pull/9350
     hyprland.url = "github:hyprwm/hyprland";
     sops-nix.url = "github:mic92/sops-nix";
-    stylix.url = "github:danth/stylix/release-24.11";
+    stylix.url = "github:danth/stylix";
     vscode-exts.url = "github:nix-community/nix-vscode-extensions";
   };
 
