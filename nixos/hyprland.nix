@@ -32,7 +32,6 @@ in {
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = [egl-wayland];
       # use hyprland's nixpkgs-unstable commit for mesa to ensure version match
       package = nixpkgs-hypr.mesa.drivers;
       package32 = nixpkgs-hypr.pkgsi686Linux.mesa.drivers;

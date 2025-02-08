@@ -1,17 +1,15 @@
 {pkgs, ...}: {
   config = {
+    environment.systemPackages = with pkgs; [
+      clinfo
+      gpu-viewer
+      libva-utils
+      mesa-demos # for glxgears, eglinfo, glxinfo
+      vulkan-tools
+    ];
     hardware = {
       graphics = {
         enable = true;
-        extraPackages = with pkgs; [
-          libGL
-          libGLX
-          libva-utils
-          ocl-icd
-          vulkan-tools
-          vulkan-loader
-          vulkan-headers
-        ];
       };
     };
   };
