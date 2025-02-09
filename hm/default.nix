@@ -10,6 +10,7 @@
     ./rofi.nix
     ./screenshot.nix
     ./styling.nix
+    ./sway.nix
     ./swaync.nix
     ./term
     ./vscode.nix

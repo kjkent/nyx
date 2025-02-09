@@ -4,12 +4,6 @@
   ...
 }: {
   config = {
-    environment.etc."greetd/environments".text = ''
-      bash
-      Hyprland
-      startxfce4
-      zsh
-    '';
     services.greetd = rec {
       enable = true;
       package = with pkgs.greetd; tuigreet;

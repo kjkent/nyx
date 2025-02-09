@@ -1,16 +1,15 @@
-{config, lib, ...}: let
-  inherit (lib.strings) removePrefix;
-in {
+{config, lib, ...}: {
   config = {
     wayland.windowManager.hyprland.settings = {
       env = [
       ### For theming, xcursor, nvidia, toolkit env vars
       ## the below should not be needed, with the GDK/SDL/QT vars
       ## potentially being harmful (despite hyprland wiki)
-      #"CLUTTER_BACKEND,wayland"
-      #"GDK_BACKEND,wayland,x11,*"
-      #"SDL_VIDEODRIVER,wayland"
-      #"QT_QPA_PLATFORM,wayland;xcb"
+      "CLUTTER_BACKEND,wayland"
+      "GDK_BACKEND,wayland,x11,*"
+      "SDL_VIDEODRIVER,wayland"
+      "QT_QPA_PLATFORM,wayland;xcb"
+
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_DESKTOP,Hyprland"
       "XDG_SESSION_TYPE,wayland"

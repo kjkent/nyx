@@ -10,7 +10,6 @@
       inputs.nixpkgs.follows = "nixos-24_11";
     };
 
-    hyprland.url = "github:hyprwm/hyprland";
     sops-nix.url = "github:mic92/sops-nix";
     stylix.url = "github:danth/stylix/release-24.11";
     vscode-exts.url = "github:nix-community/nix-vscode-extensions";

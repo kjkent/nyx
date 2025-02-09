@@ -26,6 +26,7 @@ _: {
     ./storage.nix
     ./stylix.nix
     ./syncthing.nix
+    ./sway.nix
     ./thunar.nix
     ./user.nix
     ./vm_host.nix
