@@ -30,6 +30,7 @@ _: {
     ./thunar.nix
     ./user.nix
     ./vm_host.nix
+    ./wayland.nix
     ./xfce.nix
   ];
 }

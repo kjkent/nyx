@@ -35,7 +35,7 @@ in {
       };
       sessionVariables = with config.xdg; rec {
         # gtfo my HOME goddamnit
-        ANDROID_HOME = "${dataHome}/android";
+        ANDROID_HOME = "${dataHome}/android/sdk";
         ANDROID_USER_HOME = "${configHome}/android";
         CUDA_CACHE_PATH = "${cacheHome}/cuda";
         DOTNET_CLI_HOME = "${dataHome}/dotnet";
@@ -57,7 +57,12 @@ in {
         # Unofficial XDG dir
         XDG_BIN_HOME = "${home}/.local/bin";
       };
-      sessionPath = [sessionVariables.XDG_BIN_HOME];
+      sessionPath = with sessionVariables; [
+        # For RootAVD
+        "${ANDROID_HOME}/emulator"
+        "${ANDROID_HOME}/platform-tools"
+        XDG_BIN_HOME
+      ];
     };
     xdg = {
       enable = true;
