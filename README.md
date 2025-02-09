@@ -40,6 +40,9 @@ But unstaged _changes_ are.
 - `builtins.toPath` deprecated in favor of `/. + <string>` for absolute paths,
    and `./. + <string>` for relative paths. jesus christ.
 
+- After an evening debugging hyprland woes, it turns out I was building a three month hyprland build
+  because you also have to set the package in HM as well as nix??
+
 ## Useful commands
 
 ### Nix REPL

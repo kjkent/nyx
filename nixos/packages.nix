@@ -43,6 +43,7 @@ with pkgs; {
         pcsc-tools
         pstree
         socat
+        ssh-to-pgp
         usbutils
         inxi
         lshw

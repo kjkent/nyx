@@ -10,13 +10,17 @@
     ./style.nix
     ./windows.nix
   ];
-  config = {
+  config = let
+    extraNvidiaFixes = false;
+  in {
     services.hyprpaper.enable = true; # stylix sets wallpaper using hyprpaper
     wayland.windowManager.hyprland = {
       enable = true;
       # if on HM > 02-2026, set the Hyprland and XDPH packages to null to use the ones from the NixOS module
       # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#using-the-home-manager-module-with-nixos
-      #package = null;
+
+      # THIS HAS TO BE SET TO TRACK NIXOS PACKAGE (where hyprland flake input used)
+      package = osConfig.programs.hyprland.package;
       #portalPackage = null;
       systemd = {
         enable = true;
@@ -26,9 +30,9 @@
       settings = {
         monitor = osConfig.programs.hyprland.monitors;
         cursor = {
-          no_hardware_cursors = if osConfig.hardware.nvidia.enable then 1 else 0;
+          no_hardware_cursors = if osConfig.hardware.nvidia.enable && extraNvidiaFixes then 1 else 0;
           # 0: off, 1: on, 2: auto
-          use_cpu_buffer = if osConfig.hardware.nvidia.enable then 1 else 2;
+          use_cpu_buffer = if osConfig.hardware.nvidia.enable then 1 else 0;
         };
         input = {
           kb_layout = "${osConfig.hardware.keyboard.layout}";
@@ -53,7 +57,7 @@
           key_press_enables_dpms = 0;
         };
         render = {
-          allow_early_buffer_release = 0;
+          allow_early_buffer_release = if osConfig.hardware.nvidia.enable && extraNvidiaFixes then 0 else 1;
         };
       };
     };

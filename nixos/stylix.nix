@@ -29,7 +29,7 @@ in {
       polarity = "dark";
       opacity.terminal = 0.8;
       cursor = {
-        package = bibata-cursors;
+        package = bibata-modern-rainbow;
         name = "Bibata-Modern-Rainbow";
         size = 24;
       };

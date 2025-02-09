@@ -10,8 +10,6 @@
       inputs.nixpkgs.follows = "nixos-24_11";
     };
 
-    # Run main until this lands in a release (>0.47.2):
-    # https://github.com/hyprwm/Hyprland/pull/9350
     hyprland.url = "github:hyprwm/hyprland";
     sops-nix.url = "github:mic92/sops-nix";
     stylix.url = "github:danth/stylix/release-24.11";

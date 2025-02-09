@@ -2,6 +2,12 @@
   imports = [nixosModules.sops];
 
   config = {
-    sops.defaultSopsFile = ./sops.yaml;
+    sops = {
+      defaultSopsFile = ./sops.yaml;
+      age = {
+        generateKey = false;
+        sshKeyPaths = [];
+      };
+    };
   };
 }
