@@ -69,12 +69,14 @@ sudo systemctl stop sshd
 sudo mkdir -p "$sshcfg"
 
 for type in "ed25519" "rsa"; do
+  echo "Extracting $type private key"
   sops --decrypt \
        --extract \
        '["sshd"]["priv_keys"]["'"$host_name"'"]["'"$type"'"]' \
        "$dir0/sops/sops.yaml" | \
        sudo tee "$sshcfg/ssh_host_${type}_key" > /dev/null
 
+  echo "Extracting $type public key"
   sops --decrypt \
        --extract \
        '["sshd"]["pub_keys"]["'"$host_name"'"]["'"$type"'"]' \
@@ -83,8 +85,9 @@ for type in "ed25519" "rsa"; do
 done
 
 sudo chown -R root:root "$sshcfg"
-sudo find "$sshcfg" -type d -exec chmod 0700 {} \;
-sudo find "$sshcfg" -type f -exec chmod 0600 {} \;
+sudo chmod 0644 "$sshcfg"
+sudo find "$sshcfg" -xdev -type f -name "ssh_host*key.pub" -exec chmod 0644 {} \;
+sudo find "$sshcfg" -xdev -type f -name "ssh_host*key" -exec chmod 0600 {} \;
 
 # send it
 sudo nixos-install \
