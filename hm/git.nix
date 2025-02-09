@@ -29,7 +29,7 @@ with nixosUser; {
         };
 
         "diff \"asc\"" = {
-          textconv = "f(){gpg --list-packets < \"$1\" | grep -v \"^# off=\";}; f";
+          textconv = ''f(){gpg --list-packets < "$1" | grep -v "^# off=";}; f'';
         };
       };
       includes = [
@@ -69,7 +69,7 @@ with nixosUser; {
         ds = "diff --staged";
         f = "fetch";
         # Add all files from previous commit, amend, force-push. Dangerous!
-        ffs = ''!git add "$(git show --name-only --oneline --name-only --pretty=)" && git commit --amend --no-edit && git push --force'';
+        ffs = ''!cf="$(git show --name-only --oneline --name-only --pretty=)"; git add "''${cf[@]}" && git commit --amend --no-edit && git push --force'';
         l = "log";
         ps = "push";
         pl = "pull";

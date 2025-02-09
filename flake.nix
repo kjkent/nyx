@@ -36,6 +36,7 @@
             assetsPath
             hmModulesPath
             nixosModulesPath
+            nixosHosts
             hostName
             inputs
             nixosUser
