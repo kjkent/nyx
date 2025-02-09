@@ -26,8 +26,9 @@
       settings = {
         monitor = osConfig.programs.hyprland.monitors;
         cursor = {
+          no_hardware_cursors = if osConfig.hardware.nvidia.enable then 1 else 0;
           # 0: off, 1: on, 2: auto
-          #use_cpu_buffer = if osConfig.hardware.nvidia.enable then 1 else 2;
+          use_cpu_buffer = if osConfig.hardware.nvidia.enable then 1 else 2;
         };
         input = {
           kb_layout = "${osConfig.hardware.keyboard.layout}";
@@ -45,6 +46,8 @@
           workspace_swipe_fingers = 2;
         };
         misc = {
+          disable_hyprland_logo = 1;
+          disable_splash_rendering = 1;
           initial_workspace_tracking = 0;
           mouse_move_enables_dpms = 1;
           key_press_enables_dpms = 0;

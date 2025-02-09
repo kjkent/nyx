@@ -20,7 +20,12 @@ host_name="${1:?$(usage 1)}"
 disk="${2:?$(usage 1)}"
 
 # Install needed packages
-sudo nix-env -iA git git-crypt gnupg pinentry-all sops
+sudo nix-env -iA \
+  nixos.git \
+  nixos.git-crypt \
+  nixos.gnupg \
+  nixos.pinentry-all \
+  nixos.sops
 
 # Partition disk. 2GB ESP & remaining root.
 sudo sgdisk \
@@ -58,31 +63,28 @@ gpg --import <(nix eval --raw --file "$dir0/user/default.nix" gpg.pubKey)
 gpg --key-status
 git-crypt unlock
 
+# Install host SSH keys (for sops-nix)
+sshcfg="/mnt/etc/ssh"
 sudo systemctl stop sshd
+sudo mkdir -p "$sshcfg"
 
 for type in "ed25519" "rsa"; do
   sops --decrypt \
        --extract \
        '["sshd"]["priv_keys"]["'"$host_name"'"]["'"$type"'"]' \
        "$dir0/sops/sops.yaml" | \
-       sudo tee "/etc/ssh/ssh_host_${type}_key" > /dev/null
+       sudo tee "$sshcfg/ssh_host_${type}_key" > /dev/null
 
   sops --decrypt \
        --extract \
        '["sshd"]["pub_keys"]["'"$host_name"'"]["'"$type"'"]' \
        "$dir0/sops/sops.yaml" | \
-       sudo tee "/etc/ssh/ssh_host_${type}_key.pub" > /dev/null
+       sudo tee "$sshcfg/ssh_host_${type}_key.pub" > /dev/null
 done
 
-# Prompt to install host SSH keys (I'm currently too tired to script it)
-confirmed="SEND IT"
-echo ""
-echo "Install appropriate host sshd keys at /etc/ssh/ssh_host[...]."
-read -p "Type $confirmed to continue.\n" response
-
-while [ "$response" != "$confirmed" ]; do
-  read -p "Type $confirmed to continue.\n" response
-done
+sudo chown -R root:root "$sshcfg"
+sudo find "$sshcfg" -type d -exec chmod 0700 {} \;
+sudo find "$sshcfg" -type f -exec chmod 0600 {} \;
 
 # send it
 sudo nixos-install \

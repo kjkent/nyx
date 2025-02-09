@@ -32,8 +32,7 @@
         options = [
           "rw"
           "relatime"
-          "fmask=0022"
-          "dmask=0022"
+          "umask=0077"
           "codepage=437"
           "iocharset=iso8859-1"
           "shortname=mixed"
