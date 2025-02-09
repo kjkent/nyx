@@ -1,12 +1,13 @@
-{pkgs, ...}:
+{config, pkgs, ...}:
 {
   config = {
     boot = {
       initrd.kernelModules = ["i915"];
       kernelParams = [
         "i915.enable_guc=2"
-        "i915.enable_fbc=0"
+        "i915.enable_fbc=1"
         "i915.enable_psr=0"
+        "i915.modeset=1"
       ];
     };
     environment = {
