@@ -8,6 +8,9 @@
       # pulseview: normal windows have file title; only matches settings
       "float,initialTitle:^PulseView$"
       "tile,class:^(\.)?scrcpy(-wrapped)?$"
+      "tile,class:^jetbrains-studio$,title:^Device Manager$"
+      "minsize 564 1060,class:^Emulator$,title:^Android Emulator -.*$"
+      "maxsize 564 1060,class:^Emulator$,title:^Android Emulator -.*$"
       "stayfocused,title:^$,class:^steam$"
       "minsize 1 1,title:^$,class:^steam$"
       "opacity 0.9 0.7,class:^thunar$"
