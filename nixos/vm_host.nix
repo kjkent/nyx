@@ -31,7 +31,7 @@
       ];
     };
 
-    users.users.${nixosUser.username}.extraGroups = ["kvm" "libvirtd" "render"];
+    users.users.${nixosUser.username}.extraGroups = ["docker" "kvm" "libvirtd" "render"];
 
     virtualisation = {
       libvirtd.enable = true;
