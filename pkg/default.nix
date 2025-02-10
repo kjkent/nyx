@@ -8,6 +8,7 @@
           bibata-modern-rainbow = callPkg ./bibata-modern-rainbow.nix;
           cura = callPkg ./cura.nix;
           mkFontPkg = callPkg ./mkFontPkg.nix;
+          httptoolkit-appimage = callPkg ./httptoolkit-appimage.nix;
         }
       )
     ];

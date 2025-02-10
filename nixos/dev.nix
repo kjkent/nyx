@@ -39,9 +39,10 @@ with pkgs; {
         espflash
         esptool
         fritzing
+        git
+        httptoolkit-appimage
         jetbrains.pycharm-community-bin
         jetbrains.webstorm
-        git
         meson
         ninja
         nixd
