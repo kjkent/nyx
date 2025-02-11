@@ -8,13 +8,14 @@ with pkgs; {
       systemPackages = [
         #### GUI: Office, Notes, Messaging
         beeper
-        blender
+        stable.blender # https://nixpk.gs/pr-tracker.html?pr=380449
         brave
         discord
         gimp
         libreoffice
         obsidian
         protonmail-desktop
+        proton-pass
         sublime4
         super-productivity
         teams-for-linux
@@ -66,15 +67,15 @@ with pkgs; {
       dconf.enable = true;
     };
 
-    services = {
-      flatpak.enable = true;
-    };
+    # services = {
+    #   flatpak.enable = true;
+    # };
 
-    systemd.services.flatpak-repo = {
-      path = [flatpak];
-      script = ''
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      '';
-    };
+    # systemd.services.flatpak-repo = {
+    #   path = [flatpak];
+    #   script = ''
+    #     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    #   '';
+    # };
   };
 }

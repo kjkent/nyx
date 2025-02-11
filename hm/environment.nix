@@ -52,7 +52,10 @@ in {
         PYTHONHISTORY = "${stateHome}/python_hist";
         TASKDATA = "${configHome}/task";
         W3M_HOME = "${dataHome}/w3m";
-        _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java";
+        _JAVA_OPTIONS = lib.strings.concatStringsSep " " [
+          "-Djava.util.prefs.userRoot=${configHome}/java"
+          "-Dawt.toolkit.name=WLToolkit" # Wayland support preview for JetBrains IDEs
+        ];
 
         # Unofficial XDG dir
         XDG_BIN_HOME = "${home}/.local/bin";

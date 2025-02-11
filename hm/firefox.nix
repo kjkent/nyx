@@ -12,6 +12,7 @@ in {
     programs.firefox = let
       firefoxConfig = {
         enable = true;
+        languagePacks = ["en-GB"];
         # nativeMessagingHosts = [  ];
         policies = {
           DisplayBookmarksToolbar = "always";

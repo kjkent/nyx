@@ -38,6 +38,8 @@ with pkgs; {
         docker-compose
         espflash
         esptool
+        flashprog
+        flashrom
         fritzing
         git
         httptoolkit-appimage

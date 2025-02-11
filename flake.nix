@@ -2,12 +2,12 @@
   # Inputs should follow nixpkgs used for nixos.
   # inputs cannot use variables, because nix
   inputs = {
-    nixos-24_11.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixos-24_11";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
 
     sops-nix.url = "github:mic92/sops-nix";
@@ -16,7 +16,7 @@
   };
 
   outputs = inputs @ {self, ...}: let
-    nixpkgs = inputs.nixos-24_11;
+    nixpkgs = inputs.nixos-unstable;
     assetsPath = ./assets;
     hmModulesPath = ./hm;
     nixosModulesPath = ./nixos;

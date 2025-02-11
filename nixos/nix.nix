@@ -1,11 +1,11 @@
 {
-  config,
-  inputs,
-  lib,
-  nixosUser,
-  pkgs,
-  self,
-  ...
+config,
+inputs,
+lib,
+nixosUser,
+pkgs,
+self,
+...
 }: let
   # /var/tmp doesn't seem to be on tmpfs like /tmp (when using zram) but
   # seems to contain near duplicate systemd unit folders?...
@@ -48,7 +48,7 @@ in {
 
         # cache.nixos.org included by default with priority 40
         substituters = [
-          "https://attic.x000.dev/system?priority=39"
+          "https://attic.x000.dev/cache?priority=39"
           "https://cache.nixos.org?priority=40"
           "https://hyprland.cachix.org?priority=41"
           "https://nix-community.cachix.org?priority=42"
@@ -56,7 +56,7 @@ in {
           "https://cuda-maintainers.cachix.org?priority=44"
         ];
         trusted-public-keys = [
-          "system:NgfOpMK4QQiRqYipPuNrdGcpZg7ZvKcAKbgu42Carl8="
+          "cache:RozCserdeDqwd7rblkxuiwDS2XoPYODZB/hYQfm9Wv0="
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -68,20 +68,13 @@ in {
     };
 
     nixpkgs = {
-      overlays = with inputs; let
-        initPkgs = namespace: pkgs: (
-          _post: pre:
-            with config.nixpkgs; {
-              ${namespace} = import pkgs {
-                inherit (pre.hostPlatform) system;
-                inherit (config) allowUnfree;
-              };
-            }
-        );
-      in [
-        # Makes nixpkgs revisions/branches available as string val
-        (initPkgs "stable" nixos-24_11)
-        (initPkgs "unstable" nixos-unstable)
+      overlays = [
+        (post: pre: {
+          stable = import inputs.nixos-stable {
+            inherit (config.nixpkgs.hostPlatform) system;
+            config = {inherit (config.nixpkgs.config) allowUnfree;};
+          };
+        })
 
         # pkgs.{{vscode-marketplace,open-vsx}{,-release},forVSCodeVersion "<ver>"}
         # overlay checks for compatibility anyway (I think)
@@ -101,8 +94,8 @@ in {
           });
         })
       ];
-      config.allowUnfree = true; # Only for build
-      hostPlatform = lib.mkDefault "x86_64-linux";
+      config.allowUnfree = true; # Only for build, set NIX_ALLOW_UNFREE for deployed use
+      hostPlatform = lib.mkDefault {system = "x86_64-linux";};
     };
 
     system = {

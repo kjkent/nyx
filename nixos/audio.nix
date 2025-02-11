@@ -25,8 +25,8 @@
             spotx = fetchFromGitHub {
               owner = "SpotX-Official";
               repo = "SpotX-Bash";
-              rev = "e0fd4704b043941b4ddc0f24bc2b7614a6db23f1";
-              hash = "sha256-C5YUPvnjkRS3tcZwrGKKtQkmmvX7fvh9zQt8a+0nc74=";
+              rev = "d38a66e98dfa1289b4c0752ef40488aac07c9484";
+              hash = "sha256-k04RQzP7+RGgtQyvuKiFCFBARynYWrGSYdgCMCvTpc0=";
             };
           in {
             spotify = spotify.overrideAttrs (pkg: {

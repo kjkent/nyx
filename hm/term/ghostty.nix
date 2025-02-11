@@ -12,7 +12,7 @@
         enableBashIntegration = true;
         enableZshIntegration = true;
         installVimSyntax = true;
-        package = pkgs.unstable.ghostty;
+        package = pkgs.ghostty;
         settings = {
           background-opacity = osConfig.stylix.opacity.terminal; # 0..1
           copy-on-select = false;

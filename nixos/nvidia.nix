@@ -37,7 +37,7 @@
 
     # nixos manual: "May cause mass rebuild"
     # build packages with cuda support by default
-    #nixpkgs.config.cudaSupport = true;
+    nixpkgs.config.cudaSupport = true;
 
     programs = {
       nix-ld.libraries = with pkgs; [
@@ -62,9 +62,9 @@
         modesetting.enable = true;
         powerManagement.enable = true;
         powerManagement.finegrained = false; # For dual-GPU systems
-        open = false;
+        open = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable; # .stable, .beta, .production .latest
+        package = config.boot.kernelPackages.nvidiaPackages.latest; # .stable, .beta, .production .latest
       };
       nvidia-container-toolkit.enable = true;
     };
