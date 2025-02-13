@@ -42,7 +42,10 @@ with pkgs; {
         flashrom
         fritzing
         git
+        hexdiff
+        hexyl
         httptoolkit-appimage
+        stable.imsprog # build issue
         jetbrains.pycharm-community-bin
         jetbrains.webstorm
         meson

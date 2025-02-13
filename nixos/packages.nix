@@ -8,7 +8,7 @@ with pkgs; {
       systemPackages = [
         #### GUI: Office, Notes, Messaging
         beeper
-        stable.blender # https://nixpk.gs/pr-tracker.html?pr=380449
+        blender
         brave
         discord
         gimp
