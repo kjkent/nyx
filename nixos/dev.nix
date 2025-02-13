@@ -79,21 +79,33 @@ with pkgs; {
     # or ttyACM device -- if the rule works (pls). Also tells ModemManager
     # to leave it alone as (old) reports state interference.
     services.udev.packages = let
-      uaccess-usb-tty = writeTextFile rec {
-        name = "uaccess-usb-tty";
+      uaccess = ''TAG+="uaccess"'';
+      mmIgnore = ''ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_PORT_IGNORE}="1"'';
+      uaccessMmIgnore = "${uaccess}, ${mmIgnore}";
+
+      usb-tty = writeTextFile rec {
+        name = "usb-tty";
         # uaccess tagging gives access to the currently authenticated user, but
         # the udev rule must be ordered before 73-seat-late.rules to have ACLs
         # applied:
         # https://github.com/systemd/systemd/issues/4288#issuecomment-348166161
         text = ''
-          KERNEL=="tty(ACM|USB)[0-9]*", SUBSYSTEMS=="usb", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_PORT_IGNORE}="1"
+          KERNEL=="tty(ACM|USB)[0-9]*", SUBSYSTEMS=="usb", ${uaccessMmIgnore}
+        '';
+        destination = "/etc/udev/rules.d/70-${name}.rules";
+      };
+      ch341a = writeTextFile rec {
+        name = "ch341a";
+        text = ''
+          SUBSYSTEM=="usb", ATTR{idVendor}=="1a86", ATTR{idProduct}=="5512", ${uaccessMmIgnore}
         '';
         destination = "/etc/udev/rules.d/70-${name}.rules";
       };
     in [
       libsigrok
       saleae-logic-2
-      uaccess-usb-tty
+      usb-tty
+      ch341a
     ];
     users.users.${nixosUser.username}.extraGroups = ["adbusers" "wireshark"];
   };
