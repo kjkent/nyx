@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{config, lib, pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
@@ -26,8 +26,8 @@
         device = "/dev/disk/by-label/nyx_root";
         fsType = "xfs";
       };
-      "/boot" = {
-        device = "/dev/disk/by-label/nyx_esp";
+      "/boot" = lib.mkIf (!config.boot.isBios) {
+        device = "/dev/disk/by-label/nyx_boot";
         fsType = "vfat";
         options = [
           "rw"

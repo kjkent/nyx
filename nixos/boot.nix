@@ -1,8 +1,21 @@
-_: {
+{config, lib, ...}: {
+  options = with lib; {
+    boot.isBios = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether system is BIOS-only (ie., not UEFI)";
+    };
+  };
   config = {
     boot = {
       loader = {
-        systemd-boot = {
+        grub = lib.mkIf config.boot.isBios {
+	  enable = true;
+	  enableCryptodisk = true;
+          device = "/dev/disk/by-partlabel/nyx_bios_grub";
+	  useOSProber = true;
+	};
+        systemd-boot = lib.mkIf (!config.boot.isBios) {
           enable = true;
           consoleMode = "max";
           edk2-uefi-shell.enable = true;
