@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}: {
+{config, lib, nixosUser, pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
@@ -21,13 +21,18 @@
       eza
       zlib-ng
     ];
-    fileSystems = {
+    fileSystems = let
+      boot = "nyx_boot";
+      cryptSuffix = "_crypt";
+      home = "${nixosUser}_home";
+      root = "nyx_root";
+    in {
       "/" = {
-        device = "/dev/disk/by-label/nyx_root";
+        device = "/dev/disk/by-label/${root}";
         fsType = "xfs";
       };
       "/boot" = lib.mkIf (!config.boot.isBios) {
-        device = "/dev/disk/by-label/nyx_boot";
+        device = "/dev/disk/by-label/${boot}";
         fsType = "vfat";
         options = [
           "rw"
@@ -40,8 +45,15 @@
           "errors=remount-ro"
         ];
       };
+      "/home" = {
+        device = "/dev/disk/by-label/${home}";
+        fsType = "xfs";
+      };
     };
-    boot.initrd.luks.devices.nyx_root.device = "/dev/disk/by-label/nyx_crypt";
+    boot.initrd.luks.devices = {
+      "${home}".device = "/dev/disk/by-label/${home}${cryptSuffix}";
+      "${root}".device = "/dev/disk/by-label/${root}${cryptSuffix}";
+    };
     services = {
       gvfs.enable = true;
       smartd.enable = false;
