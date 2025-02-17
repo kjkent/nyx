@@ -1,5 +1,12 @@
 {config, lib, nixosUser, pkgs, ...}: {
-  config = {
+  config = let
+    ## partition names:
+    # bios_boot likely unused on GPT disks as GRUB installed in space before partition 1
+    boot = if config.boot.isBios then "bios_boot" else "esp_boot";
+    cryptSuffix = "_crypt";
+    home = "${nixosUser.username}_home";
+    root = "nyx_root";
+  in {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
       parted
@@ -21,12 +28,7 @@
       eza
       zlib-ng
     ];
-    fileSystems = let
-      boot = "nyx_boot";
-      cryptSuffix = "_crypt";
-      home = "${nixosUser}_home";
-      root = "nyx_root";
-    in {
+    fileSystems = {
       "/" = {
         device = "/dev/disk/by-label/${root}";
         fsType = "xfs";
@@ -45,7 +47,7 @@
           "errors=remount-ro"
         ];
       };
-      "/home" = {
+      "/home/${nixosUser.username}" = {
         device = "/dev/disk/by-label/${home}";
         fsType = "xfs";
       };
