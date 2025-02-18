@@ -5,7 +5,7 @@ if [ "$UID" -eq 0 ]; then
   exit 1
 fi
 
-sudo nix-env -iA nixos.{gnupg,git-crypt,git,pinentry-all,sops}
+sudo nix-env -iA nixos.{gnupg,git-crypt,git,pinentry-all,sops,gnused,gawk}
 
 mkdir -p ~/.gnupg
 
@@ -22,21 +22,17 @@ fetch
 quit
 EOF
 
-gpg-connect-agent updatestartuptty /bye
-gpg-connect-agent reloadagent /bye
-gpgconf -R
+keyfpr="$(gpg -k --with-colons | awk '/^fpr:/{print $0; exit}' | cut -d ':' -f 10)"
+gpg --command-fd 0 --edit-key "$keyfpr" << EOF
+trust
+5
+y
+quit
+EOF
 
 # Seems to jog gpg into recognising this yubikey contains the imported keys
 gpg --card-status > /dev/null
 
-cat << 'EOF'
-Trust your imported key with...
-
-- `gpg --edit-key <key or user ID>`
-- `trust`
-- `5`
-- `y`
-- `quit`
-
-...and then `ssh` / `git` operations should work!
-EOF
+gpg-connect-agent updatestartuptty /bye
+gpg-connect-agent reloadagent /bye
+gpgconf -R

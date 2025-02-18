@@ -2,7 +2,7 @@
   config = let
     ## partition names:
     # bios_boot likely unused on GPT disks as GRUB installed in space before partition 1
-    boot = if config.boot.isBios then "bios_boot" else "esp_boot";
+    boot = (if config.boot.isBios then "bios" else "esp") + "_boot";
     cryptSuffix = "_crypt";
     home = "${nixosUser.username}_home";
     root = "nyx_root";
