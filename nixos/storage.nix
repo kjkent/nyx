@@ -1,12 +1,5 @@
-{config, lib, nixosUser, pkgs, ...}: {
-  config = let
-    ## partition names:
-    # bios_boot likely unused on GPT disks as GRUB installed in space before partition 1
-    boot = (if config.boot.isBios then "bios" else "esp") + "_boot";
-    cryptSuffix = "_crypt";
-    home = "${nixosUser.username}_home";
-    root = "nyx_root";
-  in {
+{config, lib, pkgs, ...}: {
+  config = {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
       parted
@@ -30,11 +23,11 @@
     ];
     fileSystems = {
       "/" = {
-        device = "/dev/disk/by-label/${root}";
+        device = "/dev/disk/by-label/nyx_root";
         fsType = "xfs";
       };
       "/boot" = lib.mkIf (!config.boot.isBios) {
-        device = "/dev/disk/by-label/${boot}";
+        device = "/dev/disk/by-label/esp";
         fsType = "vfat";
         options = [
           "rw"
@@ -47,14 +40,9 @@
           "errors=remount-ro"
         ];
       };
-      "/home/${nixosUser.username}" = {
-        device = "/dev/disk/by-label/${home}";
-        fsType = "xfs";
-      };
     };
     boot.initrd.luks.devices = {
-      "${home}".device = "/dev/disk/by-label/${home}${cryptSuffix}";
-      "${root}".device = "/dev/disk/by-label/${root}${cryptSuffix}";
+      nyx_root.device = "/dev/disk/by-label/nyx_crypt";
     };
     services = {
       gvfs.enable = true;
