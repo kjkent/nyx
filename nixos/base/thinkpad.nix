@@ -1,5 +1,13 @@
-_: {
-  config = {
+{config, lib, ...}: {
+  options = {
+    hardware.laptop.thinkpad.enable = with lib;
+      mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to enable ThinkPad configuration";
+      };
+  };
+  config = lib.mkIf config.hardware.laptop.thinkpad.enable {
     hardware.trackpoint = {
       enable = true;
       emulateWheel = true;

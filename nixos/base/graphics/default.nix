@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./i915.nix
+    ./nvidia.nix
+  ];
   config = {
     environment.systemPackages = with pkgs; [
       clinfo

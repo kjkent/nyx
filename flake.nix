@@ -16,6 +16,10 @@
   };
 
   outputs = inputs @ {self, ...}: let
+    # only build base modules (for new installs on underpowered hardware)
+    # as nixos-install has no --build-host option -___-
+    minimalBuild = false;
+
     nixpkgs = inputs.nixos-unstable;
     assetsPath = ./assets;
     hmModulesPath = ./hm;
@@ -35,6 +39,7 @@
           inherit
             assetsPath
             hmModulesPath
+            minimalBuild
             nixosModulesPath
             nixosHosts
             hostName

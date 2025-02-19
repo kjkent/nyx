@@ -112,7 +112,7 @@ in {
             then yes
             else no;
           # Only if HW supports AV1 decoding
-          "media.av1.enabled" = lib.mkDefault yes;
+          "media.av1.enabled" = lib.mkDefault (if osConfig.hardware.nvidia.enable then yes else no);
           "media.ffmpeg.vaapi.enabled" = yes;
           "media.rdd-ffmpeg.enabled" = yes;
           "widget.dmabuf.force-enabled" = yes;

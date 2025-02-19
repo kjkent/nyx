@@ -1,0 +1,22 @@
+{
+  imports = [
+    ./3d_printing.nix
+    ./audio.nix
+    ./bt.nix
+    ./dev.nix
+    ./fonts.nix
+    ./hm.nix
+    ./hyprland.nix
+    ./input.nix
+    ./obs.nix
+    ./packages.nix
+    ./printing.nix
+    ./stylix.nix
+    ./syncthing.nix
+    ./sway.nix
+    ./thunar.nix
+    ./vm_host.nix
+    ./wayland.nix
+    ./xfce.nix
+  ];
+}

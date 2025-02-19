@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  self,
   ...
 }:
 with pkgs; {
@@ -11,17 +12,17 @@ with pkgs; {
     nixpkgs.overlays = [
       (_: _: {
         berkeley-mono = mkFontPkg "Berkeley Mono" {
-          source = ../assets/fonts/berkeley-mono-ttf.gitcrypt.tar.xz;
+          source = ../../assets/fonts/berkeley-mono-ttf.gitcrypt.tar.xz;
         };
       })
       (_: _: {
         ms-fonts = mkFontPkg "MS fonts" {
-          source = ../assets/fonts/ms.gitcrypt.tar.xz;
+          source = ../../assets/fonts/ms.gitcrypt.tar.xz;
         };
       })
       (_: _: {
         symbols-nerd-font = mkFontPkg "Nerd Fonts icons" {
-          source = ../assets/fonts/symbols-nerd-font.gitcrypt.tar.xz;
+          source = ../../assets/fonts/symbols-nerd-font.gitcrypt.tar.xz;
         };
       })
     ];

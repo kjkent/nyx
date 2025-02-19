@@ -1,6 +1,14 @@
-{config, pkgs, ...}:
+{config, lib, pkgs, ...}:
 {
-  config = {
+  options = {
+    hardware.i915.enable = with lib;
+      mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to enable Intel i915 iGPU configuration";
+      };
+  };
+  config = lib.mkIf config.hardware.i915.enable {
     boot = {
       initrd.kernelModules = ["i915"];
       kernelParams = [

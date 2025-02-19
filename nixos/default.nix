@@ -1,36 +1,3 @@
-_: {
-  imports = [
-    ./3d_printing.nix
-    ./audio.nix
-    ./boot.nix
-    ./bt.nix
-    ./dev.nix
-    ./fonts.nix
-    ./firmware.nix
-    ./graphics.nix
-    ./greetd.nix
-    ./hm.nix
-    ./hyprland.nix
-    ./input.nix
-    ./kernel.nix
-    ./keyboard.nix
-    ./locale.nix
-    ./network
-    ./nix.nix
-    ./nvidia.nix
-    ./obs.nix
-    ./packages.nix
-    ./printing.nix
-    ./ram.nix
-    ./security.nix
-    ./storage.nix
-    ./stylix.nix
-    ./syncthing.nix
-    ./sway.nix
-    ./thunar.nix
-    ./user.nix
-    ./vm_host.nix
-    ./wayland.nix
-    ./xfce.nix
-  ];
+{minimalBuild, ...}: {
+  imports = [./base] ++ (if minimalBuild then [] else [./extra]);
 }

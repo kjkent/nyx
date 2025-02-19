@@ -1,11 +1,11 @@
 {nixosModulesPath, ...}: {
-  imports = [
-    "${nixosModulesPath}/amd.nix"
-  ];
   config = {
     system.stateVersion = "24.11";
-    hardware.keyboard.layout = "us";
-    hardware.nvidia.enable = true;
+    hardware = {
+    amd.enable = true;
+    keyboard.layout = "us";
+    nvidia.enable = true;
+    };
     networking.networkBridge.enable = true;
     programs.hyprland.monitors = [
       "HDMI-A-1,2560x1080@60,0x0,1"
