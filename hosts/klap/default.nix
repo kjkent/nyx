@@ -1,6 +1,7 @@
 {lib, nixosUser, ...}: {
   config = {
     boot.isBios = true;
+    encryptedRootFs = false;
     system.stateVersion = "24.11";
     hardware = {
       i915.enable = true;

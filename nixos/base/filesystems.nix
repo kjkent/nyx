@@ -1,4 +1,13 @@
 {config, lib, pkgs, ...}: {
+  options = {
+    encryptedRootFs = with lib;
+      mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether root is encrypted";
+      };
+  };
+
   config = {
     environment.systemPackages = with pkgs; [
       # Compression & filesystem
@@ -41,7 +50,7 @@
         ];
       };
     };
-    boot.initrd.luks.devices = {
+    boot.initrd.luks.devices = lib.mkIf config.encryptedRootFs {
       nyx_root.device = "/dev/disk/by-label/nyx_crypt";
     };
     services = {
