@@ -38,6 +38,17 @@ sudo sgdisk \
 
 # Format LUKS partition, decrypt, set perf tweaks
 sudo cryptsetup luksFormat --label "$crypt_name" "${disk}p2"
+
+# All ops from here need to be cleaned up
+cleanup() {
+  sudo umount --force --recursive /mnt || 
+    (sudo umount --force /mnt/boot; sudo umount --force /mnt)
+  sleep 2
+  sudo cryptsetup close "$root_name"
+}
+trap cleanup EXIT
+
+#...and continue
 sudo cryptsetup open \
   --allow-discards \
   --perf-no_read_workqueue \
@@ -58,9 +69,8 @@ sudo mount "${disk}p1" /mnt/boot
 
 # Ensure git-crypted files are decrypted (here we goooo)
 echo "pinentry-program $(which pinentry-gnome3)" > ~/.gnupg/gpg-agent.conf
-gpgconf -R all
-gpg --import <(nix eval --raw --file "$dir0/user/default.nix" gpg.pubKey)
-gpg --key-status
+gpgconf -R 
+gpg-connect-agent reloadagent /bye
 git-crypt unlock
 
 # Install host SSH keys (for sops-nix)
@@ -73,14 +83,14 @@ for type in "ed25519" "rsa"; do
   sops --decrypt \
        --extract \
        '["sshd"]["priv_keys"]["'"$host_name"'"]["'"$type"'"]' \
-       "$dir0/sops/sops.yaml" | \
+       "$(dirname "$dir0")/sops/sops.yaml" | \
        sudo tee "$sshcfg/ssh_host_${type}_key" > /dev/null
 
   echo "Extracting $type public key"
   sops --decrypt \
        --extract \
        '["sshd"]["pub_keys"]["'"$host_name"'"]["'"$type"'"]' \
-       "$dir0/sops/sops.yaml" | \
+       "$(dirname "$dir0")/sops/sops.yaml" | \
        sudo tee "$sshcfg/ssh_host_${type}_key.pub" > /dev/null
 done
 
@@ -90,10 +100,9 @@ sudo find "$sshcfg" -xdev -type f -name "ssh_host*key.pub" -exec chmod 0644 {} \
 sudo find "$sshcfg" -xdev -type f -name "ssh_host*key" -exec chmod 0600 {} \;
 
 # send it
-sudo nixos-install \
-  --flake "$dir0/#${host_name}" \
-  --impure \
-  --no-channel-copy \
-  --verbose
-
+#sudo nixos-install \
+#  --flake "$dir0/#${host_name}" \
+#  --impure \
+#  --no-channel-copy \
+#  --verbose
 

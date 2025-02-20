@@ -12,8 +12,8 @@
         grub = lib.mkIf config.boot.isBios {
 	  enable = true;
 	  enableCryptodisk = true;
-          device = "/dev/disk/by-partlabel/nyx_bios_grub";
-	  useOSProber = true;
+          device = "/dev/nvme0n1";
+	  useOSProber = false;
 	};
         systemd-boot = lib.mkIf (!config.boot.isBios) {
           enable = true;
