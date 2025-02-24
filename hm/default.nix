@@ -3,7 +3,7 @@
     ./environment.nix
     ./firefox.nix
     ./git.nix
-    ./gpg.nix
+    ./gnupg
     ./hypr
     ./nix.nix
     ./nvim

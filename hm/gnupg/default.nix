@@ -1,11 +1,10 @@
 {
   config,
-  nixosHosts,
   nixosUser,
   pkgs,
-  self,
   ...
 }: {
+  imports = [./pubkeys];
   config = {
     services.gpg-agent = {
       enable = true;
@@ -60,18 +59,6 @@
         s2k-digest-algo = "SHA512";
         s2k-cipher-algo = "AES256";
       };
-      publicKeys = [
-        {
-          text = nixosUser.gpg.pubKey;
-          trust = 5;
-        }
-      ] ++ (map
-        (host: {
-          source = "${self}/hosts/${host}/ssh_host_rsa_key.gpg.pub";
-          trust = 5;
-        })
-        nixosHosts
-      );
     };
   };
 }
