@@ -10,11 +10,11 @@
     boot = {
       loader = {
         grub = lib.mkIf config.boot.isBios {
-	  enable = true;
-	  enableCryptodisk = true;
+          enable = true;
+          enableCryptodisk = true;
           device = "/dev/nvme0n1";
-	  useOSProber = false;
-	};
+          useOSProber = false;
+        };
         systemd-boot = lib.mkIf (!config.boot.isBios) {
           enable = true;
           consoleMode = "max";

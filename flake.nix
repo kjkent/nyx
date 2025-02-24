@@ -49,6 +49,7 @@
             ;
         };
         modules = [
+          ./fixes.nix
           ./hosts/${hostName}
           ./nixos
           ./pkg

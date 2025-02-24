@@ -188,8 +188,10 @@ in {
     programs = {
       vscode = {
         enable = true;
-        enableUpdateCheck = false;
-        inherit extensions userSettings;
+        profiles.default = {
+          inherit extensions userSettings;
+          enableUpdateCheck = false;
+        };
         package =
           (pkgs.vscode.override {
             commandLineArgs = "--password-store=gnome-libsecret";
@@ -200,3 +202,4 @@ in {
     };
   };
 }
+

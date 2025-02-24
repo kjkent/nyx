@@ -98,15 +98,6 @@ in {
       hostPlatform = lib.mkDefault {system = "x86_64-linux";};
     };
 
-    system = {
-      # Adds git commit to generation label
-      # https://www.reddit.com/r/NixOS/comments/1amj6qm/comment/kppoogf/
-      nixos.label = lib.concatStringsSep "-" (
-        (lib.sort (x: y: x < y) config.system.nixos.tags)
-        ++ ["${config.system.nixos.version}.${self.sourceInfo.shortRev or "UNCLEAN"}"]
-      );
-    };
-
     systemd = {
       # prevent OOS error during builds when using zram/tmp on tmpfs
       services.nix-daemon.environment.TMPDIR = nixTmpDir;
