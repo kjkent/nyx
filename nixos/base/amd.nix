@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   options = {
     hardware.amd.enable = with lib;
       mkOption {

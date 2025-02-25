@@ -1,9 +1,4 @@
-{
-  lib,
-  osConfig,
-  ...
-}:
-{
+{osConfig, ...}: {
   imports = [
     ./binds.nix
     ./env.nix

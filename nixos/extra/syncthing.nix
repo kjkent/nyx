@@ -1,10 +1,10 @@
 {
-config,
-hostName,
-lib,
-nixosUser,
-self,
-...
+  config,
+  hostName,
+  lib,
+  nixosUser,
+  self,
+  ...
 }: {
   config = let
     userHome = "/home/${nixosUser.username}";

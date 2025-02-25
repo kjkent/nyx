@@ -1,11 +1,11 @@
 {
-config,
-inputs,
-lib,
-nixosUser,
-pkgs,
-self,
-...
+  config,
+  inputs,
+  lib,
+  nixosUser,
+  pkgs,
+  self,
+  ...
 }: let
   # /var/tmp doesn't seem to be on tmpfs like /tmp (when using zram) but
   # seems to contain near duplicate systemd unit folders?...
@@ -69,7 +69,7 @@ in {
 
     nixpkgs = {
       overlays = [
-        (post: pre: {
+        (_post: _pre: {
           stable = import inputs.nixos-stable {
             inherit (config.nixpkgs.hostPlatform) system;
             config = {inherit (config.nixpkgs.config) allowUnfree;};

@@ -1,3 +1,9 @@
 {minimalBuild, ...}: {
-  imports = [./base] ++ (if minimalBuild then [] else [./extra]);
+  imports =
+    [./base]
+    ++ (
+      if minimalBuild
+      then []
+      else [./extra]
+    );
 }

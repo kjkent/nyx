@@ -1,5 +1,7 @@
-{hostName, lib}: let
-
+{
+  hostName,
+  lib,
+}: let
   devices = {
     kdes = {
       id = "LDIW2XW-6KVDKV5-KLEHNFG-U7HE3KW-KCRIACC-GUTQVTW-ZFWOQSX-TT2VVQA";
@@ -25,7 +27,7 @@
   };
 
   generateSyncthingPeers = let
-    inherit (builtins) attrNames concatMap filter map throw toString;
+    inherit (builtins) attrNames concatMap map throw toString;
     inherit (lib.attrsets) filterAttrs mapAttrs;
     inherit (lib.lists) findSingle;
     inherit (lib.strings) hasPrefix;
@@ -34,49 +36,60 @@
     # generates address list for each device
     genAddresses = let
       # returns appropriate search domain based on IP
-      getSearch = ip: let 
-        multi = throw "${ip} matches multiple subnets"; 
-        none = throw "${ip} matches no subnets"; 
-      in searchDomains.${(
-        # returns value of searchDomain for key that's the prefix of ip
-        findSingle (n: hasPrefix n ip)
-          none
-          multi 
-          (attrNames searchDomains)
-      )};
+      getSearch = ip: let
+        multi = throw "${ip} matches multiple subnets";
+        none = throw "${ip} matches no subnets";
+      in
+        searchDomains
+        .${
+          (
+            # returns value of searchDomain for key that's the prefix of ip
+            findSingle (n: hasPrefix n ip)
+            none
+            multi
+            (attrNames searchDomains)
+          )
+        };
 
       port = toString 22000;
-
       # inner map returns a list using protocol given on each loop of the map,
       # leading to [[addrs with quic] [addrs with tcp]] without concatMap.
-    in name: ip: (concatMap
-        (prot:
-          (map
-            (host: "${prot}://${host}:${port}")
-            [name "${name}.${getSearch ip}" ip]
+    in
+      name: ip:
+        (
+          concatMap
+          (
+            prot: (
+              map
+              (host: "${prot}://${host}:${port}")
+              [name "${name}.${getSearch ip}" ip]
+            )
           )
+          ["quic" "tcp"]
         )
-        ["quic" "tcp"]
-      )
-    ++ ["dynamic"]; # fallback to autodiscover via relays.
+        ++ ["dynamic"]; # fallback to autodiscover via relays.
 
     # Remove current device from device list
-    rmNixosHost = devices: filterAttrs (k: v: k != hostName) devices;
+    rmNixosHost = devices: filterAttrs (k: _v: k != hostName) devices;
 
     # Inject `addresses = [...]` to each device
-    injectAddresses = devices: mapAttrs
+    injectAddresses = devices:
+      mapAttrs
       (k: v: v // {addresses = genAddresses k v.ip;})
       devices;
 
     # Remove ip from every device
-    rmIp = devices: mapAttrs
-      (k: v: filterAttrs (k: v: k != "ip") v)
+    rmIp = devices:
+      mapAttrs
+      (_k: v: filterAttrs (k: _v: k != "ip") v)
       devices;
-
     # rmIp must come after injectAddresses, which needs ip.
-  in devices: pipe devices [
-    rmNixosHost
-    injectAddresses
-    rmIp
-  ];
-in (generateSyncthingPeers devices)
+  in
+    devices:
+      pipe devices [
+        rmNixosHost
+        injectAddresses
+        rmIp
+      ];
+in
+  generateSyncthingPeers devices

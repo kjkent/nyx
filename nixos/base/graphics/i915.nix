@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   options = {
     hardware.i915.enable = with lib;
       mkOption {

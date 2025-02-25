@@ -1,9 +1,13 @@
-{config, nixosUser, pkgs, ...}: {
+{
+  config,
+  nixosUser,
+  ...
+}: {
   config = {
     programs = {
       ydotool = {
         enable = true;
-        group = config.users.users.${nixosUser.username}.group;
+        inherit (config.users.users.${nixosUser.username}) group;
       };
     };
   };

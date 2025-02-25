@@ -4,7 +4,6 @@
   lib,
   nixosUser,
   options,
-  pkgs,
   ...
 }: {
   imports = [./firewall];

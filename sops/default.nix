@@ -1,4 +1,5 @@
-{inputs, self, ...}: with inputs.sops-nix; {
+{inputs, ...}:
+with inputs.sops-nix; {
   imports = [nixosModules.sops];
 
   config = {

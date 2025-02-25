@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   options = with lib; {
     boot.isBios = mkOption {
       type = types.bool;

@@ -1,10 +1,10 @@
-{nixosModulesPath, ...}: {
+_: {
   config = {
     system.stateVersion = "24.11";
     hardware = {
-    amd.enable = true;
-    keyboard.layout = "us";
-    nvidia.enable = true;
+      amd.enable = true;
+      keyboard.layout = "us";
+      nvidia.enable = true;
     };
     networking.networkBridge.enable = true;
     programs.hyprland.monitors = [

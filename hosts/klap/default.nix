@@ -1,4 +1,4 @@
-{lib, nixosUser, ...}: {
+_: {
   config = {
     boot.isBios = true;
     encryptedRootFs = false;

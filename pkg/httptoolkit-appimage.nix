@@ -4,16 +4,6 @@ with pkgs; let
   pname = "${name}-appimage";
   version = "1.19.4";
 
-  meta = with lib; {
-    description = "HTTP Toolkit is an open-source tool for debugging, testing and building with HTTP on Windows, Linux & Mac.";
-    homepage = "https://${name}.com";
-    changelog = "https://github.com/${name}/${name}-desktop/releases/tag/v${version}";
-    license = licenses.agpl3Plus;
-    platforms = ["x86_64-linux"];
-    sourceProvenance = [sourceTypes.binaryNativeCode];
-    mainProgram = pname;
-  };
-
   src = fetchurl {
     url = "https://github.com/${name}/${name}-desktop/releases/download/v${version}/HttpToolkit-${version}.AppImage";
     hash = "sha256-UqA0okfWVkfg4I68D7tUfh6BzNGOuNPIKsRcaujeW1w=";
@@ -22,7 +12,7 @@ with pkgs; let
   appimageContents = appimageTools.extract {inherit pname version src;};
 
   desktopItem = makeDesktopItem {
-    name = name;
+    inherit name;
     exec = name;
     icon = name;
     terminal = false;

@@ -1,4 +1,9 @@
-{pkgs, stdenv, ...}: stdenv.mkDerivation rec {
+{
+  pkgs,
+  stdenv,
+  ...
+}:
+stdenv.mkDerivation rec {
   pname = "bibata-modern-rainbow";
   version = "1.1.2";
 

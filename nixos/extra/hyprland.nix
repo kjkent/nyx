@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options = with lib; {
     programs.hyprland = {
       monitors = mkOption {

@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   options = {
     hardware.laptop.powerManagement.enable = with lib;
       mkOption {

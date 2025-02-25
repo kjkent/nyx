@@ -88,12 +88,13 @@ with pkgs; {
       uaccess = ''TAG+="uaccess"'';
       mmIgnore = ''ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_PORT_IGNORE}="1"'';
       uaccessMmIgnore = "${uaccess}, ${mmIgnore}";
-      
-      mkUaccessRule = name: identifier: writeTextFile rec {
-        inherit name;
-        destination = "/etc/udev/rules.d/70-${name}.rules";
-        text = "${identifier}, ${uaccessMmIgnore}";
-      };
+
+      mkUaccessRule = name: identifier:
+        writeTextFile rec {
+          inherit name;
+          destination = "/etc/udev/rules.d/70-${name}.rules";
+          text = "${identifier}, ${uaccessMmIgnore}";
+        };
     in [
       libsigrok
       saleae-logic-2

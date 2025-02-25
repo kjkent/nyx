@@ -1,4 +1,9 @@
-{config, lib, pkgs, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   block = 0; # 1: malware. 2: malware + ads. anything else: disabled
   moderateNat = false; # strict NAT by default
 in {
@@ -32,8 +37,16 @@ in {
           config.sops.placeholder;
 
         suffix = {
-          block = if block == 1 then "+f1" else if block == 2 then "+f2" else "";
-          nat = if moderateNat then "+nr" else "";
+          block =
+            if block == 1
+            then "+f1"
+            else if block == 2
+            then "+f2"
+            else "";
+          nat =
+            if moderateNat
+            then "+nr"
+            else "";
         };
 
         username = (getSecret "username") + suffix.block + suffix.nat;
