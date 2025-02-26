@@ -14,6 +14,7 @@
     ./stylix.nix
     ./syncthing.nix
     ./sway.nix
+    ./thinkpad.nix
     ./thunar.nix
     ./vm_host.nix
     ./wayland.nix

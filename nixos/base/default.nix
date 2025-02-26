@@ -14,7 +14,6 @@
     ./nix.nix
     ./ram.nix
     ./security.nix
-    ./thinkpad.nix
     ./user.nix
   ];
 }

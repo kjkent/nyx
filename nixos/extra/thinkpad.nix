@@ -12,6 +12,7 @@
       };
   };
   config = lib.mkIf config.hardware.laptop.thinkpad.enable {
+    boot.kernelParams = ["thinkpad_acpi.force_load=1"];
     hardware.trackpoint = {
       enable = true;
       emulateWheel = true;
