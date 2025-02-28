@@ -9,7 +9,7 @@ with pkgs; {
         #### GUI: Office, Notes, Messaging
         beeper
         blender
-        brave
+        ungoogled-chromium
         discord
         gimp
         libreoffice

@@ -12,6 +12,7 @@
   };
   config = {
     boot = {
+      kernelParams = ["nosgx"];
       loader = {
         grub = lib.mkIf config.boot.isBios {
           enable = true;

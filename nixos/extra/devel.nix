@@ -31,6 +31,7 @@ with pkgs; {
         android-studio
         ansible
         ansible-lint
+        binwalk
         biome
         bruno
         clang

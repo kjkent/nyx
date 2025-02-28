@@ -3,7 +3,7 @@
     ./3d_printing.nix
     ./audio.nix
     ./bt.nix
-    ./dev.nix
+    ./devel.nix
     ./fonts.nix
     ./hm.nix
     ./hyprland.nix

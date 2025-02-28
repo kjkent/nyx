@@ -24,6 +24,10 @@ in {
           source = ./libreboot.asc;
           trust = 2;
         }
+        {
+          source = ./dietpi.asc;
+          trust = 2;
+        }
       ];
   };
 }

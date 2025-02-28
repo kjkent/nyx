@@ -29,7 +29,7 @@ with nixosUser; {
         };
 
         "diff \"asc\"" = {
-          textconv = ''f(){gpg --list-packets < "$1" | grep -v "^# off=";}; f'';
+          textconv = ''f() { gpg --list-packets < "$1" | grep -v "^# off="; }; f'';
         };
       };
       includes = [
