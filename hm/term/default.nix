@@ -11,4 +11,8 @@ _: {
     ./tldr.nix
     ./zsh.nix
   ];
+
+  config = {
+    programs.urxvt.enable = true;
+  };
 }
