@@ -5,15 +5,13 @@ _: {
         enable = true;
         extraOptions = [
           "--group-directories-first"
-          "--color=auto"
           "--icons"
           #"--across" # for grid view (no -l), sort left-right not top-bottom
-          "--human-readable"
           "--hyperlink"
           # long options
           "--header"
           "--octal-permissions"
-          "--no-permissions" # disable g=rwx-style perms
+          "--no-permissions" # disable ogu=rwx-style perms
           "--modified"
           #"--total-size"   # This slows things down a lot
           "--git"
@@ -22,11 +20,9 @@ _: {
       };
       zsh = {
         shellAliases = rec {
-          l = "eza";
-          ls = l;
-          ll = "${l} --long";
-          la = "${l} --all";
-          lla = "${ll} --all";
+          ll = "eza --long";
+          ls = ll;
+          la = "${ll} --all";
         };
       };
     };
