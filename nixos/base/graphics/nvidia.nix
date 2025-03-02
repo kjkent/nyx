@@ -35,10 +35,6 @@
       ];
     };
 
-    # nixos manual: "May cause mass rebuild"
-    # build packages with cuda support by default
-    #nixpkgs.config.cudaSupport = true;
-
     programs = {
       nix-ld.libraries = with pkgs; [
         nvidia-vaapi-driver

@@ -21,9 +21,6 @@ in {
       # Needed for post-install. allowUnfree in flake config only used for
       # flake install. Makes sense -__-.
       sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
-      systemPackages = with pkgs; [
-        attic-client
-      ];
     };
 
     nix = {
@@ -48,16 +45,12 @@ in {
 
         # cache.nixos.org included by default with priority 40
         substituters = [
-          "https://attic.x000.dev/cache?priority=39"
-          "https://cache.nixos.org?priority=40"
           "https://hyprland.cachix.org?priority=41"
           "https://nix-community.cachix.org?priority=42"
           "https://numtide.cachix.org?priority=43"
           "https://cuda-maintainers.cachix.org?priority=44"
         ];
         trusted-public-keys = [
-          "cache:RozCserdeDqwd7rblkxuiwDS2XoPYODZB/hYQfm9Wv0="
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
