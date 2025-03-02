@@ -8,6 +8,7 @@ _: {
           "--color=auto"
           "--icons"
           #"--across" # for grid view (no -l), sort left-right not top-bottom
+          "--human-readable"
           "--hyperlink"
           # long options
           "--header"
