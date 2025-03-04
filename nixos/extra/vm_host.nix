@@ -14,9 +14,13 @@
   };
 
   config = lib.mkIf config.virtualisation.enable {
-    environment.systemPackages = with pkgs; [
-      virt-viewer
-    ];
+    environment = {
+      sessionVariables.COMPOSE_BAKE = "1"; # Enable Bake for Docker Compose build performance
+      systemPackages = with pkgs; [
+        docker-buildx # Needed for bake
+        virt-viewer
+      ];
+    };
     programs = {
       virt-manager.enable = true;
       dconf.profiles.user.databases = [
