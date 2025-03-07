@@ -3,7 +3,6 @@
   inputs,
   lib,
   nixosUser,
-  pkgs,
   self,
   ...
 }: let

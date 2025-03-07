@@ -14,9 +14,7 @@
         enableXdgAutostart = true;
         variables = ["--all"]; # == `exec-once = dbus-update-activation-environment --systemd --all`
       };
-      settings = let
-        gpuIsNvidia = osConfig.hardware.nvidia.enable;
-      in {
+      settings = {
         monitor = osConfig.programs.hyprland.monitors;
         input = {
           kb_layout = osConfig.hardware.keyboard.layout;
@@ -39,9 +37,6 @@
           initial_workspace_tracking = false;
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = false;
-        };
-        render = {
-          allow_early_buffer_release = !gpuIsNvidia;
         };
       };
     };
