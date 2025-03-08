@@ -7,7 +7,6 @@
     ./graphics
     ./greetd.nix
     ./kernel.nix
-    ./keyboard.nix
     ./laptop_power.nix
     ./locale.nix
     ./network
