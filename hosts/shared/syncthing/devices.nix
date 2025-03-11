@@ -1,6 +1,6 @@
 {
-  hostName,
   lib,
+  nixosHost,
 }: let
   devices = {
     kdes = {
@@ -70,7 +70,7 @@
         ++ ["dynamic"]; # fallback to autodiscover via relays.
 
     # Remove current device from device list
-    rmNixosHost = devices: filterAttrs (k: _v: k != hostName) devices;
+    rmNixosHost = devices: filterAttrs (k: _v: k != nixosHost) devices;
 
     # Inject `addresses = [...]` to each device
     injectAddresses = devices:

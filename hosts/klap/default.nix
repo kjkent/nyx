@@ -11,5 +11,6 @@ _: {
         thinkpad.enable = true;
       };
     };
+    networking.wg-quick.networks.home.enable = true;
   };
 }

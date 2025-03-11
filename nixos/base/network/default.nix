@@ -6,5 +6,6 @@ _: {
     ./protonvpn.nix
     ./services.nix
     ./tuning.nix
+    ./wireguard.nix
   ];
 }

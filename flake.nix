@@ -35,7 +35,7 @@
       
       (builtins.readDir ./hosts)); # ...from listing files/dirs in hosts/
 
-    mkNixosSpec = hostName:
+    mkNixosSpec = nixosHost:
       nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit
@@ -43,8 +43,8 @@
             hmModulesPath
             minimalBuild
             nixosModulesPath
+            nixosHost
             nixosHosts
-            hostName
             inputs
             nixosUser
             self
@@ -52,7 +52,7 @@
         };
         modules = [
           ./fixes.nix
-          ./hosts/${hostName}
+          ./hosts/${nixosHost}
           ./nixos
           ./pkg
           ./sops

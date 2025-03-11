@@ -2,6 +2,7 @@
   config,
   hostName,
   lib,
+  nixosHost,
   nixosUser,
   options,
   ...
@@ -9,7 +10,7 @@
   imports = [./firewall];
   config = {
     networking = {
-      inherit hostName;
+      hostName = nixosHost;
       networkmanager.enable = false;
       timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     };

@@ -1,7 +1,7 @@
 {
   config,
-  hostName,
   lib,
+  nixosHost,
   nixosUser,
   self,
   ...
@@ -14,8 +14,8 @@
       syncthing = {
         enable = true;
         inherit configDir;
-        key = config.sops.secrets."syncthing_key_${hostName}".path;
-        cert = config.sops.secrets."syncthing_cert_${hostName}".path;
+        key = config.sops.secrets."syncthing_key_${nixosHost}".path;
+        cert = config.sops.secrets."syncthing_cert_${nixosHost}".path;
         databaseDir = "${userHome}/.local/share/syncthing";
         dataDir = userHome;
         extraFlags = ["--no-default-folder"];
@@ -24,8 +24,8 @@
         overrideFolders = true;
         overrideDevices = true;
         settings = let
-          devices = import "${self}/hosts/shared/syncthing/devices.nix" {inherit hostName lib;};
-          folders = import "${self}/hosts/shared/syncthing/folders.nix" {inherit hostName lib;};
+          devices = import "${self}/hosts/shared/syncthing/devices.nix" {inherit nixosHost lib;};
+          folders = import "${self}/hosts/shared/syncthing/folders.nix" {inherit nixosHost lib;};
         in {
           inherit devices folders;
           options = {
@@ -41,13 +41,13 @@
       owner = nixosUser.username;
       restartUnits = ["syncthing.service"];
     in {
-      "syncthing_cert_${hostName}" = {
+      "syncthing_cert_${nixosHost}" = {
         inherit owner restartUnits;
-        key = "syncthing/cert/${hostName}";
+        key = "syncthing/cert/${nixosHost}";
       };
-      "syncthing_key_${hostName}" = {
+      "syncthing_key_${nixosHost}" = {
         inherit owner restartUnits;
-        key = "syncthing/key/${hostName}";
+        key = "syncthing/key/${nixosHost}";
       };
     };
 
