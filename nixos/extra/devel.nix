@@ -14,7 +14,7 @@ with pkgs; {
       python = [
         python3
         pyupgrade
-        uv
+        virtualenv
       ];
       sigrok = [
         libsigrok # needs to be included in services.udev.packages
