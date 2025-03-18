@@ -28,6 +28,7 @@ with pkgs; {
         jq
         less
         scrcpy # Android
+        tdf
         tio
         tmux
         xdg-ninja # Suggests home cleaning tips
